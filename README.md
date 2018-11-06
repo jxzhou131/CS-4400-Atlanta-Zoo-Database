@@ -10,10 +10,14 @@ Analyze, specify, design, implement, document and demonstrate an online system. 
 ## Setting up the environment for Anaconda
 1. [Download Anaconda](https://www.anaconda.com/download/)
 2. [Create Virtual Environment](https://uoa-eresearch.github.io/eresearch-cookbook/recipe/2014/11/20/conda/)
-** For Mac, Go to Anaconda Navigator and create a python 3.5 virtual environment. Open the py35 virtual environment from Anaconda Navigator.
-** For Windows, open anaconda prompt. 
-*** Type 'conda create -n py35 python=3.5 anaconda'
-*** To activate the environment, type 'activate py35'
+
+a. For Mac, Go to Anaconda Navigator and create a python 3.5 virtual environment. Open the py35 virtual environment from Anaconda Navigator.
+
+b. For Windows, open anaconda prompt. 
+
+i. Type 'conda create -n py35 python=3.5 anaconda'
+
+ii. To activate the environment, type 'activate py35'
 
 ## Installing pyqt to the environment
 1. Open your python 3.5 virtual environment.
