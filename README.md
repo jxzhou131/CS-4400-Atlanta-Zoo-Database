@@ -17,21 +17,21 @@ Analyze, specify, design, implement, document and demonstrate an online system. 
 1. [Download Anaconda](https://www.anaconda.com/download/)
 2. [Create Virtual Environment](https://uoa-eresearch.github.io/eresearch-cookbook/recipe/2014/11/20/conda/)
 
-a. For Mac, Go to Anaconda Navigator and create a python 3.5 virtual environment. Open the py35 virtual environment from Anaconda Navigator.
+- For Mac, Go to Anaconda Navigator and create a python 3.5 virtual environment. Open the py35 virtual environment from Anaconda Navigator.
 
-b. For Windows, open anaconda prompt. 
+- For Windows, open anaconda prompt. 
 
-i. Type 'conda create -n py35 python=3.5 anaconda'
+  - i. Type `conda create -n py35 python=3.5 anaconda`
 
-ii. To activate the environment, type 'activate py35'
+  - ii. To activate the environment, type `activate py35`
 
 ## Installing pyqt to the environment
 1. Open your python 3.5 virtual environment.
-2. Type 'conda install -c anaconda pyqt'
+2. Type `conda install -c anaconda pyqt`
 
 ## How to use the tools?
 1. Open the QTDesigner. Complete your design. There are some [tutorials](https://www.youtube.com/watch?v=EkjaiDsiM-Q&list=PLS1QulWo1RIZiBcTr5urECberTITj7gjA) available in the youtube. This is one of the video that I found it very resourceful. After completing your design you can __Preview__ your ui through *From -> Preview* or *Ctrl + R*. Next, save your .ui file in the folder that you stores your github code.
 
-2. Open your python 3.5 environment. Go to the directory that you have saved your .ui file. Then type 'pyuic5 -x *<nameOfTheUIFile>* -o *<nameOfTheUIFile>*'. For example. 'pyuic5 -x loginPage.ui -o loginPage.py. The python file will be generated in the same folder as your .ui file.
+2. Open your python 3.5 environment. Go to the directory that you have saved your .ui file. Then type `pyuic5 -x <nameOfTheUIFile> -o <nameOfTheUIFile>`. For example. `pyuic5 -x loginPage.ui -o loginPage.py`. The python file will be generated in the same folder as your .ui file.
 
 
