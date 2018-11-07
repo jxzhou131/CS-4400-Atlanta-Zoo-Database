@@ -34,6 +34,10 @@ Analyze, specify, design, implement, document and demonstrate an online system. 
 2. Install mysql-python package. Type `conda install -c anaconda mysql-python`.
 3. Install mysql-connector-python. Type `conda install -c anaconda mysql-connector-python`.
 
+References: 
++ [GeekforGeek](https://www.geeksforgeeks.org/mysqldb-connection-python/)
++ [MySQL Connector/Python Developer Guide](https://downloads.mysql.com/docs/connector-python-en.a4.pdf)
++ [TutorialPoints](https://www.tutorialspoint.com/python/python_database_access.htm)
 ## How to use the tools?
 1. Open the QTDesigner. Complete your design. There are some [tutorials](https://www.youtube.com/watch?v=EkjaiDsiM-Q&list=PLS1QulWo1RIZiBcTr5urECberTITj7gjA) available in the youtube. This is one of the video that I found it very resourceful. After completing your design you can __Preview__ your ui through *From -> Preview* or *Ctrl + R*. Next, save your .ui file in the folder that you stores your github code.
 
