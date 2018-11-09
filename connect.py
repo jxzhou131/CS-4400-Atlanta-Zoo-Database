@@ -34,8 +34,7 @@ def MySQLConnect(username, password):
       print("Database does not exist")
     else:
       print(err)
-  # else:
-  #   cnx.close()
+
   return cnx
   
 
