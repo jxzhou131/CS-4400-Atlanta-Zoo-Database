@@ -40,8 +40,10 @@ References:
 + [Installation](https://pynative.com/install-mysql-connector-python/)
 
 ## How to use the tools?
-1. Open the QTDesigner. Complete your design. There are some [tutorials](https://www.youtube.com/watch?v=EkjaiDsiM-Q&list=PLS1QulWo1RIZiBcTr5urECberTITj7gjA) available in the youtube. This is one of the video that I found it very resourceful. After completing your design you can __Preview__ your ui through *From -> Preview* or *Ctrl + R*. Next, save your .ui file in the folder that you stores your github code.
+1. Open the QTDesigner. Complete your design. There are some tutorials available in the youtube. After completing your design you can __Preview__ your ui through *From -> Preview* or *Ctrl + R*. Next, save your .ui file in the folder that you stores your github code.
 
 2. Open your python 3.5 environment. Go to the directory that you have saved your .ui file. Then type `pyuic5 -x <nameOfTheUIFile> -o <nameOfTheUIFile>`. For example. `pyuic5 -x loginPage.ui -o loginPage.py`. The python file will be generated in the same folder as your .ui file.
 
+## MySQL Python Connector Tutorials
+[pynative.com](https://pynative.com/python-mysql-execute-parameterized-query-using-prepared-statement/)
 
