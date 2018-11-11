@@ -1,0 +1,111 @@
+# -*- coding: utf-8 -*-
+
+# Form implementation generated from reading ui file 'visitorShowHistory.ui'
+#
+# Created by: PyQt5 UI code generator 5.9.2
+#
+# WARNING! All changes made in this file will be lost!
+
+from PyQt5 import QtCore, QtGui, QtWidgets
+
+class Ui_MainWindow(object):
+    def setupUi(self, MainWindow):
+        MainWindow.setObjectName("MainWindow")
+        MainWindow.resize(800, 600)
+        self.centralwidget = QtWidgets.QWidget(MainWindow)
+        self.centralwidget.setObjectName("centralwidget")
+        self.nameLineEdit = QtWidgets.QLineEdit(self.centralwidget)
+        self.nameLineEdit.setGeometry(QtCore.QRect(200, 140, 201, 31))
+        font = QtGui.QFont()
+        font.setFamily("MS Sans Serif")
+        font.setPointSize(12)
+        self.nameLineEdit.setFont(font)
+        self.nameLineEdit.setObjectName("nameLineEdit")
+        self.pushButton = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton.setGeometry(QtCore.QRect(330, 280, 111, 41))
+        font = QtGui.QFont()
+        font.setFamily("MS Sans Serif")
+        font.setPointSize(15)
+        self.pushButton.setFont(font)
+        self.pushButton.setObjectName("pushButton")
+        self.exhibitLabel = QtWidgets.QLabel(self.centralwidget)
+        self.exhibitLabel.setGeometry(QtCore.QRect(100, 210, 91, 31))
+        font = QtGui.QFont()
+        font.setFamily("MS Sans Serif")
+        font.setPointSize(15)
+        self.exhibitLabel.setFont(font)
+        self.exhibitLabel.setObjectName("exhibitLabel")
+        self.dateTimeEdit = QtWidgets.QDateTimeEdit(self.centralwidget)
+        self.dateTimeEdit.setGeometry(QtCore.QRect(500, 140, 201, 31))
+        font = QtGui.QFont()
+        font.setFamily("MS Sans Serif")
+        font.setPointSize(12)
+        self.dateTimeEdit.setFont(font)
+        self.dateTimeEdit.setObjectName("dateTimeEdit")
+        self.nameLabel = QtWidgets.QLabel(self.centralwidget)
+        self.nameLabel.setGeometry(QtCore.QRect(100, 140, 71, 31))
+        font = QtGui.QFont()
+        font.setFamily("MS Sans Serif")
+        font.setPointSize(15)
+        self.nameLabel.setFont(font)
+        self.nameLabel.setObjectName("nameLabel")
+        self.tableView = QtWidgets.QTableView(self.centralwidget)
+        self.tableView.setGeometry(QtCore.QRect(80, 341, 631, 211))
+        self.tableView.setObjectName("tableView")
+        self.exhibitHistoryLabel = QtWidgets.QLabel(self.centralwidget)
+        self.exhibitHistoryLabel.setGeometry(QtCore.QRect(280, 60, 231, 51))
+        font = QtGui.QFont()
+        font.setFamily("MS Sans Serif")
+        font.setPointSize(22)
+        self.exhibitHistoryLabel.setFont(font)
+        self.exhibitHistoryLabel.setObjectName("exhibitHistoryLabel")
+        self.homeButton = QtWidgets.QPushButton(self.centralwidget)
+        self.homeButton.setGeometry(QtCore.QRect(0, 0, 91, 51))
+        font = QtGui.QFont()
+        font.setFamily("MS Sans Serif")
+        font.setPointSize(15)
+        self.homeButton.setFont(font)
+        self.homeButton.setObjectName("homeButton")
+        self.timeLabel = QtWidgets.QLabel(self.centralwidget)
+        self.timeLabel.setGeometry(QtCore.QRect(430, 140, 71, 31))
+        font = QtGui.QFont()
+        font.setFamily("MS Sans Serif")
+        font.setPointSize(15)
+        self.timeLabel.setFont(font)
+        self.timeLabel.setObjectName("timeLabel")
+        self.fontComboBox = QtWidgets.QFontComboBox(self.centralwidget)
+        self.fontComboBox.setGeometry(QtCore.QRect(200, 210, 201, 31))
+        font = QtGui.QFont()
+        font.setFamily("MS Sans Serif")
+        font.setPointSize(12)
+        self.fontComboBox.setFont(font)
+        self.fontComboBox.setCurrentText("")
+        self.fontComboBox.setObjectName("fontComboBox")
+        MainWindow.setCentralWidget(self.centralwidget)
+        self.statusbar = QtWidgets.QStatusBar(MainWindow)
+        self.statusbar.setObjectName("statusbar")
+        MainWindow.setStatusBar(self.statusbar)
+
+        self.retranslateUi(MainWindow)
+        QtCore.QMetaObject.connectSlotsByName(MainWindow)
+
+    def retranslateUi(self, MainWindow):
+        _translate = QtCore.QCoreApplication.translate
+        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        self.pushButton.setText(_translate("MainWindow", "Search"))
+        self.exhibitLabel.setText(_translate("MainWindow", "Exhibit"))
+        self.nameLabel.setText(_translate("MainWindow", "Name"))
+        self.exhibitHistoryLabel.setText(_translate("MainWindow", "Show History"))
+        self.homeButton.setText(_translate("MainWindow", "HOME"))
+        self.timeLabel.setText(_translate("MainWindow", "Time"))
+
+
+if __name__ == "__main__":
+    import sys
+    app = QtWidgets.QApplication(sys.argv)
+    MainWindow = QtWidgets.QMainWindow()
+    ui = Ui_MainWindow()
+    ui.setupUi(MainWindow)
+    MainWindow.show()
+    sys.exit(app.exec_())
+
