@@ -23,35 +23,35 @@ Password char(32)  not null, -- Using MD5 hash function
 UserType varchar(30) not null,
 primary key(Username),
 unique(Email)
-);
+)ENGINE = INNODB;
 
 
 CREATE TABLE ADMINS(
 AUsername varchar(30)  not null,
 primary key(AUsername),
 foreign key(AUsername) references USER(Username)
-);
+)ENGINE = INNODB;
 
 CREATE TABLE VISITOR(
 VUsername varchar(30)   not null,
 primary key(VUsername),
 foreign key(VUsername) references USER(Username)
        on delete cascade    on update cascade
-);
+)ENGINE = INNODB;
 
 CREATE TABLE STAFF(
 SUsername varchar(30)    not null,
 primary key(SUsername),
 foreign key(SUsername) references USER(Username)
        on delete cascade    on update cascade
-);
+)ENGINE = INNODB;
 
 CREATE TABLE EXHIBIT(
 Name varchar(30) not null,
 WaterFeature boolean not null,
 Size int    not null,
 primary key(Name)
-);
+)ENGINE = INNODB;
 
 CREATE TABLE ANIMAL(
 Name varchar(30)   not null,
@@ -62,7 +62,7 @@ Exhibit varchar(30)     not null,
 primary key(Name,Species),
 foreign key(Exhibit) references EXHIBIT(Name)
 	On delete cascade    on update cascade
-);
+)ENGINE = INNODB;
 
 CREATE TABLE NOTE(
 Staff varchar(30)     not null,
@@ -75,7 +75,7 @@ foreign key(Staff) references STAFF(SUsername)
 	on delete cascade    on update cascade,
 foreign key(AnimalName, AnimalSpecies) references ANIMAL(Name, Species)
 	on delete cascade   on update cascade
-);
+)ENGINE = INNODB;
 
 CREATE TABLE SHOWS(
 Name varchar(50)   not null,
@@ -87,7 +87,7 @@ foreign key(Location) references EXHIBIT(Name)
 on delete cascade    on update cascade,
 foreign key(Host) references STAFF(SUsername)
       on delete cascade    on update cascade
-);
+)ENGINE = INNODB;
 
 CREATE TABLE VISITSHOWS(
 Visitor varchar(30) not null,
@@ -98,7 +98,7 @@ foreign key(Visitor) references VISITOR(VUsername)
 on delete cascade	   on update cascade,
 foreign key(ShowName, DateTime) references SHOWS(Name, DateTime)
 	On delete cascade    on update cascade
-);
+)ENGINE = INNODB;
 
 CREATE TABLE VISITEXHIBIT(
 Visitor varchar(30) not null,
@@ -109,7 +109,7 @@ foreign key(Visitor) references VISITOR(VUsername)
       On delete cascade    on update cascade,
 foreign key(ExhibitName) references EXHIBIT(Name)
 	On delete cascade    on update cascade
-);
+)ENGINE = INNODB;
 
 -- PREPOPULATE THE TABLES
 -- LOCK TABLES `USER` WRITE;
