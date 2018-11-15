@@ -46,4 +46,5 @@ References:
 
 ## MySQL Python Connector Tutorials
 [pynative.com](https://pynative.com/python-mysql-execute-parameterized-query-using-prepared-statement/)
+`pip install mysql-connector-python==8.0.11`
 
