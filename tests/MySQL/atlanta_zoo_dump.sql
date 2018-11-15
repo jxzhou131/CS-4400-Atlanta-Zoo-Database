@@ -18,8 +18,8 @@ Drop table if exists `USER`;
 -- RECREATE ALL THE TABLES
 CREATE TABLE USER(
 Username varchar(30)  not null,
-Email varchar(50)  not null,
 Password char(32)  not null, -- Using MD5 hash function
+Email varchar(50)  not null,
 UserType varchar(30) not null,
 primary key(Username),
 unique(Email)
