@@ -7,7 +7,10 @@
 # WARNING! All changes made in this file will be lost!
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-
+# import the connection_pool established in the connect.py
+from __main__ import connection_pool
+# import the __main__ object to access the global variables: status, state, arg, loginIdentity
+import __main__
 class Ui_LoginPage(object):
     def setupUi(self, LoginPage):
         LoginPage.setObjectName("LoginPage")
@@ -70,6 +73,7 @@ class Ui_LoginPage(object):
         font.setPointSize(13)
         self.passwordLineEdit.setFont(font)
         self.passwordLineEdit.setObjectName("passwordLineEdit")
+        self.passwordLineEdit.setEchoMode(QtWidgets.QLineEdit.Password)
         self.gridLayout.addWidget(self.passwordLineEdit, 6, 3, 1, 7)
         spacerItem8 = QtWidgets.QSpacerItem(167, 20, QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Minimum)
         self.gridLayout.addItem(spacerItem8, 6, 10, 1, 1)
@@ -83,6 +87,7 @@ class Ui_LoginPage(object):
         font.setPointSize(15)
         self.loginButton.setFont(font)
         self.loginButton.setObjectName("loginButton")
+        self.loginButton.clicked.connect(self.login)
         self.gridLayout.addWidget(self.loginButton, 8, 6, 1, 1)
         spacerItem11 = QtWidgets.QSpacerItem(332, 20, QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Minimum)
         self.gridLayout.addItem(spacerItem11, 8, 7, 1, 4)
@@ -96,6 +101,7 @@ class Ui_LoginPage(object):
         font.setPointSize(15)
         self.registrationButton.setFont(font)
         self.registrationButton.setObjectName("registrationButton")
+        self.registrationButton.clicked.connect(self.registration)
         self.gridLayout.addWidget(self.registrationButton, 10, 5, 1, 3)
         spacerItem14 = QtWidgets.QSpacerItem(313, 20, QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Minimum)
         self.gridLayout.addItem(spacerItem14, 10, 8, 1, 3)
@@ -118,13 +124,60 @@ class Ui_LoginPage(object):
         self.loginButton.setText(_translate("LoginPage", "Login"))
         self.registrationButton.setText(_translate("LoginPage", "Registration"))
 
+    def login(self):
+        # retrive the strings from the lineEdit object
+        email = self.emailLineEdit.text()
+        password = self.passwordLineEdit.text()
+        # build the SQL query command
+        cmd1 = "select * from USER where password = md5(\'" + password + "\') and email = \'" + email + "\';"
+        # obtain the connection_object
+        connection_object = connection_pool.get_connection()
+        # these three lines of code is used for debugging: CHECK FOR CONNECTIONS
+        if connection_object.is_connected():
+            db_Info = connection_object.get_server_info()
+        print("Connected to MySQL database using connection pool ... MySQL Server version on ",db_Info)
+        # get cursor
+        cursor = connection_object.cursor()
+        # use cursor to execute sql command
+        cursor.execute(cmd1)
+        # there could have multiple lines of sql command
+        # after all the command, retrieve the queries
+        record = cursor.fetchall()
+        print(record)
+        if(len(record) > 0):
+            __main__.loginIdentity = record
+            # close the cursor and connection
+            if(connection_object.is_connected()):
+                cursor.close()
+                connection_object.close()
+                print("MySQL connection is closed")
+            app.exit()
+        else:
+            self.showEmailNotExists()
 
-if __name__ == "__main__":
+    def registration(self):
+        # before exiting the ui REPORT STATUS
+        __main__.status = __main__.statusDef['Registration']
+        # EXIT the ui
+        app.exit()
+
+    def showEmailNotExists(self):
+         d = QtWidgets.QDialog()
+         b1= QtWidgets.QPushButton("close",d)
+         b1.move(50,50)
+         d.setWindowTitle("showEmailNotExists")
+         d.setWindowModality(QtCore.Qt.ApplicationModal)
+         d.exec_()
+
+if __name__ == "loginPage":
     import sys
+    __main__.state = 4
     app = QtWidgets.QApplication(sys.argv)
     LoginPage = QtWidgets.QMainWindow()
     ui = Ui_LoginPage()
     ui.setupUi(LoginPage)
     LoginPage.show()
-    sys.exit(app.exec_())
+    app.exec_()
+    # close the WINDOWS
+    LoginPage.close()
 
