@@ -45,5 +45,7 @@ References:
 2. Open your python 3.5 environment. Go to the directory that you have saved your .ui file. Then type `pyuic5 -x <nameOfTheUIFile> -o <nameOfTheUIFile>`. For example. `pyuic5 -x loginPage.ui -o loginPage.py`. The python file will be generated in the same folder as your .ui file.
 
 ## MySQL Python Connector Tutorials
-[pynative.com](https://pynative.com/python-mysql-execute-parameterized-query-using-prepared-statement/)
+Please install the mysql-connector-python in order to run the API to connect to MySQL database. `pip install mysql-connector-python==8.0.11`
+1. [Pynative](https://pynative.com/python-mysql-execute-parameterized-query-using-prepared-statement/)
+
 

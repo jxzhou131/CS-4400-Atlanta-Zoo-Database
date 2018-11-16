@@ -18,8 +18,8 @@ Drop table if exists `USER`;
 -- RECREATE ALL THE TABLES
 CREATE TABLE USER(
 Username varchar(30)  not null,
-Email varchar(50)  not null,
 Password char(32)  not null, -- Using MD5 hash function
+Email varchar(50)  not null,
 UserType varchar(30) not null,
 primary key(Username),
 unique(Email)
@@ -119,7 +119,7 @@ VALUES ('martha_johnson', md5('password1'), 'marthajohnson@hotmail.com', 'staff'
 ('ethan_roswell', md5('password3'), 'ethanroswell@yahoo.com', 'staff'),
 ('xavier_swenson', md5('password4'), 'xavierswenson@outlook.com', 'visitor'),
 ('isabella_rodriguez', md5('password5'), 'isabellarodriguez@mail.com', 'visitor'),
-('nadias_tevens', md5('password6'), 'marthajohnson@hotmail.com', 'visitor'),
+('nadias_tevens', md5('password6'), 'nadiastevens@gmail.com', 'visitor'),
 ('robert_bernheardt', md5('password7'), 'robertbernheardt@yahoo.com', 'visitor'),
 ('admin1', md5('adminpassword'), 'adminemail@mail.com', 'admin');
 -- UNLOCK TABLES;
