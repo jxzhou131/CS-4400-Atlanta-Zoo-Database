@@ -10,6 +10,9 @@ Analyze, specify, design, implement, document and demonstrate an online system. 
 ## IFD Diagram
 ![alt text](/images/IFD_Diagram.png?raw=true "IFD Diagram")
 
+## Relational Schema Diagram
+![alt text](/images/Relational_Schema.png "Relational Schema Diagram")
+
 ## Setting up the enviroment for QTDesigner
 1. [Download QT Designer](https://build-system.fman.io/qt-designer-download)
 
@@ -48,4 +51,7 @@ References:
 Please install the mysql-connector-python in order to run the API to connect to MySQL database. `pip install mysql-connector-python==8.0.11`
 1. [Pynative](https://pynative.com/python-mysql-execute-parameterized-query-using-prepared-statement/)
 
-
+## Access the Remote MySQL off campus
+1. Download Cisco or other VPN softwares that is able to connect to the campus ip address.
+2. Established your VPN connection
+3. `python connect.py`
