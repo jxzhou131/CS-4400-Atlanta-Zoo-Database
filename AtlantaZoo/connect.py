@@ -82,7 +82,7 @@ if __name__ == "__main__":
     if connection_object.is_connected():
         db_Info = connection_object.get_server_info()
     print("Connected to MySQL database using connection pool ... MySQL Server version on ",db_Info)
-    
+
     loginPage = importlib.import_module("loginPage")
     print(loginPage.__name__)
 
@@ -92,6 +92,14 @@ if __name__ == "__main__":
     if(status == statusDef['Registration']):
       registration = importlib.import_module("registration")
       print(registration.__name__)
+
+    # close the cursor and connection
+    if(connection_object.is_connected()):
+        cursor.close()
+        connection_object.close()
+        print("MySQL connection is closed")
+
+
 
     # if(status == -1):
     # # there is an error

@@ -146,14 +146,14 @@ class Ui_LoginPage(object):
         print(record)
         if(len(record) > 0):
             __main__.loginIdentity = record
-            # close the cursor and connection
-            if(connection_object.is_connected()):
-                cursor.close()
-                connection_object.close()
-                print("MySQL connection is closed")
             app.exit()
         else:
             self.showEmailNotExists()
+        # close the cursor and connection
+        if(connection_object.is_connected()):
+            cursor.close()
+            connection_object.close()
+            print("MySQL connection is closed")
 
     def registration(self):
         # before exiting the ui REPORT STATUS
