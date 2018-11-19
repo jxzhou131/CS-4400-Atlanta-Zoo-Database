@@ -8,9 +8,14 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 # import the connection_pool established in the connect.py
-# from __main__ import connection_pool
+from __main__ import connection_pool
 # import the __main__ object to access the global variables: status, state, arg, loginIdentity
-# import __main__
+import __main__
+
+import re
+
+import sys
+app = QtWidgets.QApplication(sys.argv)
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
@@ -27,6 +32,7 @@ class Ui_MainWindow(object):
         self.gridLayout.addItem(spacerItem, 1, 0, 1, 5)
         self.Homebutton = QtWidgets.QPushButton(self.widget)
         self.Homebutton.setObjectName("Homebutton")
+        self.Homebutton.clicked.connect(self.Home)
         self.gridLayout.addWidget(self.Homebutton, 0, 0, 1, 1)
         self.Heading_register = QtWidgets.QLabel(self.widget)
         font = QtGui.QFont()
@@ -59,7 +65,7 @@ class Ui_MainWindow(object):
         font.setPointSize(15)
         self.registerStaffPushButton.setFont(font)
         self.registerStaffPushButton.setObjectName("registerStaffPushButton")
-        self.registerStaffPushButton.clicked.connect(self.register("Staff"))
+        self.registerStaffPushButton.clicked.connect(self.register("STAFF"))
         self.gridLayout.addWidget(self.registerStaffPushButton, 7, 6, 1, 2)
         spacerItem10 = QtWidgets.QSpacerItem(183, 20, QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Minimum)
         self.gridLayout.addItem(spacerItem10, 4, 0, 1, 2)
@@ -84,7 +90,7 @@ class Ui_MainWindow(object):
         font.setPointSize(15)
         self.registerVisitorPushButton.setFont(font)
         self.registerVisitorPushButton.setObjectName("registerVisitorPushButton")
-        self.registerVisitorPushButton.clicked.connect(self.register("Visitor"))
+        self.registerVisitorPushButton.clicked.connect(self.register("VISITOR"))
         self.gridLayout.addWidget(self.registerVisitorPushButton, 7, 3, 1, 3)
         spacerItem15 = QtWidgets.QSpacerItem(212, 20, QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Minimum)
         self.gridLayout.addItem(spacerItem15, 7, 0, 1, 3)
@@ -163,19 +169,30 @@ class Ui_MainWindow(object):
         self.label_password.setText(_translate("MainWindow", "    Password:"))
         self.label_confirmpassword.setText(_translate("MainWindow", "   Confirm password:"))
 
+    def Home(self):
+        __main__.status = __main__.statusDef['Normal']
+        __main__.state = 0 # Login Page
+        app.exit()
+
     def register(self, userType):
-        def _register(self):
+        def _register():
             email = self.emailLineEdit.text()
             username = self.usernameLineEdit.text()
             password = self.passwordLineEdit.text()
-            confirmPassword = confirmPasswordLineEdit.text()
+            confirmPassword = self.confirmPasswordLineEdit.text()
             if(password == confirmPassword):
                 # build the SQL query command
-                cmd1 = "select * from " + userType + " where username = \'" + username + "\' ;"
-                cmd2 = "insert into USER values(\'" + username + "\' , md5(\'" + password + "\') , \'" + email + "\' , \'" + userType + "\' );"
+                UserType = ""
+                if(userType == "VISITOR"):
+                    UserType = "VUsername"
+                elif(userType == "STAFF"):
+                    UserType = "SUsername"
+
+                cmd1 = "select * from " + userType + " where " + UserType + " = \'" + username + "\' ;"
+                cmd2 = "insert into USER values(\'" + username + "\' , md5(\'" + password + "\') , \'" + email + "\' , \'" + userType.lower() + "\' );"
                 cmd3 = "insert into " + userType + " values(\'" + username + "\');"
                 # additional query to ensure that the USER record has been added to the database
-                cmd4 = "select * from USER where password = md5(\'" + password + "\') and email = \'" + email + "\' ;"
+                cmd4 = "select * from USER where Password = md5(\'" + password + "\') and Email = \'" + email + "\' ;"
                 # obtain the connection_object
                 connection_object = connection_pool.get_connection()
                 # these three lines of code is used for debugging: CHECK FOR CONNECTIONS
@@ -189,41 +206,55 @@ class Ui_MainWindow(object):
                 # there could have multiple lines of sql command
                 # after all the command, retrieve the queries
                 record = cursor.fetchall()
-                print(record)
-                if the record is empty 
-                USER DOES NOT EXIST
+                # close the cursor and connection
+                # if the record is empty 
+                # USER DOES NOT EXIST
                 if(len(record) == 0):
-                    # cursor.execute(cmd2)
-                    # cursor.execute(cmd3)
-                    # cursor.execute(cmd4)
-                    # record = cursor.fetchall()
-                    if(len(record) == 0):
-                        self.showUsernameNotExists()
+                    if re.match(r"^[A-Za-z0-9\.\+_-]+@[A-Za-z0-9\._-]+\.[a-zA-Z]*$", email):
+                        cursor.execute(cmd2)
+                        cursor.execute(cmd3)
+                        # for any changes/ alteration that should be done
+                        # you MUST commit for the transaction to be executed
+                        connection_object.commit()
+                        cursor.execute(cmd4)
+                        record = cursor.fetchall()
+                        if(len(record) == 0):
+                            self.showUsernameNotExists()
+                        else:
+                            __main__.loginIdentity = record
+                            __main__.status = __main__.statusDef['Normal']
+                            __main__.state = 3 # exit initial UIs
+                            print("loginIdentity")
+                            print(__main__.loginIdentity)
+                            app.exit()
                     else:
-                        __main__.loginIdentity = record
-                        # close the cursor and connection
-                        if(connection_object.is_connected()):
-                            cursor.close()
-                            connection_object.close()
-                            print("MySQL connection is closed")
-                        app.exit()
+                        self.showEmailNotValid()
                 else:
                     self.showUsernameExists()
+                # close the cursor and connection   
+                if(connection_object.is_connected()):
+                    cursor.close()
+                    connection_object.close()
+                    print("MySQL connection is closed")
             else:
                 self.showPasswordMissMatchDialog()
         return _register
 
     def showPasswordMissMatchDialog(self):
          d = QtWidgets.QDialog()
+         d.setMinimumSize(50, 50)
          b1= QtWidgets.QPushButton("close",d)
          b1.move(50,50)
+         b1.clicked.connect(lambda : d.close())
          d.setWindowTitle("PasswordsMissMatch")
          d.setWindowModality(QtCore.Qt.ApplicationModal)
          d.exec_()
 
     def showUsernameExists(self):
          d = QtWidgets.QDialog()
+         d.setMinimumSize(50, 50)
          b1= QtWidgets.QPushButton("close",d)
+         b1.clicked.connect(lambda : d.close())
          b1.move(50,50)
          d.setWindowTitle("showUsernameExists")
          d.setWindowModality(QtCore.Qt.ApplicationModal)
@@ -231,13 +262,35 @@ class Ui_MainWindow(object):
 
     def showUsernameNotExists(self):
          d = QtWidgets.QDialog()
+         d.setMinimumSize(50, 50)
          b1= QtWidgets.QPushButton("close",d)
+         b1.clicked.connect(lambda : d.close())
          b1.move(50,50)
          d.setWindowTitle("showUsernameNotExists")
          d.setWindowModality(QtCore.Qt.ApplicationModal)
          d.exec_()
 
-if __name__ == "registration":
+    def showEmailNotValid(self):
+         d = QtWidgets.QDialog()
+         d.setMinimumSize(630, 50) 
+         b1= QtWidgets.QPushButton("close",d)
+         b1.clicked.connect(lambda : d.close())
+         b1.move(50,50)
+         d.setWindowTitle("showEmailNotValid")
+         d.setWindowModality(QtCore.Qt.ApplicationModal)
+         d.exec_()     
+
+def render():
+    # import sys
+    # app = QtWidgets.QApplication(sys.argv)
+    MainWindow = QtWidgets.QMainWindow()
+    ui = Ui_MainWindow()
+    ui.setupUi(MainWindow)
+    MainWindow.show()
+    app.exec_()
+    MainWindow.close()
+
+if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
     MainWindow = QtWidgets.QMainWindow()

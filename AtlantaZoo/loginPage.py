@@ -11,6 +11,10 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from __main__ import connection_pool
 # import the __main__ object to access the global variables: status, state, arg, loginIdentity
 import __main__
+
+import sys
+app = QtWidgets.QApplication(sys.argv)
+
 class Ui_LoginPage(object):
     def setupUi(self, LoginPage):
         LoginPage.setObjectName("LoginPage")
@@ -146,6 +150,8 @@ class Ui_LoginPage(object):
         print(record)
         if(len(record) > 0):
             __main__.loginIdentity = record
+            __main__.status = __main__.statusDef['Normal']
+            __main__.state = 3 # exit Initial UIs
             app.exit()
         else:
             self.showEmailNotExists()
@@ -157,9 +163,19 @@ class Ui_LoginPage(object):
 
     def registration(self):
         # before exiting the ui REPORT STATUS
-        __main__.status = __main__.statusDef['Registration']
+        __main__.status = __main__.statusDef['Normal']
+        __main__.state = 1 # registration Page
         # EXIT the ui
         app.exit()
+
+    # def showEmailNotValid(self):
+    #      d = QtWidgets.QDialog()
+    #      b1= QtWidgets.QPushButton("close",d)
+    #      bl.clicked.connect(lambda : d.exit())
+    #      b1.move(50,50)
+    #      d.setWindowTitle("showEmailNotValid")
+    #      d.setWindowModality(QtCore.Qt.ApplicationModal)
+    #      d.exec_()        
 
     def showEmailNotExists(self):
          d = QtWidgets.QDialog()
@@ -169,9 +185,19 @@ class Ui_LoginPage(object):
          d.setWindowModality(QtCore.Qt.ApplicationModal)
          d.exec_()
 
-if __name__ == "loginPage":
+def render():
+    # import sys
+    # app = QtWidgets.QApplication(sys.argv)
+    LoginPage = QtWidgets.QMainWindow()
+    ui = Ui_LoginPage()
+    ui.setupUi(LoginPage)
+    LoginPage.show()
+    app.exec_()
+    # close the WINDOWS
+    LoginPage.close()
+
+if __name__ == "__main__":
     import sys
-    __main__.state = 4
     app = QtWidgets.QApplication(sys.argv)
     LoginPage = QtWidgets.QMainWindow()
     ui = Ui_LoginPage()
