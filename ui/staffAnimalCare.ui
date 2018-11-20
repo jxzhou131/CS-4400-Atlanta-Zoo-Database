@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>MainWindow</class>
- <widget class="QMainWindow" name="MainWindow">
+ <class>staffAnimalCare</class>
+ <widget class="QMainWindow" name="staffAnimalCare">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -14,7 +14,7 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QPushButton" name="pushButton">
+   <widget class="QPushButton" name="HomePushButton">
     <property name="geometry">
      <rect>
       <x>0</x>
@@ -27,7 +27,7 @@
      <string>Home</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label">
+   <widget class="QLabel" name="AnimalDetail">
     <property name="geometry">
      <rect>
       <x>270</x>
@@ -46,7 +46,7 @@
      <string>Animal Detail</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label_2">
+   <widget class="QLabel" name="AtlantaZoo">
     <property name="geometry">
      <rect>
       <x>40</x>
@@ -65,7 +65,7 @@
      <string>Atlanta Zoo</string>
     </property>
    </widget>
-   <widget class="QPlainTextEdit" name="plainTextEdit">
+   <widget class="QPlainTextEdit" name="NoteTextEdit">
     <property name="geometry">
      <rect>
       <x>40</x>
@@ -81,7 +81,7 @@
      </font>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_2">
+   <widget class="QPushButton" name="LogNotesPushButton">
     <property name="geometry">
      <rect>
       <x>440</x>
@@ -100,7 +100,7 @@
      <string>Log Notes</string>
     </property>
    </widget>
-   <widget class="QTableWidget" name="tableWidget">
+   <widget class="QTableWidget" name="StaffNoteTable">
     <property name="geometry">
      <rect>
       <x>40</x>
@@ -136,7 +136,7 @@
     </property>
     <layout class="QVBoxLayout" name="verticalLayout_3">
      <item>
-      <widget class="QLabel" name="label_13">
+      <widget class="QLabel" name="Species">
        <property name="font">
         <font>
          <family>MS Sans Serif</family>
@@ -151,7 +151,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QLabel" name="label_14">
+      <widget class="QLabel" name="Type">
        <property name="font">
         <font>
          <family>MS Sans Serif</family>
@@ -178,7 +178,7 @@
     </property>
     <layout class="QVBoxLayout" name="verticalLayout_4">
      <item>
-      <widget class="QLabel" name="label_15">
+      <widget class="QLabel" name="SpeciesName">
        <property name="font">
         <font>
          <family>MS Sans Serif</family>
@@ -191,7 +191,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QLabel" name="label_16">
+      <widget class="QLabel" name="TypeName">
        <property name="font">
         <font>
          <family>MS Sans Serif</family>
@@ -205,7 +205,7 @@
      </item>
     </layout>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>40</x>
@@ -216,7 +216,7 @@
     </property>
     <layout class="QVBoxLayout" name="verticalLayout">
      <item>
-      <widget class="QLabel" name="label_3">
+      <widget class="QLabel" name="Name">
        <property name="font">
         <font>
          <family>MS Sans Serif</family>
@@ -231,7 +231,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QLabel" name="label_6">
+      <widget class="QLabel" name="Exhibit">
        <property name="font">
         <font>
          <family>MS Sans Serif</family>
@@ -247,7 +247,7 @@
      </item>
     </layout>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>141</x>
@@ -258,7 +258,7 @@
     </property>
     <layout class="QVBoxLayout" name="verticalLayout_2">
      <item>
-      <widget class="QLabel" name="label_8">
+      <widget class="QLabel" name="AnimalName">
        <property name="font">
         <font>
          <family>MS Sans Serif</family>
@@ -271,7 +271,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QLabel" name="label_9">
+      <widget class="QLabel" name="ExhibitName">
        <property name="font">
         <font>
          <family>MS Sans Serif</family>
@@ -285,7 +285,7 @@
      </item>
     </layout>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>500</x>
@@ -296,7 +296,7 @@
     </property>
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
-      <widget class="QLabel" name="label_5">
+      <widget class="QLabel" name="Age">
        <property name="font">
         <font>
          <family>MS Sans Serif</family>
@@ -311,7 +311,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QLabel" name="label_12">
+      <widget class="QLabel" name="AgeName">
        <property name="font">
         <font>
          <family>MS Sans Serif</family>

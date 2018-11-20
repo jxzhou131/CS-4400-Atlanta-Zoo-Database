@@ -5,7 +5,7 @@ import mysql.connector
 from mysql.connector import Error
 from mysql.connector.connection import MySQLConnection
 from mysql.connector import pooling
-
+import importlib
 
 """
     Define the configuration of the Window Pages (UIs)
@@ -25,11 +25,17 @@ visitorUIs = {
   'visitorSearchAnimals' : 2,
   'visitorSearchExhibit': 3,
   'visitorSearchShow': 4,
-  'visitorShowHistory': 5
+  'visitorShowHistory': 5,
+  'animalDetails': 6,
+  'exhibitDetails': 7
 }
 
 staffUIs = {
-  
+  'staffFunctionality': 0,
+  'staffSearchAnimals': 1,
+  'staffAnimalCare' : 2,
+  'staffViewShows' : 3
+  ''
 }
 
 adminUIs = {
@@ -92,54 +98,54 @@ if __name__ == "__main__":
         connection_object.close()
         print("MySQL connection is closed")
 
+  find_module
 
+    if(status == -1):
+    # there is an error
+      print("Error")
+    else:
+    # no error, proceed
+      module = None
+      if(loginIdentity[3] == "visitor"):
+        while True:
+          if(importlib.util.find_spec(visitorUIs[state])):
+            module = importlib.reload(visitorUIs[state])
+          else:
+            module = importlib.import_module(visitorUIs[state])
+          # uncommented in DEBUGGING MODE
+          print("state")
+          print(state)
+          print("status")
+          print(status)
+          print("arg")
+          print(arg)
 
-    # if(status == -1):
-    # # there is an error
-    #   print("Error")
-    # else:
-    # # no error, proceed
-    #   module = None
-    #   if(loginIdentity[3] == "visitor"):
-    #     while True:
-    #       if(importlib.util.find_spec(visitorUIs[state])):
-    #         module = importlib.reload(visitorUIs[state])
-    #       else:
-    #         module = importlib.import_module(visitorUIs[state])
-    #       # uncommented in DEBUGGING MODE
-    #       print("state")
-    #       print(state)
-    #       print("status")
-    #       print(status)
-    #       print("arg")
-    #       print(arg)
-
-    #   elif (loginIdentity[3] == "staff"):
-    #     while True:
-    #       if(importlib.util.find_spec(staffUIs[state])):
-    #         module = importlib.reload(staffUIs[state])
-    #       else:
-    #         module = importlib.import_module(staffUIs[state])
-    #       # uncommented in DEBUGGING MODE
-    #       print("state")
-    #       print(state)
-    #       print("status")
-    #       print(status)
-    #       print("arg")
-    #       print(arg)
-    #   elif( loginIdentity[3] == "admin"):
-    #     while True:
-    #       if(importlib.util.find_spec(adminUIs[state])):
-    #         module = importlib.reload(adminUIs[state])
-    #       else:
-    #         module = importlib.import_module(adminUIs[state])
-    #       # uncommented in DEBUGGING MODE
-    #       print("state")
-    #       print(state)
-    #       print("status")
-    #       print(status)
-    #       print("arg")
-    #       print(arg)
+      elif (loginIdentity[3] == "staff"):
+        while True:
+          if(importlib.util.find_spec(staffUIs[state])):
+            module = importlib.reload(staffUIs[state])
+          else:
+            module = importlib.import_module(staffUIs[state])
+          # uncommented in DEBUGGING MODE
+          print("state")
+          print(state)
+          print("status")
+          print(status)
+          print("arg")
+          print(arg)
+      elif( loginIdentity[3] == "admin"):
+        while True:
+          if(importlib.util.find_spec(adminUIs[state])):
+            module = importlib.reload(adminUIs[state])
+          else:
+            module = importlib.import_module(adminUIs[state])
+          # uncommented in DEBUGGING MODE
+          print("state")
+          print(state)
+          print("status")
+          print(status)
+          print("arg")
+          print(arg)
 
     # print("state")
     # print(state)

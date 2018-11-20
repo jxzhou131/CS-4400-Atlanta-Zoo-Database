@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Function</class>
- <widget class="QMainWindow" name="Function">
+ <class>staffFunctionality</class>
+ <widget class="QMainWindow" name="staffFunctionality">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -20,7 +20,7 @@
       <property name="orientation">
        <enum>Qt::Horizontal</enum>
       </property>
-      <widget class="QLabel" name="label">
+      <widget class="QLabel" name="AtlantaZoo">
        <property name="font">
         <font>
          <family>MS Sans Serif</family>
@@ -92,7 +92,7 @@
      </spacer>
     </item>
     <item row="2" column="1">
-     <widget class="QPushButton" name="pushButton">
+     <widget class="QPushButton" name="SearchAnimalsPushButton">
       <property name="font">
        <font>
         <family>MS Sans Serif</family>
@@ -121,7 +121,7 @@
      </spacer>
     </item>
     <item row="2" column="3">
-     <widget class="QPushButton" name="pushButton_2">
+     <widget class="QPushButton" name="ViewShowsPushButton">
       <property name="font">
        <font>
         <family>MS Sans Serif</family>
@@ -147,7 +147,7 @@
      </spacer>
     </item>
     <item row="2" column="5">
-     <widget class="QPushButton" name="pushButton_3">
+     <widget class="QPushButton" name="LogoutPushButton">
       <property name="font">
        <font>
         <family>MS Sans Serif</family>

@@ -242,7 +242,7 @@ class Ui_MainWindow(object):
 
     def showPasswordMissMatchDialog(self):
          d = QtWidgets.QDialog()
-         d.setMinimumSize(50, 50)
+         d.setMinimumSize(350, 50)
          b1= QtWidgets.QPushButton("close",d)
          b1.move(50,50)
          b1.clicked.connect(lambda : d.close())
@@ -252,7 +252,7 @@ class Ui_MainWindow(object):
 
     def showUsernameExists(self):
          d = QtWidgets.QDialog()
-         d.setMinimumSize(50, 50)
+         d.setMinimumSize(350, 50)
          b1= QtWidgets.QPushButton("close",d)
          b1.clicked.connect(lambda : d.close())
          b1.move(50,50)
@@ -262,7 +262,7 @@ class Ui_MainWindow(object):
 
     def showUsernameNotExists(self):
          d = QtWidgets.QDialog()
-         d.setMinimumSize(50, 50)
+         d.setMinimumSize(350, 50)
          b1= QtWidgets.QPushButton("close",d)
          b1.clicked.connect(lambda : d.close())
          b1.move(50,50)
@@ -272,7 +272,7 @@ class Ui_MainWindow(object):
 
     def showEmailNotValid(self):
          d = QtWidgets.QDialog()
-         d.setMinimumSize(630, 50) 
+         d.setMinimumSize(350, 50)
          b1= QtWidgets.QPushButton("close",d)
          b1.clicked.connect(lambda : d.close())
          b1.move(50,50)
