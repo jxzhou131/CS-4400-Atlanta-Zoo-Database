@@ -186,7 +186,9 @@ class Ui_LoginPage(object):
     def showEmailNotExists(self):
          d = QtWidgets.QDialog()
          b1= QtWidgets.QPushButton("close",d)
+         d.setMinimumSize(350, 50)
          b1.move(50,50)
+         b1.clicked.connect(lambda : d.close())
          d.setWindowTitle("showEmailNotExists")
          d.setWindowModality(QtCore.Qt.ApplicationModal)
          d.exec_()
