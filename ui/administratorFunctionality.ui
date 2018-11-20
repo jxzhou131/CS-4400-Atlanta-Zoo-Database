@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>MainWindow</class>
- <widget class="QMainWindow" name="MainWindow">
+ <class>adminFunctionality</class>
+ <widget class="QMainWindow" name="adminFunctionality">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -82,7 +82,7 @@
        </spacer>
       </item>
       <item row="0" column="1">
-       <widget class="QPushButton" name="Home">
+       <widget class="QPushButton" name="homeButton">
         <property name="minimumSize">
          <size>
           <width>0</width>
@@ -162,7 +162,7 @@
        </spacer>
       </item>
       <item row="0" column="1">
-       <widget class="QPushButton" name="pushButton_2">
+       <widget class="QPushButton" name="viewVisitorsButton">
         <property name="minimumSize">
          <size>
           <width>135</width>
@@ -184,7 +184,7 @@
     <item row="2" column="1">
      <layout class="QGridLayout" name="gridLayout_2">
       <item row="0" column="0">
-       <widget class="QPushButton" name="ViewStaff">
+       <widget class="QPushButton" name="viewStaffButton">
         <property name="minimumSize">
          <size>
           <width>125</width>
@@ -232,7 +232,7 @@
        </spacer>
       </item>
       <item row="0" column="1">
-       <widget class="QPushButton" name="ViewShows">
+       <widget class="QPushButton" name="viewShowsButton">
         <property name="minimumSize">
          <size>
           <width>135</width>
@@ -254,7 +254,7 @@
     <item row="3" column="1">
      <layout class="QGridLayout" name="gridLayout_3">
       <item row="0" column="0">
-       <widget class="QPushButton" name="ViewAnimals">
+       <widget class="QPushButton" name="viewAnimalsButton">
         <property name="minimumSize">
          <size>
           <width>125</width>
@@ -302,7 +302,7 @@
        </spacer>
       </item>
       <item row="0" column="1">
-       <widget class="QPushButton" name="AddAnimals">
+       <widget class="QPushButton" name="addAnimalsButton">
         <property name="minimumSize">
          <size>
           <width>135</width>
@@ -324,7 +324,7 @@
     <item row="4" column="1">
      <layout class="QGridLayout" name="gridLayout_4">
       <item row="0" column="0">
-       <widget class="QPushButton" name="LogOut">
+       <widget class="QPushButton" name="logOutButton">
         <property name="minimumSize">
          <size>
           <width>125</width>

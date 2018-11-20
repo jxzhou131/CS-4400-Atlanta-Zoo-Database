@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>MainWindow</class>
- <widget class="QMainWindow" name="MainWindow">
+ <class>adminViewAnimals</class>
+ <widget class="QMainWindow" name="adminViewAnimals">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -80,7 +80,7 @@
         <string>Exhibit</string>
        </property>
       </widget>
-      <widget class="QComboBox" name="comboBox_2"/>
+      <widget class="QComboBox" name="exhibit"/>
      </widget>
     </item>
     <item row="0" column="14" colspan="3">
@@ -97,7 +97,7 @@
      </spacer>
     </item>
     <item row="0" column="17">
-     <widget class="QPushButton" name="pushButton_2">
+     <widget class="QPushButton" name="Home">
       <property name="font">
        <font>
         <pointsize>10</pointsize>
@@ -228,7 +228,7 @@
         <string>Name</string>
        </property>
       </widget>
-      <widget class="QLineEdit" name="lineEdit"/>
+      <widget class="QLineEdit" name="name"/>
      </widget>
     </item>
     <item row="4" column="5">
@@ -259,8 +259,8 @@
         <string>Age</string>
        </property>
       </widget>
-      <widget class="QSpinBox" name="spinBox"/>
-      <widget class="QSpinBox" name="spinBox_2"/>
+      <widget class="QSpinBox" name="minAge"/>
+      <widget class="QSpinBox" name="maxAge"/>
      </widget>
     </item>
     <item row="4" column="16" colspan="2">
@@ -304,7 +304,7 @@
         <string>Species</string>
        </property>
       </widget>
-      <widget class="QLineEdit" name="lineEdit_2"/>
+      <widget class="QLineEdit" name="species"/>
      </widget>
     </item>
     <item row="5" column="5">
@@ -321,7 +321,7 @@
      </spacer>
     </item>
     <item row="6" column="2" colspan="2">
-     <widget class="QPushButton" name="pushButton">
+     <widget class="QPushButton" name="Search">
       <property name="font">
        <font>
         <pointsize>10</pointsize>
@@ -360,7 +360,7 @@
         <string>Type</string>
        </property>
       </widget>
-      <widget class="QComboBox" name="comboBox"/>
+      <widget class="QComboBox" name="type"/>
      </widget>
     </item>
     <item row="6" column="16" colspan="2">
@@ -390,7 +390,7 @@
      </spacer>
     </item>
     <item row="7" column="3" colspan="10">
-     <widget class="QTableWidget" name="tableWidget">
+     <widget class="QTableWidget" name="listOfAnimals">
       <column>
        <property name="text">
         <string>Name</string>
@@ -432,7 +432,7 @@
      </spacer>
     </item>
     <item row="8" column="6" colspan="3">
-     <widget class="QPushButton" name="pushButton_3">
+     <widget class="QPushButton" name="RemoveAnimals">
       <property name="font">
        <font>
         <pointsize>10</pointsize>
