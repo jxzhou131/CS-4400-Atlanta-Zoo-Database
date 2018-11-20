@@ -16,8 +16,6 @@ import __main__
 import sys
 app = QtWidgets.QApplication(sys.argv)
 ################################################################################################
-
-
 class Ui_adminFunctionality(object):
     def setupUi(self, adminFunctionality):
         adminFunctionality.setObjectName("adminFunctionality")
@@ -143,6 +141,8 @@ class Ui_adminFunctionality(object):
         self.statusbar.setObjectName("statusbar")
         adminFunctionality.setStatusBar(self.statusbar)
 
+        self.userDefinedInitialization()
+
         self.retranslateUi(adminFunctionality)
         QtCore.QMetaObject.connectSlotsByName(adminFunctionality)
 
@@ -158,7 +158,60 @@ class Ui_adminFunctionality(object):
         self.addAnimalsButton.setText(_translate("adminFunctionality", "Add Animals"))
         self.logOutButton.setText(_translate("adminFunctionality", "Log out"))
 
+    def userDefinedInitialization(self):
+        self.addAnimalsButton.clicked.connect(self.addAnimals)
+        self.viewShowsButton.clicked.connect(self.viewShows)
+        self.viewStaffButton.clicked.connect(self.viewStaff)
+        self.viewVisitorsButton.clicked.connect(self.viewVisitors)
+        self.viewAnimalsButton.clicked.connect(self.viewAnimals)
+        # self.addShowsButton.clicked.connect(self.addShows)
+        self.logOutButton.clicked.connect(self.logout)
 
+    def viewShows(self):
+        __main__.status = __main__.statusDef['Normal']
+        __main__.state = __main__.adminUIs['adminViewShows']
+        app.exit()
+
+    def viewStaff(self):
+        __main__.status = __main__.statusDef['Normal']
+        __main__.state = __main__.adminUIs["adminViewStaff"]
+        app.exit()
+
+    def viewVisitors(self):
+        __main__.status = __main__.statusDef['Normal']
+        __main__.state = __main__.adminUIs["adminViewVisitors"]
+        app.exit()
+
+    def addAnimals(self):
+        __main__.status = __main__.statusDef['Normal']
+        __main__.state = __main__.adminUIs["adminAddAnimals"]
+        app.exit()
+
+    def addShows(self):
+        __main__.status = __main__.statusDef['Normal']
+        __main__.state = __main__.adminUIs["adminAddShows"]
+        app.exit()
+
+    def viewAnimals(self):
+        __main__.status = __main__.statusDef['Normal']
+        __main__.state = __main__.adminUIs["adminViewAnimals"]
+        app.exit() 
+
+    def logout(self):
+        __main__.status = __main__.statusDef['Normal']
+        __main__.state = __main__.adminUIs['logout']
+        app.exit()     
+
+def render():
+    __main__.state = -10
+    adminFunctionality = QtWidgets.QMainWindow()
+    ui = Ui_adminFunctionality()
+    ui.setupUi(adminFunctionality)
+    adminFunctionality.show()
+    app.exec_()
+    # close the windows
+    adminFunctionality.close()
+    
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
