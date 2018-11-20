@@ -1,40 +1,31 @@
 # import mysql.connector
 # from mysql.connector import errorcode
-import sshtunnel
+
 import mysql.connector
 from mysql.connector import Error
 from mysql.connector.connection import MySQLConnection
 from mysql.connector import pooling
-import importlib
-
-"""  
-    Parameters to connect to the database in the remote server.
-    ----------
-    username : gatech username
-    password : gatech password
-"""
-ssh_username = 'ttan41'
-ssh_password = 'Inova6626***'
 
 
 """
     Define the configuration of the Window Pages (UIs)
 """
 initialUIs ={
-  0: "loginPage",
-  1: "registration"
+  "exitInitialUIs" : 0,
+  "loginPage" : 1,
+  "registration" : 2
   # 2: "visitorFunctionality"
   # 3: "staffFunctionality"
   # 4: "administratorFunctionality"
 }
 
 visitorUIs = {
-  0: 'visitorFunctionality',
-  1: 'visitorExhibitHistory',
-  2: 'visitorSearchAnimals',
-  3: 'visitorSearchExhibit',
-  4: 'visitorSearchShow',
-  5: 'visitorShowHistory'
+  'visitorFunctionality' : 0,
+  'visitorExhibitHistory' : 1,
+  'visitorSearchAnimals' : 2,
+  'visitorSearchExhibit': 3,
+  'visitorSearchShow': 4,
+  'visitorShowHistory': 5
 }
 
 staffUIs = {
@@ -42,13 +33,13 @@ staffUIs = {
 }
 
 adminUIs = {
-  0: 'administratorFunctionality',
-  1: 'adminAddAnimals',
-  2: 'adminAddShows',
-  3: 'adminViewAnimals',
-  4: 'adminViewShows',
-  5: 'adminViewStaff',
-  6: 'adminViewVisitors'
+  'administratorFunctionality' : 0,
+  'adminAddAnimals' : 1,
+  'adminAddShows' : 2,
+  'adminViewAnimals' :3,
+  'adminViewShows' : 4,
+  'adminViewStaff' : 5,
+  'adminViewVisitors' : 6
 }
 
 """
@@ -56,25 +47,11 @@ adminUIs = {
 """
 statusDef = {
   'Error': -1,
+  'Main' : 0,
   'Normal': 1
 }
 
 if __name__ == "__main__":
-  # with sshtunnel.SSHTunnelForwarder(
-  #         ('academic-mysql.cc.gatech.edu', 22),
-  #         ssh_username=ssh_username,
-  #         ssh_password=ssh_password,
-  #         remote_bind_address=('essay', 3306)
-  # ) as tunnel:
-    # connection_pool = mysql.connector.pooling.MySQLConnectionPool(pool_name="altantaZooPool",
-    #                                                               pool_size=5,
-    #                                                               pool_reset_session=True,
-    #                                                               host='127.0.0.1',
-    #                                                               database='cs4400_group15',
-    #                                                               user='cs4400_group15',
-    #                                                               password='IlEboaZW',
-    #                                                               use_pure=True,
-    #                                                               port = tunnel.local_bind_port)
     connection_pool = mysql.connector.pooling.MySQLConnectionPool(pool_name="altantaZooPool",
                                                                   pool_size=5,
                                                                   pool_reset_session=True,
@@ -84,12 +61,10 @@ if __name__ == "__main__":
                                                                   password='IlEboaZW',
                                                                   use_pure=True)
                
-    # print("before loginPage")
-    state = 0
+    state = 1
     status = 0
     arg = []
     loginIdentity = []
-    module = None
     # obtain the connection_object
     connection_object = connection_pool.get_connection()
     # these three lines of code is used for debugging: CHECK FOR CONNECTIONS
@@ -100,10 +75,10 @@ if __name__ == "__main__":
     # import all the intial UIs modules available here
 
     import loginPage, registration
-    while(state == 0 or state == 1):
-      if(state == 0):
+    while(state == 1 or state == 2):
+      if(state == 1):
         loginPage.render()
-      elif(state == 1):
+      elif(state == 2):
         registration.render()
 
     # DEBUGGING USE

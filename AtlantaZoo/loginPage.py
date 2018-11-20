@@ -91,7 +91,7 @@ class Ui_LoginPage(object):
         font.setPointSize(15)
         self.loginButton.setFont(font)
         self.loginButton.setObjectName("loginButton")
-        self.loginButton.clicked.connect(self.login)
+        # self.loginButton.clicked.connect(self.login)
         self.gridLayout.addWidget(self.loginButton, 8, 6, 1, 1)
         spacerItem11 = QtWidgets.QSpacerItem(332, 20, QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Minimum)
         self.gridLayout.addItem(spacerItem11, 8, 7, 1, 4)
@@ -105,7 +105,7 @@ class Ui_LoginPage(object):
         font.setPointSize(15)
         self.registrationButton.setFont(font)
         self.registrationButton.setObjectName("registrationButton")
-        self.registrationButton.clicked.connect(self.registration)
+        # self.registrationButton.clicked.connect(self.registration)
         self.gridLayout.addWidget(self.registrationButton, 10, 5, 1, 3)
         spacerItem14 = QtWidgets.QSpacerItem(313, 20, QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Minimum)
         self.gridLayout.addItem(spacerItem14, 10, 8, 1, 3)
@@ -115,6 +115,8 @@ class Ui_LoginPage(object):
         self.statusbar = QtWidgets.QStatusBar(LoginPage)
         self.statusbar.setObjectName("statusbar")
         LoginPage.setStatusBar(self.statusbar)
+
+        self.userDefinedInitialisation()
 
         self.retranslateUi(LoginPage)
         QtCore.QMetaObject.connectSlotsByName(LoginPage)
@@ -127,6 +129,10 @@ class Ui_LoginPage(object):
         self.passwordLabel.setText(_translate("LoginPage", "Password"))
         self.loginButton.setText(_translate("LoginPage", "Login"))
         self.registrationButton.setText(_translate("LoginPage", "Registration"))
+
+    def userDefinedInitialisation(self):
+        self.loginButton.clicked.connect(self.login)
+        self.registrationButton.clicked.connect(self.registration)
 
     def login(self):
         # retrive the strings from the lineEdit object
@@ -151,7 +157,7 @@ class Ui_LoginPage(object):
         if(len(record) > 0):
             __main__.loginIdentity = record
             __main__.status = __main__.statusDef['Normal']
-            __main__.state = 3 # exit Initial UIs
+            __main__.state = __main__.InitialUIs['exitInitialUIs'] # exit Initial UIs
             app.exit()
         else:
             self.showEmailNotExists()
@@ -164,7 +170,7 @@ class Ui_LoginPage(object):
     def registration(self):
         # before exiting the ui REPORT STATUS
         __main__.status = __main__.statusDef['Normal']
-        __main__.state = 1 # registration Page
+        __main__.state = __main__.initialUIs['registration'] # registration Page
         # EXIT the ui
         app.exit()
 
@@ -188,6 +194,7 @@ class Ui_LoginPage(object):
 def render():
     # import sys
     # app = QtWidgets.QApplication(sys.argv)
+    __main__.state = -10
     LoginPage = QtWidgets.QMainWindow()
     ui = Ui_LoginPage()
     ui.setupUi(LoginPage)

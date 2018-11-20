@@ -171,7 +171,7 @@ class Ui_MainWindow(object):
 
     def Home(self):
         __main__.status = __main__.statusDef['Normal']
-        __main__.state = 0 # Login Page
+        __main__.state = __main__.initialUIs['loginPage'] # Login Page
         app.exit()
 
     def register(self, userType):
@@ -223,7 +223,7 @@ class Ui_MainWindow(object):
                         else:
                             __main__.loginIdentity = record
                             __main__.status = __main__.statusDef['Normal']
-                            __main__.state = 3 # exit initial UIs
+                            __main__.state = __main__.initialUIs['exitInitialUIs'] # exit initial UIs
                             print("loginIdentity")
                             print(__main__.loginIdentity)
                             app.exit()
@@ -283,6 +283,7 @@ class Ui_MainWindow(object):
 def render():
     # import sys
     # app = QtWidgets.QApplication(sys.argv)
+    __main__.state = -10
     MainWindow = QtWidgets.QMainWindow()
     ui = Ui_MainWindow()
     ui.setupUi(MainWindow)
