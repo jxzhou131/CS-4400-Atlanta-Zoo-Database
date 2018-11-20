@@ -8,4 +8,4 @@
 
 SELECT Name, DateTime,Location
 FROM SHOWS
-WHERE Host = _main_loginIdentitiy[0]
+WHERE Host = 'martha_johnson'

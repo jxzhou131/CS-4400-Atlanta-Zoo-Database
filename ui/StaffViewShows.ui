@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>MainWindow</class>
- <widget class="QMainWindow" name="MainWindow">
+ <class>staffViewShows</class>
+ <widget class="QMainWindow" name="staffViewShows">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -14,7 +14,7 @@
    <string>View Staff Show</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QPushButton" name="pushButton">
+   <widget class="QPushButton" name="HomePushButton">
     <property name="geometry">
      <rect>
       <x>0</x>
@@ -46,7 +46,7 @@
      <string> Staff - Show History</string>
     </property>
    </widget>
-   <widget class="QTableWidget" name="tableWidget">
+   <widget class="QTableWidget" name="StaffTable">
     <property name="geometry">
      <rect>
       <x>150</x>
