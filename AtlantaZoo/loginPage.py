@@ -7,6 +7,7 @@
 # WARNING! All changes made in this file will be lost!
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+#################### MUST HAVE #################################################################
 # import the connection_pool established in the connect.py
 from __main__ import connection_pool
 # import the __main__ object to access the global variables: status, state, arg, loginIdentity
@@ -14,7 +15,7 @@ import __main__
 
 import sys
 app = QtWidgets.QApplication(sys.argv)
-
+################################################################################################
 class Ui_LoginPage(object):
     def setupUi(self, LoginPage):
         LoginPage.setObjectName("LoginPage")
@@ -157,7 +158,7 @@ class Ui_LoginPage(object):
         if(len(record) > 0):
             __main__.loginIdentity = record
             __main__.status = __main__.statusDef['Normal']
-            __main__.state = __main__.InitialUIs['exitInitialUIs'] # exit Initial UIs
+            __main__.state = __main__.initialUIs['exitInitialUIs'] # exit Initial UIs
             app.exit()
         else:
             self.showEmailNotExists()

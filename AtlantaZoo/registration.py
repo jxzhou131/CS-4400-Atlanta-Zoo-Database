@@ -12,10 +12,11 @@ from __main__ import connection_pool
 # import the __main__ object to access the global variables: status, state, arg, loginIdentity
 import __main__
 
-import re
-
 import sys
 app = QtWidgets.QApplication(sys.argv)
+
+import re
+
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
