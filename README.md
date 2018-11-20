@@ -31,10 +31,17 @@ Analyze, specify, design, implement, document and demonstrate an online system. 
 ## Installing pyqt to the environment
 1. Open your python 3.5 virtual environment.
 2. Type `conda install -c anaconda pyqt`
+3. Tutorial webpage
+  + [PyQt Documentation](https://www.tutorialspoint.com/pyqt/pyqt_tutorial.pdf)
 
 ## Installing packages for accessing remote MySQL server using python
 1. Open your python 3.5 virtual environment.
 2. Install mysql-connector-python. Type `pip install mysql-connector-python==8.0.11`.
+
+## MySQL Python Connector Tutorials
+Please install the mysql-connector-python in order to run the API to connect to MySQL database. `pip install mysql-connector-python==8.0.11`
+1. [Pynative](https://pynative.com/python-mysql-execute-parameterized-query-using-prepared-statement/)
+2. [W3School](https://www.w3schools.com/python/python_mysql_where.asp)
 
 References: 
 + [GeekforGeek](https://www.geeksforgeeks.org/mysqldb-connection-python/)
@@ -46,13 +53,6 @@ References:
 1. Open the QTDesigner. Complete your design. There are some tutorials available in the youtube. After completing your design you can __Preview__ your ui through *From -> Preview* or *Ctrl + R*. Next, save your .ui file in the folder that you stores your github code.
 
 2. Open your python 3.5 environment. Go to the directory that you have saved your .ui file. Then type `pyuic5 -x <nameOfTheUIFile> -o <nameOfTheUIFile>`. For example. `pyuic5 -x loginPage.ui -o loginPage.py`. The python file will be generated in the same folder as your .ui file.
-
-## MySQL Python Connector Tutorials
-Please install the mysql-connector-python in order to run the API to connect to MySQL database. `pip install mysql-connector-python==8.0.11`
-1. [Pynative](https://pynative.com/python-mysql-execute-parameterized-query-using-prepared-statement/)
-
-## SSHTunnel Python Library Installation
-1. `pip install sshtunnel`
 
 ## Access the Remote MySQL off campus
 1. Download Cisco or other VPN softwares that is able to connect to the campus ip address.
