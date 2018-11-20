@@ -170,6 +170,9 @@ class Ui_MainWindow(object):
         self.label_password.setText(_translate("MainWindow", "    Password:"))
         self.label_confirmpassword.setText(_translate("MainWindow", "   Confirm password:"))
 
+
+
+
     def Home(self):
         __main__.status = __main__.statusDef['Normal']
         __main__.state = __main__.initialUIs['loginPage'] # Login Page
@@ -177,8 +180,8 @@ class Ui_MainWindow(object):
 
     def register(self, userType):
         def _register():
-            email = self.emailLineEdit.text()
-            username = self.usernameLineEdit.text()
+            email = self.emailLineEdit.text().lstrip().rstrip()
+            username = self.usernameLineEdit.text().lstrip().rstrip()
             password = self.passwordLineEdit.text()
             confirmPassword = self.confirmPasswordLineEdit.text()
             if(password == confirmPassword):
