@@ -302,7 +302,7 @@
        </spacer>
       </item>
       <item row="0" column="1">
-       <widget class="QPushButton" name="addAnimalsButton">
+       <widget class="QPushButton" name="addShowButton">
         <property name="minimumSize">
          <size>
           <width>135</width>
@@ -315,7 +315,7 @@
          </font>
         </property>
         <property name="text">
-         <string>Add Animals</string>
+         <string>Add Show</string>
         </property>
        </widget>
       </item>
