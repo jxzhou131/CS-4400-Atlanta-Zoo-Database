@@ -7,16 +7,6 @@
 # WARNING! All changes made in this file will be lost!
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-#################### MUST HAVE #################################################################
-# import the connection_pool established in the connect.py
-from __main__ import connection_pool
-# import the __main__ object to access the global variables: status, state, arg, loginIdentity
-import __main__
-
-import sys
-app = QtWidgets.QApplication(sys.argv)
-################################################################################################
-
 
 class Ui_adminFunctionality(object):
     def setupUi(self, adminFunctionality):
