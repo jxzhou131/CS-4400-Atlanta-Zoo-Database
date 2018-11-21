@@ -7,7 +7,17 @@
 # WARNING! All changes made in this file will be lost!
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+#################### MUST HAVE #################################################################
+# import the connection_pool established in the connect.py
+from __main__ import connection_pool
+# import the __main__ object to access the global variables: status, state, arg, loginIdentity
+import __main__
 
+import util
+
+import sys
+app = QtWidgets.QApplication(sys.argv)
+################################################################################################
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
@@ -115,6 +125,8 @@ class Ui_MainWindow(object):
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
 
+        self.userDefinedInitialization()
+
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
@@ -143,6 +155,56 @@ class Ui_MainWindow(object):
         item.setText(_translate("MainWindow", "Date"))
         self.checkBox.setText(_translate("MainWindow", "All Date and Time"))
 
+    def userDefinedInitialization(self):
+        self.button_home.clicked.connect(self.home)
+        self.button_search.clicked.connect(self.searchShow)
+
+    def home(self):
+        __main__.status = __main__.statusDef['Normal']
+        __main__.state = __main__.visitorUIs['visitorFunctionality']
+        app.exit()
+
+    def searchShow(self):
+        dateTime = self.dateTimeEdit.dateTime()
+        # dt.toString("dd.MM.yyyy hh:mm:ss.zzz"))
+        dt_string = dateTime.toString("MM-dd-yyyy hh:mm:ss AP")
+        print(dt_string)
+        # dt_string = dt.toString(self.dateTimeEdit.displayFormat())
+        pass
+
+
+    # def addWHERE(cmd, dictVar):
+    #     """ 
+    #         How to create dictVar outside of this function?
+    #         -----------------------------------------------
+    #         Email = self.emailLineEdit.text()
+    #         Username = self.usernameLineEdit.text()
+
+    #         dictVar = {"Email": Email, "Username": Username}
+
+    #         INPUTS
+    #         =======
+    #         cmd: command to be concatenated with WHERE conditions
+    #         dictVar: contains {'name of variable': "value of variable"}
+    #     """
+    #     numWhereClausesAdded = 0
+    #     for name, value in dictVar.item():
+    #         if(value.lstrip().rstrip() == ""):
+    #             if(numWhereClausesAdded == 0):
+    #                 cmd += " WHERE "
+    #             else:
+    #                 cmd += " AND "
+    #             cmd += (name + " = " + value)
+    #     cmd += " ;"
+
+
+def render():
+    __main__.state = -10
+    MainWindow = QtWidgets.QMainWindow()
+    ui = Ui_MainWindow()
+    ui.setupUi(MainWindow)
+    MainWindow.show()
+    app.exec_()
 
 if __name__ == "__main__":
     import sys

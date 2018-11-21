@@ -137,7 +137,7 @@ class Ui_LoginPage(object):
 
     def login(self):
         # retrive the strings from the lineEdit object
-        email = self.emailLineEdit.text()
+        email = self.emailLineEdit.text().lstrip().rstrip()
         password = self.passwordLineEdit.text()
         # build the SQL query command
         cmd1 = "select * from USER where password = md5(\'" + password + "\') and email = \'" + email + "\';"

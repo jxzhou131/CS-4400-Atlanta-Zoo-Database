@@ -84,8 +84,10 @@ if __name__ == "__main__":
 
     import loginPage, registration
     import staffFunctionality
-    import visitorFunctionality
+
+    import visitorFunctionality, visitorSearchShow
     import administratorFunctionality, adminAddAnimals
+
 
     # comment this if you use want a fast login
     # then uncomment the statement below it
