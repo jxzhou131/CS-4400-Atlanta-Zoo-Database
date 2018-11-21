@@ -161,6 +161,7 @@ class Ui_MainWindow(object):
         item = self.tableWidget.horizontalHeaderItem(2)
         item.setText(_translate("MainWindow", "Date"))
         self.checkBox.setText(_translate("MainWindow", "All Date and Time"))
+        
     def userDefinedInitialization(self):
         self.button_home.clicked.connect(self.home)
         self.button_search.clicked.connect(self.searchShow)
@@ -246,11 +247,14 @@ class Ui_MainWindow(object):
         if(self.checkBox.isChecked()):
             DateTime = ""
 
-        listTuple = [('Name', Name), ("Location", Location), ("DateTime", DateTime)]
+        listTuple = [('Name', Name, "str"), ("Location", Location, "str"), ("DateTime", DateTime, "datetime")]
 
         cmd1 = "SELECT Name, Location as Exhibit, DateTime from SHOWS "
         cmd1 = util.addWHERE(cmd1, listTuple)
+        cmd1 += ";"
         # DEBUG OUTPUT
+        print("listTuple")
+        print(listTuple)
         print("cmd1")
         print(cmd1)
         # obtain the connection_object

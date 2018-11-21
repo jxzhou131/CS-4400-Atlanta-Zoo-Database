@@ -84,7 +84,7 @@ if __name__ == "__main__":
 
     import loginPage, registration
     import staffFunctionality
-    import visitorFunctionality, visitorSearchShow, visitorSearchAnimals, exhibitDetails
+    import visitorFunctionality, visitorSearchShow, visitorSearchAnimals, exhibitDetails, visitorExhibitHistory
     import administratorFunctionality
 
     # comment this if you use want a fast login
@@ -142,7 +142,7 @@ if __name__ == "__main__":
             visitorSearchAnimals.render()
             pass
           elif(state == visitorUIs["visitorExhibitHistory"]):
-            visitorShowHistory.render()
+            visitorExhibitHistory.render()
             pass
           elif(state == visitorUIs["animalDetails"]):
             animalDetails.render()
