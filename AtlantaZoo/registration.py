@@ -33,7 +33,6 @@ class Ui_MainWindow(object):
         self.gridLayout.addItem(spacerItem, 1, 0, 1, 5)
         self.Homebutton = QtWidgets.QPushButton(self.widget)
         self.Homebutton.setObjectName("Homebutton")
-        self.Homebutton.clicked.connect(self.Home)
         self.gridLayout.addWidget(self.Homebutton, 0, 0, 1, 1)
         self.Heading_register = QtWidgets.QLabel(self.widget)
         font = QtGui.QFont()
@@ -66,7 +65,6 @@ class Ui_MainWindow(object):
         font.setPointSize(15)
         self.registerStaffPushButton.setFont(font)
         self.registerStaffPushButton.setObjectName("registerStaffPushButton")
-        self.registerStaffPushButton.clicked.connect(self.register("STAFF"))
         self.gridLayout.addWidget(self.registerStaffPushButton, 7, 6, 1, 2)
         spacerItem10 = QtWidgets.QSpacerItem(183, 20, QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Minimum)
         self.gridLayout.addItem(spacerItem10, 4, 0, 1, 2)
@@ -91,7 +89,6 @@ class Ui_MainWindow(object):
         font.setPointSize(15)
         self.registerVisitorPushButton.setFont(font)
         self.registerVisitorPushButton.setObjectName("registerVisitorPushButton")
-        self.registerVisitorPushButton.clicked.connect(self.register("VISITOR"))
         self.gridLayout.addWidget(self.registerVisitorPushButton, 7, 3, 1, 3)
         spacerItem15 = QtWidgets.QSpacerItem(212, 20, QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Minimum)
         self.gridLayout.addItem(spacerItem15, 7, 0, 1, 3)
@@ -155,6 +152,8 @@ class Ui_MainWindow(object):
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
 
+        self.userDefinedInitialization()
+
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
@@ -171,6 +170,10 @@ class Ui_MainWindow(object):
         self.label_confirmpassword.setText(_translate("MainWindow", "   Confirm password:"))
 
 
+    def userDefinedInitialization(self):
+        self.Homebutton.clicked.connect(self.Home)
+        self.registerStaffPushButton.clicked.connect(self.register("STAFF"))
+        self.registerVisitorPushButton.clicked.connect(self.register("VISITOR"))
 
 
     def Home(self):
@@ -250,7 +253,7 @@ class Ui_MainWindow(object):
          b1= QtWidgets.QPushButton("close",d)
          b1.move(50,50)
          b1.clicked.connect(lambda : d.close())
-         d.setWindowTitle("PasswordsMissMatch")
+         d.setWindowTitle("Passwords Miss Match")
          d.setWindowModality(QtCore.Qt.ApplicationModal)
          d.exec_()
 
@@ -260,7 +263,7 @@ class Ui_MainWindow(object):
          b1= QtWidgets.QPushButton("close",d)
          b1.clicked.connect(lambda : d.close())
          b1.move(50,50)
-         d.setWindowTitle("showUsernameExists")
+         d.setWindowTitle("Username Exists")
          d.setWindowModality(QtCore.Qt.ApplicationModal)
          d.exec_()
 
@@ -270,7 +273,7 @@ class Ui_MainWindow(object):
          b1= QtWidgets.QPushButton("close",d)
          b1.clicked.connect(lambda : d.close())
          b1.move(50,50)
-         d.setWindowTitle("showUsernameNotExists")
+         d.setWindowTitle("Username Not Exists")
          d.setWindowModality(QtCore.Qt.ApplicationModal)
          d.exec_()
 
@@ -280,7 +283,7 @@ class Ui_MainWindow(object):
          b1= QtWidgets.QPushButton("close",d)
          b1.clicked.connect(lambda : d.close())
          b1.move(50,50)
-         d.setWindowTitle("showEmailNotValid")
+         d.setWindowTitle("Email Not Valid")
          d.setWindowModality(QtCore.Qt.ApplicationModal)
          d.exec_()     
 

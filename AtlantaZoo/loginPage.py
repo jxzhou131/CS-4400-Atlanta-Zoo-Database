@@ -190,7 +190,7 @@ class Ui_LoginPage(object):
          d.setMinimumSize(350, 50)
          b1.move(50,50)
          b1.clicked.connect(lambda : d.close())
-         d.setWindowTitle("showEmailNotExists")
+         d.setWindowTitle("Email Not Exists")
          d.setWindowModality(QtCore.Qt.ApplicationModal)
          d.exec_()
 

@@ -1,3 +1,10 @@
+# CONVERT DATETIME TO STRING
+# Example
+# print(record[0][1].strftime("%m/%d/%Y %I:%M:%S %p"))
+
+# Try datetime
+# print(time.strftime("%m/%d/%Y %I:%M:%S %p"))
+
 def addWHERE(cmd, listTuple):
     """ 
         How to create dictVar outside of this function?
@@ -27,7 +34,7 @@ def addWHERE(cmd, listTuple):
             else:
                 cmd += " AND "
             if(name == "DateTime"):
-                cmd += ("STR_TO_DATE(\'" + value + "\', \'%m/%d/%Y %r\')")
+                cmd += (name + " = STR_TO_DATE(\'" + value + "\', \'%m/%d/%Y %r\')")
             elif("Min" in name):
                 modifiedName = name.replace("Min",'')
                 cmd += ( modifiedName + " BETWEEN " + str(value) )
