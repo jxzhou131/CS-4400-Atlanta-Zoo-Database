@@ -160,26 +160,82 @@ class Ui_MainWindow(object):
     def userDefinedInitialization(self):
         self.button_home.clicked.connect(self.home)
         self.button_search.clicked.connect(self.searchShow)
+        self.tableWidget.setColumnWidth(0, 200)
+        self.tableWidget.setColumnWidth(1, 80)
+        self.tableWidget.setColumnWidth(2, 250)
+        self.tableWidget.cellClicked.connect(self.highlightRowOrToExhibit)
+        self.tableWidget.setSelectionMode(QtWidgets.QAbstractItemView.ExtendedSelection)
+        self.preloadTable()
+
+    def highlightRowOrToExhibit(self, row, column):
+        # highlight the row selected
+        self.tableWidget.selectRow(row)
+        # retrieve the content in the cell
+        if(column == 1):
+            Name = str(self.tableWidget.item(row,column).text())
+            __main__.arg = [("Name", Name)]
+            __main__.status = __main__.statusDef["Normal"]
+            __main__.state = __main__.visitorUIs["exhibitDetail"]
+        print("row, column, text")
+        print(str(row) + "," + str(column) + "," + text)
 
     def home(self):
         __main__.status = __main__.statusDef['Normal']
         __main__.state = __main__.visitorUIs['visitorFunctionality']
         app.exit()
 
+    def preloadTable(self):
+        cmd1 = "SELECT Name, Location as Exhibit, DateTime from SHOWS ;"
+        # obtain the connection_object
+        connection_object = connection_pool.get_connection()
+        # these three lines of code is used for debugging: CHECK FOR CONNECTIONS
+        if connection_object.is_connected():
+            db_Info = connection_object.get_server_info()
+        print("Connected to MySQL database using connection pool ... MySQL Server version on ",db_Info)
+        # get cursor
+        cursor = connection_object.cursor()
+        # use cursor to execute sql command
+        cursor.execute(cmd1)
+        # there could have multiple lines of sql command
+        # after all the command, retrieve the queries
+        record = cursor.fetchall()
+
+        print(record)
+        self.tableWidget.setRowCount(0)
+        for row_num, row_data in enumerate(record):
+            self.tableWidget.insertRow(row_num)
+            for column_num, data in enumerate(row_data):
+                # IMPORTANT
+                # first you must determine in which column does the DateTime attribute occur in your 
+                # query
+                DATETIMECOLUMN = 2
+                cellContent = None
+                if(column_num == DATETIMECOLUMN):
+                    cellContent = data.strftime("%m/%d/%Y %I:%M:%S %p")
+                if(cellContent is None):
+                    cellContent = str(data)
+                self.tableWidget.setItem(row_num, column_num, QtWidgets.QTableWidgetItem(cellContent))
+
+        # close the cursor and connection
+        if(connection_object.is_connected()):
+            cursor.close()
+            connection_object.close()
+            print("MySQL connection is closed")
+
     def searchShow(self):
         Name = self.lineEdit_name.text().lstrip().rstrip()
-        Exhibit = str(self.comboBox_exb.currentText())
+        Location = str(self.comboBox_exb.currentText())
         DateTime = self.dateTimeEdit.dateTime().toString("MM-dd-yyyy hh:mm:ss AP")
 
-        if(Exhibit == "All"):
+        if(Location == "All"):
             Exhibit = ""
 
         if(self.checkBox.isChecked()):
             DateTime = ""
 
-        dictVar = {'Name': Name, "Exhibit": Exhibit, "DateTime": DateTime}
+        dictVar = {'Name': Name, "Location": Location, "DateTime": DateTime}
 
-        cmd1 = "SELECT * from SHOWS "
+        cmd1 = "SELECT Name, Location as Exhibit, DateTime from SHOWS "
         cmd1 = util.addWHERE(cmd1, dictVar)
         # DEBUG OUTPUT
         print("cmd1")
@@ -206,6 +262,19 @@ class Ui_MainWindow(object):
 
         # Try datetime
         # print(time.strftime("%m/%d/%Y %I:%M:%S %p"))
+        self.tableWidget.setRowCount(0)
+        for row_num, row_data in enumerate(record):
+            self.tableWidget.insertRow(row_num)
+            for column_num, data in enumerate(row_data):
+                # IMPORTANT
+                DATETIMECOLUMN = 2
+                cellContent = None
+                if(column_num == DATETIMECOLUMN):
+                    cellContent = data.strftime("%m/%d/%Y %I:%M:%S %p")
+                if(cellContent == None):
+                    cellContent = str(data)
+                self.tableWidget.setItem(row_num, column_num,QtWidgets.QTableWidgetItem(cellContent))
+
 
         # close the cursor and connection
         if(connection_object.is_connected()):

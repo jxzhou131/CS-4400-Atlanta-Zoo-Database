@@ -14,7 +14,7 @@ def addWHERE(cmd, dictVar):
         INPUTS
         =======
         cmd: command to be concatenated with WHERE conditions
-        dictVar: contains {'name of variable': "value of variable"}
+        dictVar: contains {'name of attribute': "value of variable"}
     """
     numWhereClausesAdded = 0
     for name, value in dictVar.items():
