@@ -27,30 +27,11 @@
      <string>HOME</string>
     </property>
    </widget>
-   <widget class="QTableView" name="tableView">
-    <property name="geometry">
-     <rect>
-      <x>120</x>
-      <y>290</y>
-      <width>411</width>
-      <height>192</height>
-     </rect>
-    </property>
-    <property name="showGrid">
-     <bool>true</bool>
-    </property>
-    <attribute name="horizontalHeaderVisible">
-     <bool>true</bool>
-    </attribute>
-    <attribute name="horizontalHeaderCascadingSectionResizes">
-     <bool>true</bool>
-    </attribute>
-   </widget>
    <widget class="QPushButton" name="Searchbutton">
     <property name="geometry">
      <rect>
-      <x>260</x>
-      <y>240</y>
+      <x>280</x>
+      <y>230</y>
       <width>113</width>
       <height>32</height>
      </rect>
@@ -78,7 +59,7 @@
      <string>Animals</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label">
+   <widget class="QLabel" name="label_name">
     <property name="geometry">
      <rect>
       <x>120</x>
@@ -193,7 +174,7 @@
      </rect>
     </property>
    </widget>
-   <widget class="QComboBox" name="comboBox">
+   <widget class="QComboBox" name="ExhibitCombo">
     <property name="geometry">
      <rect>
       <x>470</x>
@@ -202,8 +183,38 @@
       <height>26</height>
      </rect>
     </property>
+    <item>
+     <property name="text">
+      <string>All</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Pacific</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Jungle</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Sahara</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Mountainous</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Birds</string>
+     </property>
+    </item>
    </widget>
-   <widget class="QComboBox" name="comboBox_2">
+   <widget class="QComboBox" name="TypeCombo">
     <property name="geometry">
      <rect>
       <x>460</x>
@@ -214,32 +225,37 @@
     </property>
     <item>
      <property name="text">
-      <string>mammal</string>
+      <string>All</string>
      </property>
     </item>
     <item>
      <property name="text">
-      <string>bird</string>
+      <string>Mammal</string>
      </property>
     </item>
     <item>
      <property name="text">
-      <string>amphibian</string>
+      <string>Bird</string>
      </property>
     </item>
     <item>
      <property name="text">
-      <string>reptile</string>
+      <string>Amphibian</string>
      </property>
     </item>
     <item>
      <property name="text">
-      <string>fish</string>
+      <string>Reptile</string>
      </property>
     </item>
     <item>
      <property name="text">
-      <string>invertebrate</string>
+      <string>Fish</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Invertebrate</string>
      </property>
     </item>
    </widget>
@@ -300,6 +316,41 @@
       <height>24</height>
      </rect>
     </property>
+   </widget>
+   <widget class="QTableWidget" name="tableWidget">
+    <property name="geometry">
+     <rect>
+      <x>150</x>
+      <y>280</y>
+      <width>501</width>
+      <height>192</height>
+     </rect>
+    </property>
+    <column>
+     <property name="text">
+      <string>Name</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Species</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Exhibit</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Type</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Age</string>
+     </property>
+    </column>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">

@@ -1,12 +1,13 @@
-# -*- coding: utf-8 -*-
-
-# Form implementation generated from reading ui file 'visitorSearchAnimals.ui'
-#
-# Created by: PyQt5 UI code generator 5.9.2
-#
-# WARNING! All changes made in this file will be lost!
-
 from PyQt5 import QtCore, QtGui, QtWidgets
+# import the connection_pool established in the connect.py
+from __main__ import connection_pool
+# import the __main__ object to access the global variables: status, state, arg, loginIdentity
+import __main__
+import sys
+app = QtWidgets.QApplication(sys.argv)
+
+import util
+
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -130,10 +131,12 @@ class Ui_MainWindow(object):
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
-
+        
+        self.userDefinedInitialisation()
+        
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
-
+    
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
@@ -171,6 +174,83 @@ class Ui_MainWindow(object):
         item = self.tableWidget.horizontalHeaderItem(4)
         item.setText(_translate("MainWindow", "Age"))
 
+    def userDefinedInitialisation(self):
+        self.Searchbutton.clicked.connect(self.searchAnimal)
+        self.Homebutton.clicked.connect(self.home)
+
+    def searchAnimal(self):
+        Name = self.lineEdit_name.text()
+        Species = self.lineEdit_species.text()
+        Exhibit = self.ExhibitCombo.currentText()
+        Type = self.TypeCombo.currentText()
+        MaxAge = self.spinBox_max.value()
+        MinAge = self.spinBox_min.value()
+        
+        if(Exhibit=="All"):
+            Exhibit=""
+        if(Type=="All"):
+            Type=""
+        if(MaxAge==0 and MinAge==0):
+            MaxAge=''
+            MinAge=''
+        
+        listTuple = [("Name", Name), ("Species", Species),("Exhibit",Exhibit),("Type", Type),("MinAge", MinAge),("MaxAge", MaxAge)]
+
+        cmd1= "SELECT Name, Species, Exhibit, Type, Age FROM ANIMAL"
+        
+        cmd1 = util.addWHERE(cmd1, listTuple)
+
+        print(cmd1)
+        
+#        if(len(name)>0):
+#            cmd1+= ("Name = \'" + name + "\' ")
+#        if(len(species)>0):
+#            cmd1+=("AND Species = \'" + species + "\' ")
+#        if(len(exhibit)>0 and exhibit!='All'):
+#            cmd1+=("AND Exhibit = \'" + exhibit + "\' ")
+#        if(len(type)>0 and type!='All'):
+#            cmd1+=("AND Type = \'" + type + "\' ")
+#        if(maxAge>0):
+#            cmd1+=("AND Age <= \'" + maxAge + "\' ")
+#        if(minAge>0):
+#            cmd1+=("AND Age >= \'" + minAge + "\' ")
+
+        connection_object = connection_pool.get_connection()
+        if connection_object.is_connected():
+            db_Info = connection_object.get_server_info()
+            print("Connected to MySQL database using connection pool ... MySQL Server version on ",db_Info)
+        
+        cursor = connection_object.cursor()
+
+        cursor.execute(cmd1)
+        record = cursor.fetchall()
+
+
+        if(connection_object.is_connected()):
+            cursor.close()
+            connection_object.close()
+            print("MySQL connection is closed")
+
+
+
+    def home(self):
+        __main__.status = __main__.statusDef['Normal']
+        __main__.state = __main__.visitorUIs['visitorFunctionality'] # visitor
+        app.exit()
+
+
+def render():
+    # import sys
+    # app = QtWidgets.QApplication(sys.argv)
+    __main__.state = -10
+    MainWindow = QtWidgets.QMainWindow()
+    ui = Ui_MainWindow()
+    ui.setupUi(MainWindow)
+    MainWindow.show()
+    app.exec_()
+    # close the WINDOWS
+    MainWindow.close()
+
 
 if __name__ == "__main__":
     import sys
@@ -179,5 +259,10 @@ if __name__ == "__main__":
     ui = Ui_MainWindow()
     ui.setupUi(MainWindow)
     MainWindow.show()
+    
+    table = MyTable(data, 5, 5)
+    table.show()
     sys.exit(app.exec_())
+
+
 
