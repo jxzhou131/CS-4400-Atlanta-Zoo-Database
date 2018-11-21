@@ -7,7 +7,19 @@
 # WARNING! All changes made in this file will be lost!
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+#################### MUST HAVE #################################################################
+# import the connection_pool established in the connect.py
+from __main__ import connection_pool
+# import the __main__ object to access the global variables: status, state, arg, loginIdentity
+import __main__
 
+import util
+
+import time
+
+import sys
+app = QtWidgets.QApplication(sys.argv)
+################################################################################################
 class Ui_staffAnimalCare(object):
     def setupUi(self, staffAnimalCare):
         staffAnimalCare.setObjectName("staffAnimalCare")
@@ -236,6 +248,15 @@ class Ui_staffAnimalCare(object):
         self.Age.setText(_translate("staffAnimalCare", "Age:"))
         self.AgeName.setText(_translate("staffAnimalCare", "1 year"))
 
+def render():
+    __main__.state = -10
+    staffAnimalCare = QtWidgets.QMainWindow()
+    ui = Ui_staffAnimalCare()
+    ui.setupUi(staffAnimalCare)
+    staffAnimalCare.show()
+    app.exec_()
+    # close the staffAnimalCare window
+    staffAnimalCare.close()
 
 if __name__ == "__main__":
     import sys

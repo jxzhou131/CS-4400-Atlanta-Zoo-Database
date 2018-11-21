@@ -1,13 +1,37 @@
+<<<<<<< HEAD
 from PyQt5 import QtCore, QtGui, QtWidgets
+=======
+# -*- coding: utf-8 -*-
+
+# Form implementation generated from reading ui file 'exhibitDetails.ui'
+#
+# Created by: PyQt5 UI code generator 5.9.2
+#
+# WARNING! All changes made in this file will be lost!
+
+from PyQt5 import QtCore, QtGui, QtWidgets
+#################### MUST HAVE #################################################################
+>>>>>>> c2c02f4e05a49696d465ab4a65b0414b0255e84e
 # import the connection_pool established in the connect.py
 from __main__ import connection_pool
 # import the __main__ object to access the global variables: status, state, arg, loginIdentity
 import __main__
+<<<<<<< HEAD
 import sys
 app = QtWidgets.QApplication(sys.argv)
 import time
 
 
+=======
+
+import util
+
+import time
+
+import sys
+app = QtWidgets.QApplication(sys.argv)
+################################################################################################
+>>>>>>> c2c02f4e05a49696d465ab4a65b0414b0255e84e
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
@@ -84,12 +108,19 @@ class Ui_MainWindow(object):
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
+<<<<<<< HEAD
         
         self.userDefinedInitialisation()
         
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
     
+=======
+
+        self.retranslateUi(MainWindow)
+        QtCore.QMetaObject.connectSlotsByName(MainWindow)
+
+>>>>>>> c2c02f4e05a49696d465ab4a65b0414b0255e84e
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
@@ -109,6 +140,7 @@ class Ui_MainWindow(object):
         item = self.tableWidget.horizontalHeaderItem(1)
         item.setText(_translate("MainWindow", "Species"))
 
+<<<<<<< HEAD
     def userDefinedInitialisation(self):
         self.Logvisit.clicked.connect(self.logvisit)
         self.Homebutton.clicked.connect(self.home)
@@ -151,16 +183,26 @@ class Ui_MainWindow(object):
 def render():
     # import sys
     # app = QtWidgets.QApplication(sys.argv)
+=======
+
+
+def render():
+>>>>>>> c2c02f4e05a49696d465ab4a65b0414b0255e84e
     __main__.state = -10
     MainWindow = QtWidgets.QMainWindow()
     ui = Ui_MainWindow()
     ui.setupUi(MainWindow)
     MainWindow.show()
     app.exec_()
+<<<<<<< HEAD
     # close the WINDOWS
     MainWindow.close()
 
 
+=======
+    MainWindow.close()
+
+>>>>>>> c2c02f4e05a49696d465ab4a65b0414b0255e84e
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
@@ -170,5 +212,8 @@ if __name__ == "__main__":
     MainWindow.show()
     sys.exit(app.exec_())
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> c2c02f4e05a49696d465ab4a65b0414b0255e84e

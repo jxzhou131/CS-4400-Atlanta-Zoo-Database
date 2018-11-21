@@ -125,7 +125,7 @@
      </font>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton">
+   <widget class="QPushButton" name="searchPushButton">
     <property name="geometry">
      <rect>
       <x>330</x>
@@ -144,16 +144,6 @@
      <string>Search</string>
     </property>
    </widget>
-   <widget class="QTableView" name="tableView">
-    <property name="geometry">
-     <rect>
-      <x>80</x>
-      <y>341</y>
-      <width>631</width>
-      <height>211</height>
-     </rect>
-    </property>
-   </widget>
    <widget class="QDateTimeEdit" name="dateTimeEdit">
     <property name="geometry">
      <rect>
@@ -169,8 +159,11 @@
       <pointsize>12</pointsize>
      </font>
     </property>
+    <property name="displayFormat">
+     <string>M/d/yyyy h:mm AP</string>
+    </property>
    </widget>
-   <widget class="QSpinBox" name="spinBox">
+   <widget class="QSpinBox" name="numVisitsMinSpinBox">
     <property name="geometry">
      <rect>
       <x>370</x>
@@ -224,7 +217,7 @@
      <string>(Max)</string>
     </property>
    </widget>
-   <widget class="QSpinBox" name="spinBox_2">
+   <widget class="QSpinBox" name="numVisitsMaxSpinBox">
     <property name="geometry">
      <rect>
       <x>540</x>
@@ -238,6 +231,44 @@
       <family>MS Sans Serif</family>
       <pointsize>12</pointsize>
      </font>
+    </property>
+   </widget>
+   <widget class="QTableWidget" name="tableWidget">
+    <property name="geometry">
+     <rect>
+      <x>62</x>
+      <y>346</y>
+      <width>678</width>
+      <height>213</height>
+     </rect>
+    </property>
+    <column>
+     <property name="text">
+      <string>Name</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Date Time</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Number of Visits</string>
+     </property>
+    </column>
+   </widget>
+   <widget class="QCheckBox" name="dateTimeCheckBox">
+    <property name="geometry">
+     <rect>
+      <x>711</x>
+      <y>147</y>
+      <width>81</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>All Time</string>
     </property>
    </widget>
   </widget>
