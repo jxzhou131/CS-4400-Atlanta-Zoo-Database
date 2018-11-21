@@ -11,6 +11,8 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from __main__ import connection_pool
 # import the __main__ object to access the global variables: status, state, arg, loginIdentity
 import __main__
+import util
+import time
 
 import sys
 app = QtWidgets.QApplication(sys.argv)
@@ -85,7 +87,13 @@ class Ui_staffViewShows(object):
         for row_number, row_data in enumerate(result):
             self.StaffTable.insertRow(row_number)
             for column_number, data in enumerate(row_data):
-                self.StaffTable.setItem(row_number, column_number, QtWidgets.QTableWidgetItem(str(data)))
+                DATETIMECOLUMN = 1
+                cellContent = None
+                if(column_number == DATETIMECOLUMN):
+                    cellContent = data.strftime("%m/%d/%Y %I:%M:%S %p")
+                if(cellContent is None):
+                    cellContent = str(data)
+                self.StaffTable.setItem(row_number, column_number, QtWidgets.QTableWidgetItem(str(cellContent)))
 
         if(connection_object.is_connected()):
             cursor.close()
