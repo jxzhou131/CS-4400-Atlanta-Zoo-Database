@@ -176,6 +176,8 @@ class Ui_MainWindow(object):
             __main__.arg = [("Name", Name)]
             __main__.status = __main__.statusDef["Normal"]
             __main__.state = __main__.visitorUIs["exhibitDetail"]
+            app.exit()
+        # FOR DEBUGGING PURPOSE
         print("row, column, text")
         print(str(row) + "," + str(column) + "," + text)
 
