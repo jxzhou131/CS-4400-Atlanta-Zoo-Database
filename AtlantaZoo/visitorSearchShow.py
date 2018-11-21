@@ -15,6 +15,8 @@ import __main__
 
 import util
 
+import time
+
 import sys
 app = QtWidgets.QApplication(sys.argv)
 ################################################################################################
@@ -165,10 +167,52 @@ class Ui_MainWindow(object):
         app.exit()
 
     def searchShow(self):
-        dateTime = self.dateTimeEdit.dateTime()
+        Name = self.lineEdit_name.text().lstrip().rstrip()
+        Exhibit = str(self.comboBox_exb.currentText())
+        DateTime = self.dateTimeEdit.dateTime().toString("MM-dd-yyyy hh:mm:ss AP")
+
+        if(Exhibit == "All"):
+            Exhibit = ""
+
+        if(self.checkBox.isChecked()):
+            DateTime = ""
+
+        dictVar = {'Name': Name, "Exhibit": Exhibit, "DateTime": DateTime}
+
+        cmd1 = "SELECT * from SHOWS "
+        cmd1 = util.addWHERE(cmd1, dictVar)
+        # DEBUG OUTPUT
+        print("cmd1")
+        print(cmd1)
+        # obtain the connection_object
+        connection_object = connection_pool.get_connection()
+        # these three lines of code is used for debugging: CHECK FOR CONNECTIONS
+        if connection_object.is_connected():
+            db_Info = connection_object.get_server_info()
+        print("Connected to MySQL database using connection pool ... MySQL Server version on ",db_Info)
+        # get cursor
+        cursor = connection_object.cursor()
+        # use cursor to execute sql command
+        cursor.execute(cmd1)
+        # there could have multiple lines of sql command
+        # after all the command, retrieve the queries
+        record = cursor.fetchall()
+
+        print(record)
+
+        # CONVERT DATETIME TO STRING
+        # Example
+        # print(record[0][1].strftime("%m/%d/%Y %I:%M:%S %p"))
+
+        # Try datetime
+        # print(time.strftime("%m/%d/%Y %I:%M:%S %p"))
+
+        # close the cursor and connection
+        if(connection_object.is_connected()):
+            cursor.close()
+            connection_object.close()
+            print("MySQL connection is closed")
         # dt.toString("dd.MM.yyyy hh:mm:ss.zzz"))
-        dt_string = dateTime.toString("MM-dd-yyyy hh:mm:ss AP")
-        print(dt_string)
         # dt_string = dt.toString(self.dateTimeEdit.displayFormat())
         pass
 
