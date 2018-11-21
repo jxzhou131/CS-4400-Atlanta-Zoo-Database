@@ -60,24 +60,3 @@ def addWHERE(cmd, listTuple):
                 cmd += ( name + " = " + str(value) + " ")
             numWhereClausesAdded += 1
     return cmd
-    #     if((type(value) is str) and value.lstrip().rstrip() == ""):
-    #         pass
-    #     else:
-    #         if(numWhereClausesAdded == 0):
-    #             cmd += " WHERE "
-    #         else:
-    #             cmd += " AND "
-    #         if(name == "DateTime"):
-    #             cmd += (name + " = STR_TO_DATE(\'" + value + "\', \'%m/%d/%Y %r\')")
-    #         elif("Min" in name):
-    #             modifiedName = name.replace("Min",'')
-    #             cmd += ( modifiedName + " BETWEEN " + str(value) )
-    #         elif("Max" in name):
-    #             cmd += ( str(value) )
-    #         elif(name == "WaterFeature"):
-    #             cmd += ( name + " = " + str(value) + " ")
-    #         else:
-    #             cmd += ( name + " = \'" + value + "\'")
-    #         numWhereClausesAdded += 1
-    # cmd += " ;"
-    # return cmd
