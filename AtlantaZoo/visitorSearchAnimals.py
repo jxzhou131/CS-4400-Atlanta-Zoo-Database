@@ -192,11 +192,12 @@ class Ui_MainWindow(object):
             Exhibit=""
         if(Type=="All"):
             Type=""
-        if(MaxAge==0 and MinAge==0):
+        if(MaxAge==0):
             MaxAge=''
+        if(MinAge==0):
             MinAge=''
         
-        listTuple = [("Name", Name), ("Species", Species),("Exhibit",Exhibit),("Type", Type),("MinAge", MinAge),("MaxAge", MaxAge)]
+        listTuple = [("Name", Name, "str"), ("Species", Species, "str"),("Exhibit",Exhibit, "str"),("Type", Type, "str"),("MinAge", MinAge, "int"),("MaxAge", MaxAge, "int")]
 
         cmd1= "SELECT Name, Species, Exhibit, Type, Age FROM ANIMAL"
         

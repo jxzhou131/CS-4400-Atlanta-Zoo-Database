@@ -151,9 +151,9 @@ class Ui_MainWindow(object):
         item = self.tableWidget.horizontalHeaderItem(1)
         item.setText(_translate("MainWindow", "Size"))
         item = self.tableWidget.horizontalHeaderItem(2)
-        item.setText(_translate("MainWindow", "NumAnimals"))
-        item = self.tableWidget.horizontalHeaderItem(3)
         item.setText(_translate("MainWindow", "WaterFeature"))
+        item = self.tableWidget.horizontalHeaderItem(3)
+        item.setText(_translate("MainWindow", "NumAnimals"))
 
 
 if __name__ == "__main__":

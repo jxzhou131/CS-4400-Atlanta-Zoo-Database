@@ -307,12 +307,12 @@
     </column>
     <column>
      <property name="text">
-      <string>NumAnimals</string>
+      <string>WaterFeature</string>
      </property>
     </column>
     <column>
      <property name="text">
-      <string>WaterFeature</string>
+      <string>NumAnimals</string>
      </property>
     </column>
    </widget>

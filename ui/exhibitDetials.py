@@ -1,24 +1,12 @@
+# -*- coding: utf-8 -*-
+
+# Form implementation generated from reading ui file 'exhibitDetails.ui'
+#
+# Created by: PyQt5 UI code generator 5.9.2
+#
+# WARNING! All changes made in this file will be lost!
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-#################### MUST HAVE #################################################################
-# import the connection_pool established in the connect.py
-from __main__ import connection_pool
-# import the __main__ object to access the global variables: status, state, arg, loginIdentity
-import __main__
-import sys
-app = QtWidgets.QApplication(sys.argv)
-import time
-
-
-
-
-import util
-
-import time
-
-import sys
-app = QtWidgets.QApplication(sys.argv)
-################################################################################################
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -100,12 +88,10 @@ class Ui_MainWindow(object):
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
-        
-        self.userDefinedInitialisation()
-        
+
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
-    
+
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
@@ -121,59 +107,6 @@ class Ui_MainWindow(object):
         item = self.tableWidget.horizontalHeaderItem(1)
         item.setText(_translate("MainWindow", "Species"))
 
-    def userDefinedInitialisation(self):
-        self.Logvisit.clicked.connect(self.logvisit)
-        self.Homebutton.clicked.connect(self.home)
-
-
-    def display(self):
-
-        cmd =" SELECT Name FROM EXHIBIT"
-        cmd = util.addWhere(Cmd, __main__.arg)
-        cursor = connection_object.cursor()
-        cursor.execute(cmd1)
-        record = cursor.fetchall()
-        self.display_name.setObjectName("\'" + record + "\'")
-    
-    
-        self.display_numanimal.setObjectName("display_numanimal")
-        self.dislay_size.setObjectName("dislay_size")
-        self.display_waterfeature.setObjectName("display_waterfeature")
-    
-
-    def logvisit(self):
-
-        cmd1 =" SELECT Name FROM EXHIBIT"
-        cmd1 = util.addWhere(Cmd, __main__.arg)
-        cursor = connection_object.cursor()
-        cursor.execute(cmd1)
-        record = cursor.fetchall()
-        
-        cmd2="insert into VISITEXHIBIT values(‘loginIdentity[0][0]’，\'" + record + "\'，\‘" +  time.strftime("%m/%d/%Y %I:%M:%S %p")+"\')"
-
-
-    def home(self):
-        __main__.status = __main__.statusDef['Normal']
-        __main__.state = __main__.visitorUIs['visitorFunctionality'] # visitor
-        app.exit()
-
-
-
-
-def render():
-    __main__.state = -10
-    MainWindow = QtWidgets.QMainWindow()
-    ui = Ui_MainWindow()
-    ui.setupUi(MainWindow)
-    MainWindow.show()
-    app.exec_()
-
-    # close the WINDOWS
-    MainWindow.close()
-
-
-    MainWindow.close()
-
 
 if __name__ == "__main__":
     import sys
@@ -183,3 +116,4 @@ if __name__ == "__main__":
     ui.setupUi(MainWindow)
     MainWindow.show()
     sys.exit(app.exec_())
+

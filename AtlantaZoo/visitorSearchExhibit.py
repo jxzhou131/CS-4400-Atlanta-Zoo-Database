@@ -128,7 +128,7 @@ class Ui_MainWindow(object):
         MainWindow.setStatusBar(self.statusbar)
         
         self.userDefinedInitialisation()
-
+        
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
     
@@ -154,9 +154,9 @@ class Ui_MainWindow(object):
         item = self.tableWidget.horizontalHeaderItem(1)
         item.setText(_translate("MainWindow", "Size"))
         item = self.tableWidget.horizontalHeaderItem(2)
-        item.setText(_translate("MainWindow", "NumAnimals"))
-        item = self.tableWidget.horizontalHeaderItem(3)
         item.setText(_translate("MainWindow", "WaterFeature"))
+        item = self.tableWidget.horizontalHeaderItem(3)
+        item.setText(_translate("MainWindow", "NumAnimals"))
 
 
     def userDefinedInitialisation(self):
@@ -173,27 +173,32 @@ class Ui_MainWindow(object):
         WaterFeature= self.WaterCombo.currentText()
         
         if(WaterFeature=="All"):
-            WaterFeature=''
+            WaterFeature=""
         if(WaterFeature=="Yes"):
             WaterFeature="True"
         if(WaterFeature=="No"):
             WaterFeature="False"
-        if(MaxSize==0 and MinSize==0):
+        if(MaxSize==0):
             MaxSize=''
+        if(MinSize==0):
             MinSize=''
-        if(MaxNum==0 and MinSize==0):
+        if(MaxNum==0):
             MaxNum=''
+        if(MinNum==0):
             MinNum=''
+        
                 
 
-        cmd1= "SELECT E.Name, WaterFeature, Size, COUNT(*) FROM EXHIBIT as E, ANIMAL as A"
+        cmd1= "SELECT * FROM (SELECT E.Name, WaterFeature, Size, COUNT(*) as Num FROM EXHIBIT as E, ANIMAL as A"
         
         AExhibit = "A.Exhibit"
-        listTuple = [("E.Name", AExhibit), ("E.name", Name),("MinSize",MinSize),("WaterFeature",WaterFeature),("MaxSize", MaxSize),("MinCOUNT(*)", MinNum),("MaxCOUNT(*)", MaxNum)]
+        listTuple1 = [("E.Name", AExhibit, "var"), ("E.name", Name,"str"),("MinSize",MinSize,"int"),("WaterFeature",WaterFeature, "bool"),("MaxSize", MaxSize, "int")]
+        listTuple2=[("MinNum", MinNum,"int"),("MaxNum", MaxNum,"int")]
         
         cmd1 = util.addWHERE(cmd1, listTuple)
         
-        cmd1 += "GROUP BY E.Name"
+        cmd1 += "GROUP BY E.Name) as t1"
+        cmd1 = util.addWHERE(cmd1, listTuple2)
 
         print(cmd1)
         
@@ -220,7 +225,7 @@ class Ui_MainWindow(object):
         # highlight the row selected
         self.tableWidget.selectRow(row)
         # Enter IF statement if the selected column is the exhibit column
-        if(column == 2):
+        if(column == 0):
             # retrieve the content in the cell
             Name = str(self.tableWidget.item(row,column).text())
             # store the information into the __main__.arg
