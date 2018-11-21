@@ -8,17 +8,8 @@ import __main__
 import sys
 app = QtWidgets.QApplication(sys.argv)
 import time
-
-
-
-
 import util
 
-import time
-
-import sys
-app = QtWidgets.QApplication(sys.argv)
-################################################################################################
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -133,7 +124,7 @@ class Ui_MainWindow(object):
         cursor = connection_object.cursor()
         cursor.execute(cmd1)
         record = cursor.fetchall()
-        self.display_name.setObjectName("\'" + record + "\'")
+        self.lineEdit_name.setObjectName("\'" + record + "\'")
     
     
         self.display_numanimal.setObjectName("display_numanimal")
