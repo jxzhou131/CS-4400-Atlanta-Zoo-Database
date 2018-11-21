@@ -1,12 +1,13 @@
-# -*- coding: utf-8 -*-
-
-# Form implementation generated from reading ui file 'visitorSearchExhibit.ui'
-#
-# Created by: PyQt5 UI code generator 5.9.2
-#
-# WARNING! All changes made in this file will be lost!
-
 from PyQt5 import QtCore, QtGui, QtWidgets
+# import the connection_pool established in the connect.py
+from __main__ import connection_pool
+# import the __main__ object to access the global variables: status, state, arg, loginIdentity
+import __main__
+import sys
+app = QtWidgets.QApplication(sys.argv)
+
+import util
+
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -125,10 +126,12 @@ class Ui_MainWindow(object):
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
+        
+        self.userDefinedInitialisation()
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
-
+    
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
@@ -156,6 +159,101 @@ class Ui_MainWindow(object):
         item.setText(_translate("MainWindow", "WaterFeature"))
 
 
+    def userDefinedInitialisation(self):
+        self.Searchbutton.clicked.connect(self.searchExhibit)
+        self.Homebutton.clicked.connect(self.home)
+        self.tableWidget.cellClicked.connect(self.highlightRowOrToExhibit)
+
+    def searchExhibit(self):
+        Name = self.lineEdit_name.text()
+        MaxSize = self.spinBox_maxsize.value()
+        MinSize = self.spinBox_minsize.value()
+        MaxNum= self.spinBox_maxnum.value()
+        MinNum= self.spinBox_minnum.value()
+        WaterFeature= self.WaterCombo.currentText()
+        
+        if(WaterFeature=="All"):
+            WaterFeature=''
+        if(WaterFeature=="Yes"):
+            WaterFeature="True"
+        if(WaterFeature=="No"):
+            WaterFeature="False"
+        if(MaxSize==0 and MinSize==0):
+            MaxSize=''
+            MinSize=''
+        if(MaxNum==0 and MinSize==0):
+            MaxNum=''
+            MinNum=''
+                
+
+        cmd1= "SELECT E.Name, WaterFeature, Size, COUNT(*) FROM EXHIBIT as E, ANIMAL as A"
+        
+        AExhibit = "A.Exhibit"
+        listTuple = [("E.Name", AExhibit), ("E.name", Name),("MinSize",MinSize),("WaterFeature",WaterFeature),("MaxSize", MaxSize),("MinCOUNT(*)", MinNum),("MaxCOUNT(*)", MaxNum)]
+        
+        cmd1 = util.addWHERE(cmd1, listTuple)
+        
+        cmd1 += "GROUP BY E.Name"
+
+        print(cmd1)
+        
+
+        connection_object = connection_pool.get_connection()
+        if connection_object.is_connected():
+            db_Info = connection_object.get_server_info()
+            print("Connected to MySQL database using connection pool ... MySQL Server version on ",db_Info)
+        
+        cursor = connection_object.cursor()
+
+        cursor.execute(cmd1)
+        record = cursor.fetchall()
+
+
+        if(connection_object.is_connected()):
+            cursor.close()
+            connection_object.close()
+            print("MySQL connection is closed")
+
+                
+                
+    def highlightRowOrToExhibit(self, row, column):
+        # highlight the row selected
+        self.tableWidget.selectRow(row)
+        # Enter IF statement if the selected column is the exhibit column
+        if(column == 2):
+            # retrieve the content in the cell
+            Name = str(self.tableWidget.item(row,column).text())
+            # store the information into the __main__.arg
+            # the information is later passed to the exhibitDetails page
+            __main__.arg = [("Name", Name)]
+            __main__.status = __main__.statusDef["Normal"]
+            __main__.state = __main__.visitorUIs["exhibitDetails"]
+            app.exit()
+            # FOR DEBUGGING PURPOSE
+            print("row, column, ExhibitName")
+            print(str(row) + "," + str(column) + "," + Name)
+
+
+            
+    def home(self):
+        __main__.status = __main__.statusDef['Normal']
+        __main__.state = __main__.visitorUIs['visitorFunctionality'] # visitor
+        app.exit()
+
+
+def render():
+    # import sys
+    # app = QtWidgets.QApplication(sys.argv)
+    __main__.state = -10
+    MainWindow = QtWidgets.QMainWindow()
+    ui = Ui_MainWindow()
+    ui.setupUi(MainWindow)
+    MainWindow.show()
+    app.exec_()
+    # close the WINDOWS
+    MainWindow.close()
+
+
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
@@ -164,4 +262,6 @@ if __name__ == "__main__":
     ui.setupUi(MainWindow)
     MainWindow.show()
     sys.exit(app.exec_())
+
+
 

@@ -177,7 +177,9 @@ class Ui_MainWindow(object):
     def userDefinedInitialisation(self):
         self.Searchbutton.clicked.connect(self.searchAnimal)
         self.Homebutton.clicked.connect(self.home)
-
+        self.tableWidget.cellClicked.connect(self.highlightRowOrToExhibit)
+    
+    
     def searchAnimal(self):
         Name = self.lineEdit_name.text()
         Species = self.lineEdit_species.text()
@@ -201,19 +203,6 @@ class Ui_MainWindow(object):
         cmd1 = util.addWHERE(cmd1, listTuple)
 
         print(cmd1)
-        
-#        if(len(name)>0):
-#            cmd1+= ("Name = \'" + name + "\' ")
-#        if(len(species)>0):
-#            cmd1+=("AND Species = \'" + species + "\' ")
-#        if(len(exhibit)>0 and exhibit!='All'):
-#            cmd1+=("AND Exhibit = \'" + exhibit + "\' ")
-#        if(len(type)>0 and type!='All'):
-#            cmd1+=("AND Type = \'" + type + "\' ")
-#        if(maxAge>0):
-#            cmd1+=("AND Age <= \'" + maxAge + "\' ")
-#        if(minAge>0):
-#            cmd1+=("AND Age >= \'" + minAge + "\' ")
 
         connection_object = connection_pool.get_connection()
         if connection_object.is_connected():
@@ -221,15 +210,49 @@ class Ui_MainWindow(object):
             print("Connected to MySQL database using connection pool ... MySQL Server version on ",db_Info)
         
         cursor = connection_object.cursor()
-
         cursor.execute(cmd1)
         record = cursor.fetchall()
+        print(record)
+        
+        self.tableWidget.setRowCount(0)
+        for row_num, row_data in enumerate(record):
+            # insert a new blank row
+            # in other words, expand the table by inserting a new row
+            self.tableWidget.insertRow(row_num)
+            for column_num, data in enumerate(row_data):
+                # IMPORTANT
+                # first you must determine in which column does the DateTime attribute occur in your
+                # query
+                cellContent = None
+                if(cellContent is None):
+                    cellContent = str(data)
+                self.tableWidget.setItem(row_num, column_num, QtWidgets.QTableWidgetItem(cellContent))
+
 
 
         if(connection_object.is_connected()):
             cursor.close()
             connection_object.close()
             print("MySQL connection is closed")
+
+
+
+    def highlightRowOrToExhibit(self, row, column):
+        # highlight the row selected
+        self.tableWidget.selectRow(row)
+        # Enter IF statement if the selected column is the exhibit column
+        if(column == 2):
+            # retrieve the content in the cell
+            Name = str(self.tableWidget.item(row,column).text())
+            # store the information into the __main__.arg
+            # the information is later passed to the exhibitDetails page
+            __main__.arg = [("Name", Name)]
+            __main__.status = __main__.statusDef["Normal"]
+            __main__.state = __main__.visitorUIs["exhibitDetails"]
+            app.exit()
+            # FOR DEBUGGING PURPOSE
+            print("row, column, ExhibitName")
+            print(str(row) + "," + str(column) + "," + Name)
 
 
 
