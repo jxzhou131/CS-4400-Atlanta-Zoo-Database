@@ -101,7 +101,7 @@ if __name__ == "__main__":
     #================ Parameters to run test case on AnimalCarePage =============
     # state of animalcare page
     state = 2
-    arg = [('Goldy', 'Goldfish', 'Fish',12,'Pacific')]
+    arg = [("Name", "Goldy", "str"), ("Species", "Goldfish", "str")]
 
     # uncomment this if you need a visitor ID
     # loginIdentity = [('xavier_swenson', '34cc93ece0ba9e3f6f235d4af979b16c', 'xavierswenson@outlook.com', 'visitor')]    

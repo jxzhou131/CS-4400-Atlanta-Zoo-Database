@@ -160,6 +160,8 @@ class Ui_MainWindow(object):
         self.searchPushButton.clicked.connect(self.searchExhibitHistory)
         self.numVisitsMaxSpinBox.setMinimum(0)
         self.numVisitsMinSpinBox.setMinimum(0)
+        self.numVisitsMaxSpinBox.setMaximum(100)
+        self.numVisitsMinSpinBox.setMaximum(100)
 
     def home(self):
         __main__.status = __main__.statusDef['Normal']
@@ -176,7 +178,7 @@ class Ui_MainWindow(object):
             Name = str(self.tableWidget.item(row,column).text())
             # store the information into the __main__.arg
             # the information is later passed to the exhibitDetails page
-            __main__.arg = [("Name", Name)]
+            __main__.arg = [("Name", Name, "str")]
             __main__.status = __main__.statusDef["Normal"]
             __main__.state = __main__.visitorUIs["exhibitDetails"]
             app.exit()
@@ -258,7 +260,6 @@ class Ui_MainWindow(object):
         if(NumVisitsMin == "0" and NumVisitsMax == "0"):
             NumVisitsMin = ""
             NumVisitsMax = ""
-
         listTuple = [("ExhibitName", ExhibitName, "str"), ("DateTime", DateTime, "datetime") \
                     , ("NumVisitsMin", NumVisitsMin, "int"), ("NumVisitsMax", NumVisitsMax, "int")]
 
