@@ -203,7 +203,6 @@ class Ui_MainWindow(object):
         
         cmd1 = util.addWHERE(cmd1, listTuple)
 
-        print(cmd1)
 
         connection_object = connection_pool.get_connection()
         if connection_object.is_connected():
@@ -213,7 +212,6 @@ class Ui_MainWindow(object):
         cursor = connection_object.cursor()
         cursor.execute(cmd1)
         record = cursor.fetchall()
-        print(record)
         
         self.tableWidget.setRowCount(0)
         for row_num, row_data in enumerate(record):

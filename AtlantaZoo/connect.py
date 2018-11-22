@@ -83,15 +83,12 @@ if __name__ == "__main__":
     # import all the intial UIs modules available here
 
     import loginPage, registration
-<<<<<<< HEAD
     import staffFunctionality
     import visitorFunctionality, visitorSearchShow, visitorSearchAnimals, visitorSearchExhibit
     import staffFunctionality, staffAnimalCare
     import visitorFunctionality, visitorSearchShow, visitorSearchAnimals, exhibitDetails, visitorExhibitHistory, visitorShowHistory
-=======
     import staffFunctionality, staffViewShows, staffSearchAnimals
     import visitorFunctionality, visitorSearchShow, visitorSearchAnimals, exhibitDetails
->>>>>>> 66503aeeec81d56020c1535bb6bc076b046127d8
     import administratorFunctionality
     import exhibitDetails
 
@@ -106,7 +103,7 @@ if __name__ == "__main__":
     # uncomment this too to skip login page
     state = 0
 
-<<<<<<< HEAD
+
 #    #================ Parameters to run test case on AnimalCarePage =============
 #    # state of animalcare page
 #    state = 2
@@ -115,10 +112,10 @@ if __name__ == "__main__":
     # uncomment this if you need a visitor ID
     loginIdentity=[('xavier_swenson','34cc93ece0ba9e3f6f235d4af979b16c',
                     'xavierswenson@outlook.com','visitor')]
-=======
+
     # uncomment this if you need a visitor ID
     #loginIdentity = [('xavier_swenson', '34cc93ece0ba9e3f6f235d4af979b16c', 'xavierswenson@outlook.com', 'visitor')]
->>>>>>> 66503aeeec81d56020c1535bb6bc076b046127d8
+
 
     # uncomment this if you need a staff ID
     #loginIdentity = [('martha_johnson', '7c6a180b36896a0a8c02787eeafb0e4c', 'marthajohnson@hotmail.com', 'staff')]

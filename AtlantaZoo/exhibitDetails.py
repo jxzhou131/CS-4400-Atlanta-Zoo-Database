@@ -115,38 +115,104 @@ class Ui_MainWindow(object):
     def userDefinedInitialisation(self):
         self.Logvisit.clicked.connect(self.logvisit)
         self.Homebutton.clicked.connect(self.home)
+        self.displayText()
+        self.displayAnimals()
 
 
-    def display(self):
+    def displayText(self):
 
-        cmd =" SELECT Name FROM EXHIBIT"
-        cmd = util.addWhere(Cmd, __main__.arg)
+        print(__main__.arg[0][1])
+
+        self.lineEdit_name.setText(str( __main__.arg[0][1]))
+        
+
+        connection_object = connection_pool.get_connection()
+        if connection_object.is_connected():
+            db_Info = connection_object.get_server_info()
+            print("Connected to MySQL database using connection pool ... MySQL Server version on ",db_Info)
+                
+        #display Size
+        cmd =" SELECT Size FROM EXHIBIT WHERE Name = \'" + str( __main__.arg[0][1])+ "\' ;"
+
         cursor = connection_object.cursor()
-        cursor.execute(cmd1)
+        cursor.execute(cmd)
         record = cursor.fetchall()
-        self.lineEdit_name.setObjectName("\'" + record + "\'")
+        self.lineEdit_size.setText(str(record[0][0]))
+        
+        #display WaterFeature
+        cmd2 =" SELECT WaterFeature FROM EXHIBIT WHERE Name = \'" + str( __main__.arg[0][1])+ "\' ;"
+        cursor = connection_object.cursor()
+        cursor.execute(cmd2)
+        record = cursor.fetchall()
+        if(record[0][0] is 1):
+            self.lineEdit_water.setText("Yes")
+        elif(record[0][0] is 0):
+            self.lineEdit_water.setText("No")
+
+        #display number of animals
+        cmd3 = "SELECT COUNT(*) FROM EXHIBIT as E, ANIMAL as A WHERE E.Name=A.Exhibit AND E.Name = \'" + str( __main__.arg[0][1])+ "\' GROUP BY E.Name"
+            
+        cursor = connection_object.cursor()
+        cursor.execute(cmd3)
+        record = cursor.fetchall()
+        self.lineEdit_numanimals.setText(str(record[0][0]))
     
-    
-        self.display_numanimal.setObjectName("display_numanimal")
-        self.dislay_size.setObjectName("dislay_size")
-        self.display_waterfeature.setObjectName("display_waterfeature")
-    
+            
+        
+
 
     def logvisit(self):
 
-        cmd1 =" SELECT Name FROM EXHIBIT"
-        cmd1 = util.addWhere(Cmd, __main__.arg)
-        cursor = connection_object.cursor()
-        cursor.execute(cmd1)
-        record = cursor.fetchall()
-        
-        cmd2="insert into VISITEXHIBIT values(‘loginIdentity[0][0]’，\'" + record + "\'，\‘" +  time.strftime("%m/%d/%Y %I:%M:%S %p")+"\')"
+        try:
+            cmd2="insert into VISITEXHIBIT values(‘loginIdentity[0][0]’，\'" + str( __main__.arg[0][1])+ "\'，\‘" +  time.strftime("%m/%d/%Y %I:%M:%S %p")+"\')"
+            print("Insert Successfully")
+        except mysql.connector.IntegrityError as err:
+            print("Error: {}".format(err))
 
+
+    def displayAnimals(self):
+
+        connection_object = connection_pool.get_connection()
+        if connection_object.is_connected():
+            db_Info = connection_object.get_server_info()
+            print("Connected to MySQL database using connection pool ... MySQL Server version on ",db_Info)
+
+
+
+
+        cmd="SELECT Name, Species FROM ANIMAL WHERE Exhibit = \'" + str( __main__.arg[0][1])+ "\'"
+        cursor = connection_object.cursor()
+        cursor.execute(cmd)
+        record = cursor.fetchall()
+    
+        self.tableWidget.setRowCount(0)
+        for row_num, row_data in enumerate(record):
+            # insert a new blank row
+            # in other words, expand the table by inserting a new row
+            self.tableWidget.insertRow(row_num)
+            for column_num, data in enumerate(row_data):
+                # IMPORTANT
+                # first you must determine in which column does the DateTime attribute occur in your
+                # query
+                cellContent = None
+                if(cellContent is None):
+                    cellContent = str(data)
+                self.tableWidget.setItem(row_num, column_num, QtWidgets.QTableWidgetItem(cellContent))
+
+                
+        if(connection_object.is_connected()):
+            cursor.close()
+            connection_object.close()
+            print("MySQL connection is closed")
+
+                    
 
     def home(self):
         __main__.status = __main__.statusDef['Normal']
         __main__.state = __main__.visitorUIs['visitorFunctionality'] # visitor
         app.exit()
+
+
 
 
 
