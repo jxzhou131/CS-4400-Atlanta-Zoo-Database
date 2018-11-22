@@ -10,7 +10,6 @@ app = QtWidgets.QApplication(sys.argv)
 import time
 import util
 
-
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
