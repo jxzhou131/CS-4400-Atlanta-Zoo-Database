@@ -36,6 +36,18 @@
       <height>31</height>
      </rect>
     </property>
+    <property name="minimumSize">
+     <size>
+      <width>151</width>
+      <height>31</height>
+     </size>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>151</width>
+      <height>31</height>
+     </size>
+    </property>
     <property name="font">
      <font>
       <family>Microsoft Sans Serif</family>
@@ -54,6 +66,18 @@
       <width>60</width>
       <height>16</height>
      </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>60</width>
+      <height>16</height>
+     </size>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>60</width>
+      <height>16</height>
+     </size>
     </property>
     <property name="font">
      <font>
@@ -74,6 +98,18 @@
       <height>16</height>
      </rect>
     </property>
+    <property name="minimumSize">
+     <size>
+      <width>60</width>
+      <height>16</height>
+     </size>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>60</width>
+      <height>16</height>
+     </size>
+    </property>
     <property name="font">
      <font>
       <family>Microsoft Sans Serif</family>
@@ -92,6 +128,18 @@
       <width>141</width>
       <height>16</height>
      </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>141</width>
+      <height>16</height>
+     </size>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>141</width>
+      <height>16</height>
+     </size>
     </property>
     <property name="font">
      <font>
@@ -112,6 +160,18 @@
       <height>16</height>
      </rect>
     </property>
+    <property name="minimumSize">
+     <size>
+      <width>101</width>
+      <height>16</height>
+     </size>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>101</width>
+      <height>16</height>
+     </size>
+    </property>
     <property name="font">
      <font>
       <family>Microsoft Sans Serif</family>
@@ -131,6 +191,18 @@
       <height>32</height>
      </rect>
     </property>
+    <property name="minimumSize">
+     <size>
+      <width>113</width>
+      <height>32</height>
+     </size>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>113</width>
+      <height>32</height>
+     </size>
+    </property>
     <property name="text">
      <string>Log visit</string>
     </property>
@@ -138,11 +210,23 @@
    <widget class="QTableWidget" name="tableWidget">
     <property name="geometry">
      <rect>
-      <x>250</x>
-      <y>270</y>
+      <x>270</x>
+      <y>250</y>
       <width>201</width>
-      <height>192</height>
+      <height>281</height>
      </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>201</width>
+      <height>281</height>
+     </size>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>201</width>
+      <height>281</height>
+     </size>
     </property>
     <column>
      <property name="text">
@@ -164,6 +248,18 @@
       <height>21</height>
      </rect>
     </property>
+    <property name="minimumSize">
+     <size>
+      <width>113</width>
+      <height>21</height>
+     </size>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>113</width>
+      <height>21</height>
+     </size>
+    </property>
     <property name="readOnly">
      <bool>true</bool>
     </property>
@@ -176,6 +272,18 @@
       <width>113</width>
       <height>21</height>
      </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>113</width>
+      <height>21</height>
+     </size>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>113</width>
+      <height>21</height>
+     </size>
     </property>
     <property name="readOnly">
      <bool>true</bool>
@@ -190,6 +298,18 @@
       <height>21</height>
      </rect>
     </property>
+    <property name="minimumSize">
+     <size>
+      <width>113</width>
+      <height>21</height>
+     </size>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>113</width>
+      <height>21</height>
+     </size>
+    </property>
     <property name="readOnly">
      <bool>true</bool>
     </property>
@@ -202,6 +322,18 @@
       <width>113</width>
       <height>21</height>
      </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>113</width>
+      <height>21</height>
+     </size>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>113</width>
+      <height>21</height>
+     </size>
     </property>
     <property name="readOnly">
      <bool>true</bool>
