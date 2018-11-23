@@ -7,7 +7,17 @@
 # WARNING! All changes made in this file will be lost!
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+#################### MUST HAVE #################################################################
+# import the connection_pool established in the connect.py
+from __main__ import connection_pool
+# import the __main__ object to access the global variables: status, state, arg, loginIdentity
+import __main__
 
+import util
+
+import sys
+app = QtWidgets.QApplication(sys.argv)
+################################################################################################
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
@@ -125,6 +135,8 @@ class Ui_MainWindow(object):
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
 
+        self.userDefinedInitialization()
+
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
@@ -152,6 +164,174 @@ class Ui_MainWindow(object):
         item = self.tableWidget.horizontalHeaderItem(2)
         item.setText(_translate("MainWindow", "Exhibit"))
 
+
+    def userDefinedInitialization(self):
+        self.homeButton.clicked.connect(self.home)
+        self.tableWidget.setColumnWidth(0, 250)
+        self.tableWidget.setColumnWidth(1, 250)
+        self.tableWidget.setColumnWidth(2, 80)
+        self.tableWidget.cellClicked.connect(self.highlightRowOrToExhibit)
+        self.preloadTable()
+        self.searchButton.clicked.connect(self.searchShowHistory)
+
+    def home(self):
+        __main__.status = __main__.statusDef['Normal']
+        __main__.state = __main__.visitorUIs['visitorFunctionality']
+        app.exit()
+
+    def highlightRowOrToExhibit(self, row, column):
+        # highlight the row selected
+        self.tableWidget.selectRow(row)
+        # Enter IF statement if the selected column is the exhibit column
+        if(column == 2):
+            # retrieve the content in the cell
+            Name = str(self.tableWidget.item(row,column).text())
+            # store the information into the __main__.arg
+            # the information is later passed to the exhibitDetails page
+            __main__.arg = [("Name", Name)]
+            __main__.status = __main__.statusDef["Normal"]
+            __main__.state = __main__.visitorUIs["exhibitDetails"]
+            app.exit()
+            # FOR DEBUGGING PURPOSE
+            print("row, column, ExhibitName")
+            print(str(row) + "," + str(column) + "," + Name)
+
+# select * from
+# (select ShowName, DateTime from VISITSHOWS
+# where Visitor = 'xavier_swenson') as vs
+# natural join
+# (select Name as ShowName, DateTime, Location as Exhibit
+# from SHOWS) as s;
+    def preloadTable(self):
+        # contruct the sql command
+        cmdheader1 = "SELECT * from "
+        cmdTemp1 = "(SELECT ShowName, DateTime from VISITSHOWS as v1 WHERE Visitor = \'" \
+                    + __main__.loginIdentity[0][0] + "\') as vs"
+        cmdNatJoin = " Natural Join "
+        cmdTemp2 = "(SELECT Name as ShowName, Datetime, Location as Exhibit from SHOWS) as s"
+        cmdend1 = "" # "order by NumVisits DESC"
+        cmd1 = cmdheader1 + "(" + cmdTemp1 + cmdNatJoin + cmdTemp2 + ") " + cmdend1 + ";"
+
+        # for DEBUGGING
+        print("cmd1")
+        print(cmd1)
+
+        # obtain the connection_object
+        connection_object = connection_pool.get_connection()
+        # these three lines of code is used for debugging: CHECK FOR CONNECTIONS
+        if connection_object.is_connected():
+            db_Info = connection_object.get_server_info()
+        print("Connected to MySQL database using connection pool ... MySQL Server version on ",db_Info)
+        # get cursor
+        cursor = connection_object.cursor()
+        # use cursor to execute sql command
+        cursor.execute(cmd1)
+        # there could have multiple lines of sql command
+        # after all the command, retrieve the queries
+        record = cursor.fetchall()
+        # for DEBUGGING purpose
+        print(record)
+        # this statement clears all the rows
+        self.tableWidget.setRowCount(0)
+        for row_num, row_data in enumerate(record):
+            # insert a new blank row
+            # in other words, expand the table by inserting a new row
+            self.tableWidget.insertRow(row_num)
+            for column_num, data in enumerate(row_data):
+                # IMPORTANT
+                # first you must determine in which column does the DateTime attribute occur in your 
+                # query
+                DATETIMECOLUMN = 1
+                cellContent = None
+                if(column_num == DATETIMECOLUMN):
+                    cellContent = data.strftime("%m/%d/%Y %I:%M:%S %p")
+                if(cellContent is None):
+                    cellContent = str(data)
+                self.tableWidget.setItem(row_num, column_num, QtWidgets.QTableWidgetItem(cellContent))
+
+        # close the cursor and connection
+        if(connection_object.is_connected()):
+            cursor.close()
+            connection_object.close()
+            print("MySQL connection is closed")
+
+    def searchShowHistory(self):
+        ShowName = self.nameLineEdit.text().lstrip().rstrip()
+        DateTime = self.dateTimeEdit.dateTime().toString("MM/dd/yyyy hh:mm:ss AP")
+        Exhibit = str(self.exhibitComboBox.currentText())
+
+        if(self.allTimeCheckBox.isChecked()):
+            DateTime = ""
+        if(Exhibit == "All"):
+            Exhibit = ""
+
+        listTuple = [("ShowName", ShowName, "str"), ("DateTime", DateTime, "datetime") \
+                    , ("Exhibit", Exhibit, "str")]
+
+        # contruct the sql command
+        cmdheader1 = "SELECT * from "
+        cmdTemp1 = "(SELECT ShowName, DateTime from VISITSHOWS as v1 WHERE Visitor = \'" \
+                    + __main__.loginIdentity[0][0] + "\') as vs"
+        cmdNatJoin = " Natural Join "
+        cmdTemp2 = "(SELECT Name as ShowName, Datetime, Location as Exhibit from SHOWS) as s"
+        cmdend1 = "" # "order by NumVisits DESC"
+        cmd1 = cmdheader1 + "(" + cmdTemp1 + cmdNatJoin + cmdTemp2 + ") "
+        cmd1 = util.addWHERE(cmd1, listTuple) + cmdend1 + ";"
+        # DEBUG OUTPUT
+        print("listTuple")
+        print(listTuple)
+        print("cmd1")
+        print(cmd1)
+        # obtain the connection_object
+        connection_object = connection_pool.get_connection()
+        # these three lines of code is used for debugging: CHECK FOR CONNECTIONS
+        if connection_object.is_connected():
+            db_Info = connection_object.get_server_info()
+        print("Connected to MySQL database using connection pool ... MySQL Server version on ",db_Info)
+        # get cursor
+        cursor = connection_object.cursor()
+        try:
+            # use cursor to execute sql command
+            cursor.execute(cmd1)
+            # there could have multiple lines of sql command
+            # after all the command, retrieve the queries
+            record = cursor.fetchall()
+            # for DEBUGGING purpose
+            print(record)
+            # this statement clears all the rows
+            self.tableWidget.setRowCount(0)
+            for row_num, row_data in enumerate(record):
+                # insert a new blank row
+                # in other words, expand the table by inserting a new row
+                self.tableWidget.insertRow(row_num)
+                for column_num, data in enumerate(row_data):
+                    # IMPORTANT
+                    # first you must determine in which column does the DateTime attribute occur in your 
+                    # query
+                    DATETIMECOLUMN = 1
+                    cellContent = None
+                    if(column_num == DATETIMECOLUMN):
+                        cellContent = data.strftime("%m/%d/%Y %I:%M:%S %p")
+                    if(cellContent is None):
+                        cellContent = str(data)
+                    self.tableWidget.setItem(row_num, column_num, QtWidgets.QTableWidgetItem(cellContent))
+        except mysql.connector.Error as err:
+            print("Something went wrong: {}".format(err))
+        # close the cursor and connection
+        if(connection_object.is_connected()):
+            cursor.close()
+            connection_object.close()
+            print("MySQL connection is closed")
+
+def render():
+    __main__.state = -10
+    MainWindow = QtWidgets.QMainWindow()
+    ui = Ui_MainWindow()
+    ui.setupUi(MainWindow)
+    MainWindow.show()
+    app.exec_()  
+    # close the MainWindow
+    MainWindow.close()
 
 if __name__ == "__main__":
     import sys

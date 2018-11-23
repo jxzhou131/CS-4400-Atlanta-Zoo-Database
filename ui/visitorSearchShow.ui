@@ -51,7 +51,7 @@
      <string>Home</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="button_rmv_show">
+   <widget class="QPushButton" name="button_log_visit">
     <property name="geometry">
      <rect>
       <x>312</x>
@@ -143,6 +143,9 @@
       <family>MS Sans Serif</family>
       <pointsize>12</pointsize>
      </font>
+    </property>
+    <property name="displayFormat">
+     <string>M/d/yyyy h:mm AP</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_header">

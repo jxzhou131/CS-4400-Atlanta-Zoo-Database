@@ -185,7 +185,7 @@
      <string>Max</string>
     </property>
    </widget>
-   <widget class="QSpinBox" name="spinBox">
+   <widget class="QSpinBox" name="spinBox_minnum">
     <property name="geometry">
      <rect>
       <x>410</x>
@@ -225,7 +225,7 @@
      </rect>
     </property>
    </widget>
-   <widget class="QComboBox" name="comboBox">
+   <widget class="QComboBox" name="WaterCombo">
     <property name="geometry">
      <rect>
       <x>380</x>
@@ -245,7 +245,7 @@
      </property>
     </item>
    </widget>
-   <widget class="QLineEdit" name="lineEdit">
+   <widget class="QLineEdit" name="lineEdit_name">
     <property name="geometry">
      <rect>
       <x>110</x>
@@ -268,26 +268,7 @@
      <string>Search</string>
     </property>
    </widget>
-   <widget class="QTableView" name="tableView">
-    <property name="geometry">
-     <rect>
-      <x>80</x>
-      <y>260</y>
-      <width>411</width>
-      <height>192</height>
-     </rect>
-    </property>
-    <property name="showGrid">
-     <bool>true</bool>
-    </property>
-    <attribute name="horizontalHeaderVisible">
-     <bool>true</bool>
-    </attribute>
-    <attribute name="horizontalHeaderCascadingSectionResizes">
-     <bool>true</bool>
-    </attribute>
-   </widget>
-   <widget class="QPushButton" name="pushButton">
+   <widget class="QPushButton" name="Homebutton">
     <property name="geometry">
      <rect>
       <x>0</x>
@@ -299,6 +280,36 @@
     <property name="text">
      <string>HOME</string>
     </property>
+   </widget>
+   <widget class="QTableWidget" name="tableWidget">
+    <property name="geometry">
+     <rect>
+      <x>120</x>
+      <y>260</y>
+      <width>401</width>
+      <height>192</height>
+     </rect>
+    </property>
+    <column>
+     <property name="text">
+      <string>Name</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Size</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>NumAnimals</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>WaterFeature</string>
+     </property>
+    </column>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">

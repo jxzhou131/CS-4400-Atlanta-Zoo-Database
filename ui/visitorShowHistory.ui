@@ -23,6 +23,18 @@
       <height>31</height>
      </rect>
     </property>
+    <property name="minimumSize">
+     <size>
+      <width>201</width>
+      <height>31</height>
+     </size>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>201</width>
+      <height>31</height>
+     </size>
+    </property>
     <property name="font">
      <font>
       <family>MS Sans Serif</family>
@@ -30,7 +42,7 @@
      </font>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton">
+   <widget class="QPushButton" name="searchButton">
     <property name="geometry">
      <rect>
       <x>330</x>
@@ -38,6 +50,18 @@
       <width>111</width>
       <height>41</height>
      </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>111</width>
+      <height>41</height>
+     </size>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>111</width>
+      <height>41</height>
+     </size>
     </property>
     <property name="font">
      <font>
@@ -58,6 +82,18 @@
       <height>31</height>
      </rect>
     </property>
+    <property name="minimumSize">
+     <size>
+      <width>91</width>
+      <height>31</height>
+     </size>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>91</width>
+      <height>31</height>
+     </size>
+    </property>
     <property name="font">
      <font>
       <family>MS Sans Serif</family>
@@ -71,17 +107,39 @@
    <widget class="QDateTimeEdit" name="dateTimeEdit">
     <property name="geometry">
      <rect>
-      <x>500</x>
+      <x>491</x>
       <y>140</y>
-      <width>201</width>
+      <width>218</width>
       <height>31</height>
      </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>218</width>
+      <height>31</height>
+     </size>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>218</width>
+      <height>31</height>
+     </size>
     </property>
     <property name="font">
      <font>
       <family>MS Sans Serif</family>
       <pointsize>12</pointsize>
      </font>
+    </property>
+    <property name="date">
+     <date>
+      <year>2017</year>
+      <month>1</month>
+      <day>1</day>
+     </date>
+    </property>
+    <property name="displayFormat">
+     <string>M/d/yyyy h:mm AP</string>
     </property>
    </widget>
    <widget class="QLabel" name="nameLabel">
@@ -93,6 +151,18 @@
       <height>31</height>
      </rect>
     </property>
+    <property name="minimumSize">
+     <size>
+      <width>71</width>
+      <height>31</height>
+     </size>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>71</width>
+      <height>31</height>
+     </size>
+    </property>
     <property name="font">
      <font>
       <family>MS Sans Serif</family>
@@ -103,16 +173,6 @@
      <string>Name</string>
     </property>
    </widget>
-   <widget class="QTableView" name="tableView">
-    <property name="geometry">
-     <rect>
-      <x>80</x>
-      <y>341</y>
-      <width>631</width>
-      <height>211</height>
-     </rect>
-    </property>
-   </widget>
    <widget class="QLabel" name="exhibitHistoryLabel">
     <property name="geometry">
      <rect>
@@ -121,6 +181,18 @@
       <width>231</width>
       <height>51</height>
      </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>231</width>
+      <height>51</height>
+     </size>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>231</width>
+      <height>51</height>
+     </size>
     </property>
     <property name="font">
      <font>
@@ -141,6 +213,18 @@
       <height>51</height>
      </rect>
     </property>
+    <property name="minimumSize">
+     <size>
+      <width>91</width>
+      <height>51</height>
+     </size>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>91</width>
+      <height>51</height>
+     </size>
+    </property>
     <property name="font">
      <font>
       <family>MS Sans Serif</family>
@@ -154,11 +238,23 @@
    <widget class="QLabel" name="timeLabel">
     <property name="geometry">
      <rect>
-      <x>430</x>
+      <x>420</x>
       <y>140</y>
-      <width>71</width>
+      <width>58</width>
       <height>31</height>
      </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>58</width>
+      <height>31</height>
+     </size>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>58</width>
+      <height>31</height>
+     </size>
     </property>
     <property name="font">
      <font>
@@ -170,14 +266,26 @@
      <string>Time</string>
     </property>
    </widget>
-   <widget class="QFontComboBox" name="fontComboBox">
+   <widget class="QComboBox" name="exhibitComboBox">
     <property name="geometry">
      <rect>
-      <x>200</x>
-      <y>210</y>
-      <width>201</width>
-      <height>31</height>
+      <x>203</x>
+      <y>208</y>
+      <width>196</width>
+      <height>35</height>
      </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>196</width>
+      <height>35</height>
+     </size>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>196</width>
+      <height>35</height>
+     </size>
     </property>
     <property name="font">
      <font>
@@ -185,9 +293,98 @@
       <pointsize>12</pointsize>
      </font>
     </property>
-    <property name="currentText">
-     <string/>
+    <item>
+     <property name="text">
+      <string>All</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Sahara</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Pacific</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Birds</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Jungle</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Mountainous</string>
+     </property>
+    </item>
+   </widget>
+   <widget class="QCheckBox" name="allTimeCheckBox">
+    <property name="geometry">
+     <rect>
+      <x>714</x>
+      <y>146</y>
+      <width>81</width>
+      <height>20</height>
+     </rect>
     </property>
+    <property name="minimumSize">
+     <size>
+      <width>81</width>
+      <height>20</height>
+     </size>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>81</width>
+      <height>20</height>
+     </size>
+    </property>
+    <property name="text">
+     <string>All Time</string>
+    </property>
+   </widget>
+   <widget class="QTableWidget" name="tableWidget">
+    <property name="geometry">
+     <rect>
+      <x>32</x>
+      <y>351</y>
+      <width>734</width>
+      <height>212</height>
+     </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>734</width>
+      <height>212</height>
+     </size>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>734</width>
+      <height>212</height>
+     </size>
+    </property>
+    <column>
+     <property name="text">
+      <string>Name</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Time</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Exhibit</string>
+     </property>
+    </column>
    </widget>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
