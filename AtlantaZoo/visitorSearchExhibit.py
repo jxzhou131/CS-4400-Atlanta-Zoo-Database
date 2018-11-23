@@ -255,7 +255,7 @@ class Ui_MainWindow(object):
             Name = str(self.tableWidget.item(row,column).text())
             # store the information into the __main__.arg
             # the information is later passed to the exhibitDetails page
-            __main__.arg = [("Name", Name)]
+            __main__.arg = [("Name", Name, "str")]
             __main__.status = __main__.statusDef["Normal"]
             __main__.state = __main__.visitorUIs["exhibitDetails"]
             app.exit()

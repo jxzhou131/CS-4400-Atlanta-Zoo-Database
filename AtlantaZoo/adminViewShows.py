@@ -7,6 +7,7 @@ import sys
 app = QtWidgets.QApplication(sys.argv)
 
 import util
+import mysql.connector
 
 
 class Ui_MainWindow(object):
@@ -84,6 +85,8 @@ class Ui_MainWindow(object):
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
         
+        self.userDefinedInitialisation()
+
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
     
@@ -118,6 +121,7 @@ class Ui_MainWindow(object):
         self.button_search.clicked.connect(self.searchShows)
         self.button_rmv_show.clicked.connect(self.removeShows)
         self.button_home.clicked.connect(self.home)
+        self.tableWidget.cellClicked.connect(self.highlightRow)
     
     
     def searchShows(self):
@@ -172,24 +176,46 @@ class Ui_MainWindow(object):
 
 
     def removeShows(self):
+
+
+
         rowsSelected = self.tableWidget.selectionModel().selectedRows()
         if(len(rowsSelected) >0):
+            connection_object = connection_pool.get_connection()
+            if connection_object.is_connected():
+                db_Info = connection_object.get_server_info()
+                print("Connected to MySQL database using connection pool ... MySQL Server version on ",db_Info)
             index = rowsSelected[0]
             # index consist of row() column()
             row = index.row()
             ShowName = self.tableWidget.item(row,0).text()
             ExhibitName = self.tableWidget.item(row,1).text()
             DateTime = self.tableWidget.item(row,2).text()
+            try:
+               cmd = "DELETE FROM SHOWS WHERE Name = \'" + ShowName + "\' AND DateTime= STR_TO_DATE(\'" + DateTime + "\' , \'%m/%d/%Y %r\');"
+                
+               cursor = connection_object.cursor()
+               cursor.execute(cmd)
+               connection_object.commit()
+               print("Delete Successfully")
+               self.searchShows()
+            except mysql.connector.IntegrityError as err:
+                print("Error: {}".format(err))
             
-        cmd1 = "DELETE FROM SHOWS WHERE Name = \'" + str( __main__.arg[0][1])+ "\' AND DateTime= STR_TO_DATE(\'" + DateTime + "\' , \'%m/%d/%Y %r\');"
-            
-        if(connection_object.is_connected()):
-            cursor.close()
-            connection_object.close()
-            print("MySQL connection is closed")
-            
+            if(connection_object.is_connected()):
+                cursor.close()
+                connection_object.close()
+                print("MySQL connection is closed")
+        else:
+            print("No row is selected")
+
+                
 
 
+    def highlightRow(self, row, column):
+        # highlight the row selected
+        self.tableWidget.selectRow(row)
+    
     def home(self):
         __main__.status = __main__.statusDef['Normal']
         __main__.state = __main__.adminUIs['administratorFunctionality'] # admin

@@ -83,12 +83,11 @@ if __name__ == "__main__":
     # import all the intial UIs modules available here
 
     import loginPage, registration
-    import staffFunctionality
     import visitorFunctionality, visitorSearchShow, visitorSearchAnimals, visitorSearchExhibit
     import visitorFunctionality, visitorSearchShow, visitorSearchAnimals, exhibitDetails, visitorExhibitHistory, visitorShowHistory
     import staffFunctionality, staffViewShows, staffSearchAnimals, staffAnimalCare
     import visitorFunctionality, visitorSearchShow, visitorSearchAnimals, exhibitDetails
-    import administratorFunctionality
+    import administratorFunctionality, adminViewShows
     import exhibitDetails
 
     # comment this if you use want a fast login
@@ -104,28 +103,26 @@ if __name__ == "__main__":
 
     #================ Parameters to run test case on AnimalCarePage =============
     # state of animalcare page
-    state = 2
-    arg = [("Name", "Goldy", "str"), ("Species", "Goldfish", "str")]
+#    state = 2
+#    arg = [("Name", "Goldy", "str"), ("Species", "Goldfish", "str")]
 
     # uncomment this if you need a visitor ID
-<<<<<<< HEAD
-    loginIdentity = [('xavier_swenson', '34cc93ece0ba9e3f6f235d4af979b16c', 'xavierswenson@outlook.com', 'visitor')]
+    #loginIdentity = [('xavier_swenson', '34cc93ece0ba9e3f6f235d4af979b16c', 'xavierswenson@outlook.com', 'visitor')]
 
 
     # uncomment this if you need a staff ID
     #loginIdentity = [('martha_johnson', '7c6a180b36896a0a8c02787eeafb0e4c', 'marthajohnson@hotmail.com', 'staff')]
-=======
+
     # loginIdentity = [('xavier_swenson', '34cc93ece0ba9e3f6f235d4af979b16c', 'xavierswenson@outlook.com', 'visitor')]
 
 
     # uncomment this if you need a staff ID
 
-    loginIdentity = [('martha_johnson', '7c6a180b36896a0a8c02787eeafb0e4c', 'marthajohnson@hotmail.com', 'staff')]
->>>>>>> eb72be9ea3e948b8115442d7accba2c1f4862760
+    #loginIdentity = [('martha_johnson', '7c6a180b36896a0a8c02787eeafb0e4c', 'marthajohnson@hotmail.com', 'staff')]
 
 
     # uncomment this if you need an admin ID
-    # loginIdentity = [('admin1', 'e3274be5c857fb42ab72d786e281b4b8', 'adminemail@mail.com', 'admin')]
+    loginIdentity = [('admin1','e3274be5c857fb42ab72d786e281b4b8','adminemail@mail.com','admin')]
 
     # DEBUGGING USE
     # display current user data
