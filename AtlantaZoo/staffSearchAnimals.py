@@ -261,9 +261,10 @@ class Ui_staffSearchAnimals(object):
         self.AnimalTable.selectRow(row)
         if (column == 0 ):
             Name = str(self.AnimalTable.item(row,column).text())
-            __main__.arg = [("Name", Name)]
+            Species = str(self.AnimalTable.item(row,column+1).text())
+            __main__.arg = [("Name", Name, "str"), ("Species", Species, "str")]
             __main__.status = __main__.statusDef["Normal"]
-            __main__.state - __main__.staffUIs["staffAnimalCare"]
+            __main__.state = __main__.staffUIs["staffAnimalCare"]
             app.exit()
 
 
