@@ -156,10 +156,12 @@ class Ui_MainWindow(object):
         self.tableWidget.setColumnWidth(1, 250)
         self.tableWidget.setColumnWidth(2, 250)
         self.tableWidget.cellClicked.connect(self.highlightRowOrToExhibit)
-        self.preloadTable()
+        # self.preloadTable()
         self.searchPushButton.clicked.connect(self.searchExhibitHistory)
         self.numVisitsMaxSpinBox.setMinimum(0)
         self.numVisitsMinSpinBox.setMinimum(0)
+        self.numVisitsMaxSpinBox.setMaximum(100)
+        self.numVisitsMinSpinBox.setMaximum(100)
 
     def home(self):
         __main__.status = __main__.statusDef['Normal']
@@ -176,7 +178,7 @@ class Ui_MainWindow(object):
             Name = str(self.tableWidget.item(row,column).text())
             # store the information into the __main__.arg
             # the information is later passed to the exhibitDetails page
-            __main__.arg = [("Name", Name)]
+            __main__.arg = [("Name", Name, "str")]
             __main__.status = __main__.statusDef["Normal"]
             __main__.state = __main__.visitorUIs["exhibitDetails"]
             app.exit()
@@ -198,54 +200,54 @@ class Ui_MainWindow(object):
 # order by numVisits) as visitExhibit2)
 # order by numVisits DESC;
 
-    def preloadTable(self):
-        # contruct the sql command
-        cmdheader1 = "SELECT * from "
-        cmdTemp1 = "(SELECT ExhibitName, DateTime from VISITEXHIBIT as v1 WHERE Visitor = \'" \
-                    + __main__.loginIdentity[0][0] + "\') as visitExhibit1"
-        cmdNatJoin = " Natural Join "
-        cmdTemp2 = "(SELECT ExhibitName, count(*) as NumVisits FROM VISITEXHIBIT as v2 WHERE Visitor = \'" \
-                    + __main__.loginIdentity[0][0] + "\' group by ExhibitName order by NumVisits) as visitExhibit2"
-        cmdend1 = "order by NumVisits DESC"
-        cmd1 = cmdheader1 + "(" + cmdTemp1 + cmdNatJoin + cmdTemp2 + ") " + cmdend1 + ";"
-        # obtain the connection_object
-        connection_object = connection_pool.get_connection()
-        # these three lines of code is used for debugging: CHECK FOR CONNECTIONS
-        if connection_object.is_connected():
-            db_Info = connection_object.get_server_info()
-        print("Connected to MySQL database using connection pool ... MySQL Server version on ",db_Info)
-        # get cursor
-        cursor = connection_object.cursor()
-        # use cursor to execute sql command
-        cursor.execute(cmd1)
-        # there could have multiple lines of sql command
-        # after all the command, retrieve the queries
-        record = cursor.fetchall()
-        # for DEBUGGING purpose
-        print(record)
-        # this statement clears all the rows
-        self.tableWidget.setRowCount(0)
-        for row_num, row_data in enumerate(record):
-            # insert a new blank row
-            # in other words, expand the table by inserting a new row
-            self.tableWidget.insertRow(row_num)
-            for column_num, data in enumerate(row_data):
-                # IMPORTANT
-                # first you must determine in which column does the DateTime attribute occur in your 
-                # query
-                DATETIMECOLUMN = 1
-                cellContent = None
-                if(column_num == DATETIMECOLUMN):
-                    cellContent = data.strftime("%m/%d/%Y %I:%M:%S %p")
-                if(cellContent is None):
-                    cellContent = str(data)
-                self.tableWidget.setItem(row_num, column_num, QtWidgets.QTableWidgetItem(cellContent))
+    # def preloadTable(self):
+    #     # contruct the sql command
+    #     cmdheader1 = "SELECT * from "
+    #     cmdTemp1 = "(SELECT ExhibitName, DateTime from VISITEXHIBIT as v1 WHERE Visitor = \'" \
+    #                 + __main__.loginIdentity[0][0] + "\') as visitExhibit1"
+    #     cmdNatJoin = " Natural Join "
+    #     cmdTemp2 = "(SELECT ExhibitName, count(*) as NumVisits FROM VISITEXHIBIT as v2 WHERE Visitor = \'" \
+    #                 + __main__.loginIdentity[0][0] + "\' group by ExhibitName order by NumVisits) as visitExhibit2"
+    #     cmdend1 = "order by NumVisits DESC"
+    #     cmd1 = cmdheader1 + "(" + cmdTemp1 + cmdNatJoin + cmdTemp2 + ") " + cmdend1 + ";"
+    #     # obtain the connection_object
+    #     connection_object = connection_pool.get_connection()
+    #     # these three lines of code is used for debugging: CHECK FOR CONNECTIONS
+    #     if connection_object.is_connected():
+    #         db_Info = connection_object.get_server_info()
+    #     print("Connected to MySQL database using connection pool ... MySQL Server version on ",db_Info)
+    #     # get cursor
+    #     cursor = connection_object.cursor()
+    #     # use cursor to execute sql command
+    #     cursor.execute(cmd1)
+    #     # there could have multiple lines of sql command
+    #     # after all the command, retrieve the queries
+    #     record = cursor.fetchall()
+    #     # for DEBUGGING purpose
+    #     print(record)
+    #     # this statement clears all the rows
+    #     self.tableWidget.setRowCount(0)
+    #     for row_num, row_data in enumerate(record):
+    #         # insert a new blank row
+    #         # in other words, expand the table by inserting a new row
+    #         self.tableWidget.insertRow(row_num)
+    #         for column_num, data in enumerate(row_data):
+    #             # IMPORTANT
+    #             # first you must determine in which column does the DateTime attribute occur in your 
+    #             # query
+    #             DATETIMECOLUMN = 1
+    #             cellContent = None
+    #             if(column_num == DATETIMECOLUMN):
+    #                 cellContent = data.strftime("%m/%d/%Y %I:%M:%S %p")
+    #             if(cellContent is None):
+    #                 cellContent = str(data)
+    #             self.tableWidget.setItem(row_num, column_num, QtWidgets.QTableWidgetItem(cellContent))
 
-        # close the cursor and connection
-        if(connection_object.is_connected()):
-            cursor.close()
-            connection_object.close()
-            print("MySQL connection is closed")
+    #     # close the cursor and connection
+    #     if(connection_object.is_connected()):
+    #         cursor.close()
+    #         connection_object.close()
+    #         print("MySQL connection is closed")
 
     def searchExhibitHistory(self):
         ExhibitName = self.nameLineEdit.text().lstrip().rstrip()
@@ -258,7 +260,6 @@ class Ui_MainWindow(object):
         if(NumVisitsMin == "0" and NumVisitsMax == "0"):
             NumVisitsMin = ""
             NumVisitsMax = ""
-
         listTuple = [("ExhibitName", ExhibitName, "str"), ("DateTime", DateTime, "datetime") \
                     , ("NumVisitsMin", NumVisitsMin, "int"), ("NumVisitsMax", NumVisitsMax, "int")]
 

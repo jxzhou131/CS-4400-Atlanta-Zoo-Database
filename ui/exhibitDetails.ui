@@ -17,11 +17,17 @@
    <widget class="QPushButton" name="Homebutton">
     <property name="geometry">
      <rect>
-      <x>40</x>
-      <y>20</y>
-      <width>113</width>
-      <height>32</height>
+      <x>3</x>
+      <y>2</y>
+      <width>114</width>
+      <height>49</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>MS Sans Serif</family>
+      <pointsize>15</pointsize>
+     </font>
     </property>
     <property name="text">
      <string>HOME</string>
@@ -30,19 +36,13 @@
    <widget class="QLabel" name="Heading_exhibit">
     <property name="geometry">
      <rect>
-      <x>290</x>
-      <y>30</y>
-      <width>151</width>
-      <height>31</height>
+      <x>277</x>
+      <y>28</y>
+      <width>244</width>
+      <height>44</height>
      </rect>
     </property>
     <property name="minimumSize">
-     <size>
-      <width>151</width>
-      <height>31</height>
-     </size>
-    </property>
-    <property name="maximumSize">
      <size>
       <width>151</width>
       <height>31</height>
@@ -61,19 +61,13 @@
    <widget class="QLabel" name="label_name">
     <property name="geometry">
      <rect>
-      <x>170</x>
-      <y>110</y>
-      <width>60</width>
-      <height>16</height>
+      <x>160</x>
+      <y>99</y>
+      <width>83</width>
+      <height>35</height>
      </rect>
     </property>
     <property name="minimumSize">
-     <size>
-      <width>60</width>
-      <height>16</height>
-     </size>
-    </property>
-    <property name="maximumSize">
      <size>
       <width>60</width>
       <height>16</height>
@@ -92,19 +86,13 @@
    <widget class="QLabel" name="label_size">
     <property name="geometry">
      <rect>
-      <x>400</x>
-      <y>110</y>
-      <width>60</width>
-      <height>16</height>
+      <x>552</x>
+      <y>107</y>
+      <width>64</width>
+      <height>25</height>
      </rect>
     </property>
     <property name="minimumSize">
-     <size>
-      <width>60</width>
-      <height>16</height>
-     </size>
-    </property>
-    <property name="maximumSize">
      <size>
       <width>60</width>
       <height>16</height>
@@ -123,19 +111,13 @@
    <widget class="QLabel" name="label_numanimal">
     <property name="geometry">
      <rect>
-      <x>90</x>
-      <y>150</y>
-      <width>141</width>
-      <height>16</height>
+      <x>14</x>
+      <y>134</y>
+      <width>228</width>
+      <height>43</height>
      </rect>
     </property>
     <property name="minimumSize">
-     <size>
-      <width>141</width>
-      <height>16</height>
-     </size>
-    </property>
-    <property name="maximumSize">
      <size>
       <width>141</width>
       <height>16</height>
@@ -154,19 +136,13 @@
    <widget class="QLabel" name="label_waterfeature">
     <property name="geometry">
      <rect>
-      <x>350</x>
-      <y>150</y>
-      <width>101</width>
-      <height>16</height>
+      <x>452</x>
+      <y>134</y>
+      <width>166</width>
+      <height>38</height>
      </rect>
     </property>
     <property name="minimumSize">
-     <size>
-      <width>101</width>
-      <height>16</height>
-     </size>
-    </property>
-    <property name="maximumSize">
      <size>
       <width>101</width>
       <height>16</height>
@@ -185,10 +161,10 @@
    <widget class="QPushButton" name="Logvisit">
     <property name="geometry">
      <rect>
-      <x>310</x>
-      <y>190</y>
-      <width>113</width>
-      <height>32</height>
+      <x>301</x>
+      <y>223</y>
+      <width>127</width>
+      <height>43</height>
      </rect>
     </property>
     <property name="minimumSize">
@@ -197,11 +173,11 @@
       <height>32</height>
      </size>
     </property>
-    <property name="maximumSize">
-     <size>
-      <width>113</width>
-      <height>32</height>
-     </size>
+    <property name="font">
+     <font>
+      <family>MS Sans Serif</family>
+      <pointsize>15</pointsize>
+     </font>
     </property>
     <property name="text">
      <string>Log visit</string>
@@ -210,21 +186,15 @@
    <widget class="QTableWidget" name="tableWidget">
     <property name="geometry">
      <rect>
-      <x>270</x>
-      <y>250</y>
-      <width>201</width>
+      <x>203</x>
+      <y>283</y>
+      <width>352</width>
       <height>281</height>
      </rect>
     </property>
     <property name="minimumSize">
      <size>
-      <width>201</width>
-      <height>281</height>
-     </size>
-    </property>
-    <property name="maximumSize">
-     <size>
-      <width>201</width>
+      <width>352</width>
       <height>281</height>
      </size>
     </property>
@@ -242,10 +212,10 @@
    <widget class="QLineEdit" name="lineEdit_name">
     <property name="geometry">
      <rect>
-      <x>220</x>
-      <y>110</y>
-      <width>113</width>
-      <height>21</height>
+      <x>244</x>
+      <y>104</y>
+      <width>200</width>
+      <height>31</height>
      </rect>
     </property>
     <property name="minimumSize">
@@ -254,11 +224,11 @@
       <height>21</height>
      </size>
     </property>
-    <property name="maximumSize">
-     <size>
-      <width>113</width>
-      <height>21</height>
-     </size>
+    <property name="font">
+     <font>
+      <family>MS Sans Serif</family>
+      <pointsize>12</pointsize>
+     </font>
     </property>
     <property name="readOnly">
      <bool>true</bool>
@@ -267,10 +237,10 @@
    <widget class="QLineEdit" name="lineEdit_numanimals">
     <property name="geometry">
      <rect>
-      <x>220</x>
-      <y>150</y>
-      <width>113</width>
-      <height>21</height>
+      <x>244</x>
+      <y>140</y>
+      <width>199</width>
+      <height>33</height>
      </rect>
     </property>
     <property name="minimumSize">
@@ -279,11 +249,11 @@
       <height>21</height>
      </size>
     </property>
-    <property name="maximumSize">
-     <size>
-      <width>113</width>
-      <height>21</height>
-     </size>
+    <property name="font">
+     <font>
+      <family>MS Sans Serif</family>
+      <pointsize>12</pointsize>
+     </font>
     </property>
     <property name="readOnly">
      <bool>true</bool>
@@ -292,10 +262,10 @@
    <widget class="QLineEdit" name="lineEdit_size">
     <property name="geometry">
      <rect>
-      <x>470</x>
-      <y>110</y>
-      <width>113</width>
-      <height>21</height>
+      <x>618</x>
+      <y>105</y>
+      <width>114</width>
+      <height>31</height>
      </rect>
     </property>
     <property name="minimumSize">
@@ -304,11 +274,11 @@
       <height>21</height>
      </size>
     </property>
-    <property name="maximumSize">
-     <size>
-      <width>113</width>
-      <height>21</height>
-     </size>
+    <property name="font">
+     <font>
+      <family>MS Sans Serif</family>
+      <pointsize>12</pointsize>
+     </font>
     </property>
     <property name="readOnly">
      <bool>true</bool>
@@ -317,10 +287,10 @@
    <widget class="QLineEdit" name="lineEdit_water">
     <property name="geometry">
      <rect>
-      <x>470</x>
-      <y>150</y>
-      <width>113</width>
-      <height>21</height>
+      <x>617</x>
+      <y>141</y>
+      <width>115</width>
+      <height>28</height>
      </rect>
     </property>
     <property name="minimumSize">
@@ -329,26 +299,16 @@
       <height>21</height>
      </size>
     </property>
-    <property name="maximumSize">
-     <size>
-      <width>113</width>
-      <height>21</height>
-     </size>
+    <property name="font">
+     <font>
+      <family>MS Sans Serif</family>
+      <pointsize>12</pointsize>
+     </font>
     </property>
     <property name="readOnly">
      <bool>true</bool>
     </property>
    </widget>
-  </widget>
-  <widget class="QMenuBar" name="menubar">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>800</width>
-     <height>22</height>
-    </rect>
-   </property>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>

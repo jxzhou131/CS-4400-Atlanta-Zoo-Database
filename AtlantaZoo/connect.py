@@ -28,7 +28,7 @@ visitorUIs = {
   'visitorShowHistory': 5,
   'animalDetails': 6,
   'exhibitDetails': 7,
-  'logout': -10
+  'logout': -5
 }
 
 staffUIs = {
@@ -36,7 +36,7 @@ staffUIs = {
   'staffSearchAnimals': 1,
   'staffAnimalCare' : 2,
   'staffViewShows' : 3,
-  'logout': -10
+  'logout': -5
 }
 
 adminUIs = {
@@ -47,7 +47,7 @@ adminUIs = {
   'adminViewShows' : 4,
   'adminViewStaff' : 5,
   'adminViewVisitors' : 6,
-  'logout': -10
+  'logout': -5
 }
 
 """
@@ -102,21 +102,27 @@ if __name__ == "__main__":
     # uncomment this too to skip login page
     state = 0
 
-
-#    #================ Parameters to run test case on AnimalCarePage =============
-#    # state of animalcare page
-#    state = 2
-#    arg = [('Goldy', 'Goldfish', 'Fish',12,'Pacific')]
-
-    # uncomment this if you need a visitor ID
-    #loginIdentity=[('xavier_swenson','34cc93ece0ba9e3f6f235d4af979b16c','xavierswenson@outlook.com','visitor')]
+    #================ Parameters to run test case on AnimalCarePage =============
+    # state of animalcare page
+    state = 2
+    arg = [("Name", "Goldy", "str"), ("Species", "Goldfish", "str")]
 
     # uncomment this if you need a visitor ID
+<<<<<<< HEAD
     loginIdentity = [('xavier_swenson', '34cc93ece0ba9e3f6f235d4af979b16c', 'xavierswenson@outlook.com', 'visitor')]
 
 
     # uncomment this if you need a staff ID
     #loginIdentity = [('martha_johnson', '7c6a180b36896a0a8c02787eeafb0e4c', 'marthajohnson@hotmail.com', 'staff')]
+=======
+    # loginIdentity = [('xavier_swenson', '34cc93ece0ba9e3f6f235d4af979b16c', 'xavierswenson@outlook.com', 'visitor')]
+
+
+    # uncomment this if you need a staff ID
+
+    loginIdentity = [('martha_johnson', '7c6a180b36896a0a8c02787eeafb0e4c', 'marthajohnson@hotmail.com', 'staff')]
+>>>>>>> eb72be9ea3e948b8115442d7accba2c1f4862760
+
 
     # uncomment this if you need an admin ID
     # loginIdentity = [('admin1', 'e3274be5c857fb42ab72d786e281b4b8', 'adminemail@mail.com', 'admin')]
@@ -156,7 +162,7 @@ if __name__ == "__main__":
             visitorSearchAnimals.render()
             pass
           elif(state == visitorUIs["visitorExhibitHistory"]):
-            visitorShowHistory.render()
+            visitorExhibitHistory.render()
             pass
           elif(state == visitorUIs["animalDetails"]):
             animalDetails.render()

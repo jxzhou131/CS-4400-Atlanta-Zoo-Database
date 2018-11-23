@@ -18,62 +18,63 @@ class Ui_MainWindow(object):
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.Homebutton = QtWidgets.QPushButton(self.centralwidget)
-        self.Homebutton.setGeometry(QtCore.QRect(40, 20, 113, 32))
+        self.Homebutton.setGeometry(QtCore.QRect(3, 2, 114, 49))
+        font = QtGui.QFont()
+        font.setFamily("MS Sans Serif")
+        font.setPointSize(15)
+        self.Homebutton.setFont(font)
         self.Homebutton.setObjectName("Homebutton")
         self.Heading_exhibit = QtWidgets.QLabel(self.centralwidget)
-        self.Heading_exhibit.setGeometry(QtCore.QRect(290, 30, 151, 31))
+        self.Heading_exhibit.setGeometry(QtCore.QRect(277, 28, 244, 44))
         self.Heading_exhibit.setMinimumSize(QtCore.QSize(151, 31))
-        self.Heading_exhibit.setMaximumSize(QtCore.QSize(151, 31))
         font = QtGui.QFont()
         font.setFamily("Microsoft Sans Serif")
         font.setPointSize(22)
         self.Heading_exhibit.setFont(font)
         self.Heading_exhibit.setObjectName("Heading_exhibit")
         self.label_name = QtWidgets.QLabel(self.centralwidget)
-        self.label_name.setGeometry(QtCore.QRect(170, 110, 60, 16))
+        self.label_name.setGeometry(QtCore.QRect(160, 99, 83, 35))
         self.label_name.setMinimumSize(QtCore.QSize(60, 16))
-        self.label_name.setMaximumSize(QtCore.QSize(60, 16))
         font = QtGui.QFont()
         font.setFamily("Microsoft Sans Serif")
         font.setPointSize(15)
         self.label_name.setFont(font)
         self.label_name.setObjectName("label_name")
         self.label_size = QtWidgets.QLabel(self.centralwidget)
-        self.label_size.setGeometry(QtCore.QRect(400, 110, 60, 16))
+        self.label_size.setGeometry(QtCore.QRect(552, 107, 64, 25))
         self.label_size.setMinimumSize(QtCore.QSize(60, 16))
-        self.label_size.setMaximumSize(QtCore.QSize(60, 16))
         font = QtGui.QFont()
         font.setFamily("Microsoft Sans Serif")
         font.setPointSize(15)
         self.label_size.setFont(font)
         self.label_size.setObjectName("label_size")
         self.label_numanimal = QtWidgets.QLabel(self.centralwidget)
-        self.label_numanimal.setGeometry(QtCore.QRect(90, 150, 141, 16))
+        self.label_numanimal.setGeometry(QtCore.QRect(14, 134, 228, 43))
         self.label_numanimal.setMinimumSize(QtCore.QSize(141, 16))
-        self.label_numanimal.setMaximumSize(QtCore.QSize(141, 16))
         font = QtGui.QFont()
         font.setFamily("Microsoft Sans Serif")
         font.setPointSize(15)
         self.label_numanimal.setFont(font)
         self.label_numanimal.setObjectName("label_numanimal")
         self.label_waterfeature = QtWidgets.QLabel(self.centralwidget)
-        self.label_waterfeature.setGeometry(QtCore.QRect(350, 150, 101, 16))
+        self.label_waterfeature.setGeometry(QtCore.QRect(452, 134, 166, 38))
         self.label_waterfeature.setMinimumSize(QtCore.QSize(101, 16))
-        self.label_waterfeature.setMaximumSize(QtCore.QSize(101, 16))
         font = QtGui.QFont()
         font.setFamily("Microsoft Sans Serif")
         font.setPointSize(15)
         self.label_waterfeature.setFont(font)
         self.label_waterfeature.setObjectName("label_waterfeature")
         self.Logvisit = QtWidgets.QPushButton(self.centralwidget)
-        self.Logvisit.setGeometry(QtCore.QRect(310, 190, 113, 32))
+        self.Logvisit.setGeometry(QtCore.QRect(301, 223, 127, 43))
         self.Logvisit.setMinimumSize(QtCore.QSize(113, 32))
-        self.Logvisit.setMaximumSize(QtCore.QSize(113, 32))
+        font = QtGui.QFont()
+        font.setFamily("MS Sans Serif")
+        font.setPointSize(15)
+        self.Logvisit.setFont(font)
         self.Logvisit.setObjectName("Logvisit")
         self.tableWidget = QtWidgets.QTableWidget(self.centralwidget)
-        self.tableWidget.setGeometry(QtCore.QRect(270, 250, 201, 281))
-        self.tableWidget.setMinimumSize(QtCore.QSize(201, 281))
-        self.tableWidget.setMaximumSize(QtCore.QSize(201, 281))
+        self.tableWidget.setGeometry(QtCore.QRect(203, 283, 352, 281))
+        self.tableWidget.setMinimumSize(QtCore.QSize(352, 281))
         self.tableWidget.setObjectName("tableWidget")
         self.tableWidget.setColumnCount(2)
         self.tableWidget.setRowCount(0)
@@ -82,43 +83,51 @@ class Ui_MainWindow(object):
         item = QtWidgets.QTableWidgetItem()
         self.tableWidget.setHorizontalHeaderItem(1, item)
         self.lineEdit_name = QtWidgets.QLineEdit(self.centralwidget)
-        self.lineEdit_name.setGeometry(QtCore.QRect(220, 110, 113, 21))
+        self.lineEdit_name.setGeometry(QtCore.QRect(244, 104, 200, 31))
         self.lineEdit_name.setMinimumSize(QtCore.QSize(113, 21))
-        self.lineEdit_name.setMaximumSize(QtCore.QSize(113, 21))
+        font = QtGui.QFont()
+        font.setFamily("MS Sans Serif")
+        font.setPointSize(12)
+        self.lineEdit_name.setFont(font)
         self.lineEdit_name.setReadOnly(True)
         self.lineEdit_name.setObjectName("lineEdit_name")
         self.lineEdit_numanimals = QtWidgets.QLineEdit(self.centralwidget)
-        self.lineEdit_numanimals.setGeometry(QtCore.QRect(220, 150, 113, 21))
+        self.lineEdit_numanimals.setGeometry(QtCore.QRect(244, 140, 199, 33))
         self.lineEdit_numanimals.setMinimumSize(QtCore.QSize(113, 21))
-        self.lineEdit_numanimals.setMaximumSize(QtCore.QSize(113, 21))
+        font = QtGui.QFont()
+        font.setFamily("MS Sans Serif")
+        font.setPointSize(12)
+        self.lineEdit_numanimals.setFont(font)
         self.lineEdit_numanimals.setReadOnly(True)
         self.lineEdit_numanimals.setObjectName("lineEdit_numanimals")
         self.lineEdit_size = QtWidgets.QLineEdit(self.centralwidget)
-        self.lineEdit_size.setGeometry(QtCore.QRect(470, 110, 113, 21))
+        self.lineEdit_size.setGeometry(QtCore.QRect(618, 105, 114, 31))
         self.lineEdit_size.setMinimumSize(QtCore.QSize(113, 21))
-        self.lineEdit_size.setMaximumSize(QtCore.QSize(113, 21))
+        font = QtGui.QFont()
+        font.setFamily("MS Sans Serif")
+        font.setPointSize(12)
+        self.lineEdit_size.setFont(font)
         self.lineEdit_size.setReadOnly(True)
         self.lineEdit_size.setObjectName("lineEdit_size")
         self.lineEdit_water = QtWidgets.QLineEdit(self.centralwidget)
-        self.lineEdit_water.setGeometry(QtCore.QRect(470, 150, 113, 21))
+        self.lineEdit_water.setGeometry(QtCore.QRect(617, 141, 115, 28))
         self.lineEdit_water.setMinimumSize(QtCore.QSize(113, 21))
-        self.lineEdit_water.setMaximumSize(QtCore.QSize(113, 21))
+        font = QtGui.QFont()
+        font.setFamily("MS Sans Serif")
+        font.setPointSize(12)
+        self.lineEdit_water.setFont(font)
         self.lineEdit_water.setReadOnly(True)
         self.lineEdit_water.setObjectName("lineEdit_water")
         MainWindow.setCentralWidget(self.centralwidget)
-        self.menubar = QtWidgets.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 800, 22))
-        self.menubar.setObjectName("menubar")
-        MainWindow.setMenuBar(self.menubar)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
-        
+
         self.userDefinedInitialisation()
-        
+
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
-    
+
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
@@ -136,6 +145,8 @@ class Ui_MainWindow(object):
 
 
     def userDefinedInitialisation(self):
+        self.tableWidget.setColumnWidth(0, 150)
+        self.tableWidget.setColumnWidth(1, 200)
         self.Logvisit.clicked.connect(self.logvisit)
         self.Homebutton.clicked.connect(self.home)
         self.displayText()
@@ -156,7 +167,7 @@ class Ui_MainWindow(object):
                 
         #display Size
         cmd =" SELECT Size FROM EXHIBIT WHERE Name = \'" + str( __main__.arg[0][1])+ "\' ;"
-
+        # get cursor
         cursor = connection_object.cursor()
         cursor.execute(cmd)
         record = cursor.fetchall()
@@ -204,7 +215,6 @@ class Ui_MainWindow(object):
         except mysql.connector.IntegrityError as err:
             print("Error: {}".format(err))
 
-
         if(connection_object.is_connected()):
             cursor.close()
             connection_object.close()
@@ -221,6 +231,7 @@ class Ui_MainWindow(object):
 
 
         cmd="SELECT Name, Species FROM ANIMAL WHERE Exhibit = \'" + str( __main__.arg[0][1])+ "\'"
+
         cursor = connection_object.cursor()
         cursor.execute(cmd)
         record = cursor.fetchall()
@@ -239,22 +250,16 @@ class Ui_MainWindow(object):
                     cellContent = str(data)
                 self.tableWidget.setItem(row_num, column_num, QtWidgets.QTableWidgetItem(cellContent))
 
-                
+        # close the cursor and connection                  
         if(connection_object.is_connected()):
             cursor.close()
             connection_object.close()
             print("MySQL connection is closed")
 
-
     def home(self):
         __main__.status = __main__.statusDef['Normal']
         __main__.state = __main__.visitorUIs['visitorFunctionality'] # visitor
         app.exit()
-
-
-
-
-
 
 def render():
     __main__.state = -10
@@ -265,9 +270,6 @@ def render():
     app.exec_()
 
     # close the WINDOWS
-    MainWindow.close()
-
-
     MainWindow.close()
 
 
