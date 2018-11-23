@@ -9,6 +9,7 @@ import sys
 app = QtWidgets.QApplication(sys.argv)
 import time
 import util
+import mysql.connector
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -163,7 +164,6 @@ class Ui_MainWindow(object):
         
         #display WaterFeature
         cmd2 =" SELECT WaterFeature FROM EXHIBIT WHERE Name = \'" + str( __main__.arg[0][1])+ "\' ;"
-        cursor = connection_object.cursor()
         cursor.execute(cmd2)
         record = cursor.fetchall()
         if(record[0][0] is 1):
@@ -173,23 +173,43 @@ class Ui_MainWindow(object):
 
         #display number of animals
         cmd3 = "SELECT COUNT(*) FROM EXHIBIT as E, ANIMAL as A WHERE E.Name=A.Exhibit AND E.Name = \'" + str( __main__.arg[0][1])+ "\' GROUP BY E.Name"
-            
-        cursor = connection_object.cursor()
+
         cursor.execute(cmd3)
         record = cursor.fetchall()
         self.lineEdit_numanimals.setText(str(record[0][0]))
+
+        
+        if(connection_object.is_connected()):
+            cursor.close()
+            connection_object.close()
+            print("MySQL connection is closed")
+
     
             
-        
-
 
     def logvisit(self):
 
+        connection_object = connection_pool.get_connection()
+        if connection_object.is_connected():
+            db_Info = connection_object.get_server_info()
+            print("Connected to MySQL database using connection pool ... MySQL Server version on ",db_Info)
+        
+        Visitor = __main__.loginIdentity[0][0]
+        DateTime=time.strftime("%m/%d/%Y %I:%M:%S %p");
         try:
-            cmd2="insert into VISITEXHIBIT values(‘loginIdentity[0][0]’，\'" + str( __main__.arg[0][1])+ "\'，\‘" +  time.strftime("%m/%d/%Y %I:%M:%S %p")+"\')"
+            cmd="insert into VISITEXHIBIT values(\'" + Visitor + "\',\'" + str( __main__.arg[0][1])+ "\',STR_TO_DATE(\'" + DateTime + "\' , \'%m/%d/%Y %r\'))"
+            cursor = connection_object.cursor()
+            cursor.execute(cmd)
             print("Insert Successfully")
         except mysql.connector.IntegrityError as err:
             print("Error: {}".format(err))
+
+
+        if(connection_object.is_connected()):
+            cursor.close()
+            connection_object.close()
+            print("MySQL connection is closed")
+
 
 
     def displayAnimals(self):
@@ -198,8 +218,6 @@ class Ui_MainWindow(object):
         if connection_object.is_connected():
             db_Info = connection_object.get_server_info()
             print("Connected to MySQL database using connection pool ... MySQL Server version on ",db_Info)
-
-
 
 
         cmd="SELECT Name, Species FROM ANIMAL WHERE Exhibit = \'" + str( __main__.arg[0][1])+ "\'"
@@ -227,7 +245,6 @@ class Ui_MainWindow(object):
             connection_object.close()
             print("MySQL connection is closed")
 
-                    
 
     def home(self):
         __main__.status = __main__.statusDef['Normal']
