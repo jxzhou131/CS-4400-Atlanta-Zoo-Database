@@ -214,6 +214,7 @@ class Ui_staffSearchAnimals(object):
     def userDefinedInitialization(self):
         self.SearchPushButton.clicked.connect(self.SearchAnimals)
         self.HomePushButton.clicked.connect(self.home)
+        self.AnimalTable.cellClicked.connect(self.highlightRowOrToAnimal)
 
     def SearchAnimals(self):
         Name = self.NameLineEdit.text()
@@ -255,6 +256,16 @@ class Ui_staffSearchAnimals(object):
             cursor.close()
             connection_object.close()
             print("MySQL connection is closed")
+
+    def highlightRowOrToAnimal(self,row, column):
+        self.AnimalTable.selectRow(row)
+        if (column == 0 ):
+            Name = str(self.AnimalTable.item(row,column).text())
+            __main__.arg = [("Name", Name)]
+            __main__.status = __main__.statusDef["Normal"]
+            __main__.state - __main__.staffUIs["staffAnimalCare"]
+            app.exit()
+
 
     def home(self):
         __main__.status = __main__.statusDef['Normal']
