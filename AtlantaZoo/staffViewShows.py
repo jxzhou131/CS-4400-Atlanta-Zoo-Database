@@ -44,7 +44,6 @@ class Ui_staffViewShows(object):
         self.StaffTable.setHorizontalHeaderItem(1, item)
         item = QtWidgets.QTableWidgetItem()
         self.StaffTable.setHorizontalHeaderItem(2, item)
-        self.ShowDisplay()
         staffViewShows.setCentralWidget(self.centralwidget)
         self.statusbar = QtWidgets.QStatusBar(staffViewShows)
         self.statusbar.setObjectName("statusbar")
@@ -68,6 +67,7 @@ class Ui_staffViewShows(object):
         item.setText(_translate("staffViewShows", "Exhibit"))
 
     def userDefinedInitialization(self):
+        self.ShowDisplay()
         self.HomePushButton.clicked.connect(self.home)
 
     def home(self):
