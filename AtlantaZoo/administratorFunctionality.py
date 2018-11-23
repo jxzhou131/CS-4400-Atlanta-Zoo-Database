@@ -15,8 +15,10 @@ import __main__
 
 import sys
 app = QtWidgets.QApplication(sys.argv)
-################################################################################################
+
+import re
 class Ui_adminFunctionality(object):
+
     def setupUi(self, adminFunctionality):
         adminFunctionality.setObjectName("adminFunctionality")
         adminFunctionality.resize(705, 470)
@@ -121,13 +123,6 @@ class Ui_adminFunctionality(object):
         self.splitter = QtWidgets.QSplitter(self.centralwidget)
         self.splitter.setOrientation(QtCore.Qt.Horizontal)
         self.splitter.setObjectName("splitter")
-        self.homeButton = QtWidgets.QPushButton(self.splitter)
-        self.homeButton.setMinimumSize(QtCore.QSize(0, 0))
-        self.homeButton.setMaximumSize(QtCore.QSize(95, 29))
-        font = QtGui.QFont()
-        font.setPointSize(12)
-        self.homeButton.setFont(font)
-        self.homeButton.setObjectName("homeButton")
         self.logOutButton = QtWidgets.QPushButton(self.splitter)
         font = QtGui.QFont()
         font.setPointSize(12)
@@ -144,29 +139,19 @@ class Ui_adminFunctionality(object):
         adminFunctionality.setStatusBar(self.statusbar)
 
         self.userDefinedInitialization()
+        
 
         self.retranslateUi(adminFunctionality)
         QtCore.QMetaObject.connectSlotsByName(adminFunctionality)
 
-    def retranslateUi(self, adminFunctionality):
-        _translate = QtCore.QCoreApplication.translate
-        adminFunctionality.setWindowTitle(_translate("adminFunctionality", "adminfunctionality"))
-        self.addShowButton.setText(_translate("adminFunctionality", "Add Show"))
-        self.viewShowsButton.setText(_translate("adminFunctionality", "View Shows"))
-        self.viewStaffButton.setText(_translate("adminFunctionality", "View Staff"))
-        self.viewAnimalsButton.setText(_translate("adminFunctionality", "View Animals"))
-        self.addAnimalButton.setText(_translate("adminFunctionality", "Add Animal"))
-        self.viewVisitorsButton.setText(_translate("adminFunctionality", "View Visitors"))
-        self.label.setText(_translate("adminFunctionality", "<html><head/><body><p align=\"center\"><span style=\" font-size:16pt;\">Atlanta Zoo</span></p></body></html>"))
-        self.homeButton.setText(_translate("adminFunctionality", "Home"))
-        self.logOutButton.setText(_translate("adminFunctionality", "Log Out"))
-
+    # initialize all the pushbutton and link corresponding page
     def userDefinedInitialization(self):
-        self.addAnimalButton.clicked.connect(self.addAnimals)
+        # self.addAnimalsButton.clicked.connect(self.addAnimals)
         self.viewShowsButton.clicked.connect(self.viewShows)
         self.viewStaffButton.clicked.connect(self.viewStaff)
         self.viewVisitorsButton.clicked.connect(self.viewVisitors)
         self.viewAnimalsButton.clicked.connect(self.viewAnimals)
+        self.addAnimalButton.clicked.connect(self.addAnimal)
         self.addShowButton.clicked.connect(self.addShows)
         self.logOutButton.clicked.connect(self.logout)
 
@@ -175,6 +160,7 @@ class Ui_adminFunctionality(object):
         __main__.state = __main__.adminUIs['adminViewShows']
         app.exit()
 
+    # link the viewStaff page
     def viewStaff(self):
         __main__.status = __main__.statusDef['Normal']
         __main__.state = __main__.adminUIs["adminViewStaff"]
@@ -185,7 +171,7 @@ class Ui_adminFunctionality(object):
         __main__.state = __main__.adminUIs["adminViewVisitors"]
         app.exit()
 
-    def addAnimals(self):
+    def addAnimal(self):
         __main__.status = __main__.statusDef['Normal']
         __main__.state = __main__.adminUIs["adminAddAnimals"]
         app.exit()
@@ -198,12 +184,24 @@ class Ui_adminFunctionality(object):
     def viewAnimals(self):
         __main__.status = __main__.statusDef['Normal']
         __main__.state = __main__.adminUIs["adminViewAnimals"]
-        app.exit() 
+        app.exit()
 
     def logout(self):
         __main__.status = __main__.statusDef['Normal']
         __main__.state = __main__.adminUIs['logout']
-        app.exit()     
+        app.exit() 
+
+    def retranslateUi(self, adminFunctionality):
+        _translate = QtCore.QCoreApplication.translate
+        adminFunctionality.setWindowTitle(_translate("adminFunctionality", "adminfunctionality"))
+        self.addShowButton.setText(_translate("adminFunctionality", "Add Show"))
+        self.viewShowsButton.setText(_translate("adminFunctionality", "View Shows"))
+        self.viewStaffButton.setText(_translate("adminFunctionality", "View Staff"))
+        self.viewAnimalsButton.setText(_translate("adminFunctionality", "View Animals"))
+        self.addAnimalButton.setText(_translate("adminFunctionality", "Add Animal"))
+        self.viewVisitorsButton.setText(_translate("adminFunctionality", "View Visitors"))
+        self.label.setText(_translate("adminFunctionality", "<html><head/><body><p align=\"center\"><span style=\" font-size:16pt;\">Atlanta Zoo</span></p></body></html>"))
+        self.logOutButton.setText(_translate("adminFunctionality", "Log Out"))
 
 def render():
     __main__.state = -10
@@ -214,7 +212,7 @@ def render():
     app.exec_()
     # close the windows
     adminFunctionality.close()
-    
+
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
