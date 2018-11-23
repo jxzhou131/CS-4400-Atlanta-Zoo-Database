@@ -1,12 +1,14 @@
-# -*- coding: utf-8 -*-
-
-# Form implementation generated from reading ui file 'adminViewShows.ui'
-#
-# Created by: PyQt5 UI code generator 5.9.2
-#
-# WARNING! All changes made in this file will be lost!
-
 from PyQt5 import QtCore, QtGui, QtWidgets
+# import the connection_pool established in the connect.py
+from __main__ import connection_pool
+# import the __main__ object to access the global variables: status, state, arg, loginIdentity
+import __main__
+import sys
+app = QtWidgets.QApplication(sys.argv)
+
+import util
+import mysql.connector
+
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -82,10 +84,12 @@ class Ui_MainWindow(object):
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
+        
+        self.userDefinedInitialisation()
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
-
+    
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
@@ -112,6 +116,125 @@ class Ui_MainWindow(object):
         self.checkBox.setText(_translate("MainWindow", "All Date and Time"))
 
 
+
+    def userDefinedInitialisation(self):
+        self.button_search.clicked.connect(self.searchShows)
+        self.button_rmv_show.clicked.connect(self.removeShows)
+        self.button_home.clicked.connect(self.home)
+        self.tableWidget.cellClicked.connect(self.highlightRow)
+    
+    
+    def searchShows(self):
+        Name = self.lineEdit.text()
+        Location = self.comboBox_exb.currentText()
+        DateTime = self.dateTimeEdit.dateTime().toString("MM/dd/yyyy hh:mm:ss AP")
+        
+        if(Location == "All"):
+            Location = ""
+        if(self.checkBox.isChecked()):
+            DateTime = ""
+
+        listTuple = [('Name', Name, "str"), ("Location", Location, "str"), ("DateTime", DateTime, "datetime")]
+        
+        cmd1 = "SELECT Name, Location as Exhibit, DateTime from SHOWS "
+        cmd1 = util.addWHERE(cmd1, listTuple)
+        cmd1 += ";"
+
+        print(cmd1)
+
+        connection_object = connection_pool.get_connection()
+        if connection_object.is_connected():
+            db_Info = connection_object.get_server_info()
+            print("Connected to MySQL database using connection pool ... MySQL Server version on ",db_Info)
+        
+        cursor = connection_object.cursor()
+        cursor.execute(cmd1)
+        record = cursor.fetchall()
+        print(record)
+        
+        self.tableWidget.setRowCount(0)
+        for row_num, row_data in enumerate(record):
+            # insert a new blank row
+            # in other words, expand the table by inserting a new row
+            self.tableWidget.insertRow(row_num)
+            for column_num, data in enumerate(row_data):
+                # IMPORTANT
+                DATETIMECOLUMN = 2
+                cellContent = None
+                if(column_num == DATETIMECOLUMN):
+                    cellContent = data.strftime("%m/%d/%Y %I:%M:%S %p")
+                if(cellContent == None):
+                    cellContent = str(data)
+                self.tableWidget.setItem(row_num, column_num,QtWidgets.QTableWidgetItem(cellContent))
+
+
+
+        if(connection_object.is_connected()):
+            cursor.close()
+            connection_object.close()
+            print("MySQL connection is closed")
+
+
+    def removeShows(self):
+
+
+
+        rowsSelected = self.tableWidget.selectionModel().selectedRows()
+        if(len(rowsSelected) >0):
+            connection_object = connection_pool.get_connection()
+            if connection_object.is_connected():
+                db_Info = connection_object.get_server_info()
+                print("Connected to MySQL database using connection pool ... MySQL Server version on ",db_Info)
+            index = rowsSelected[0]
+            # index consist of row() column()
+            row = index.row()
+            ShowName = self.tableWidget.item(row,0).text()
+            ExhibitName = self.tableWidget.item(row,1).text()
+            DateTime = self.tableWidget.item(row,2).text()
+            try:
+               cmd = "DELETE FROM SHOWS WHERE Name = \'" + ShowName + "\' AND DateTime= STR_TO_DATE(\'" + DateTime + "\' , \'%m/%d/%Y %r\');"
+                
+               cursor = connection_object.cursor()
+               cursor.execute(cmd)
+               connection_object.commit()
+               print("Delete Successfully")
+               self.searchShows()
+            except mysql.connector.IntegrityError as err:
+                print("Error: {}".format(err))
+            
+            if(connection_object.is_connected()):
+                cursor.close()
+                connection_object.close()
+                print("MySQL connection is closed")
+        else:
+            print("No row is selected")
+
+                
+
+
+    def highlightRow(self, row, column):
+        # highlight the row selected
+        self.tableWidget.selectRow(row)
+    
+    def home(self):
+        __main__.status = __main__.statusDef['Normal']
+        __main__.state = __main__.adminUIs['administratorFunctionality'] # admin
+        app.exit()
+
+
+def render():
+    # import sys
+    # app = QtWidgets.QApplication(sys.argv)
+    __main__.state = -10
+    MainWindow = QtWidgets.QMainWindow()
+    ui = Ui_MainWindow()
+    ui.setupUi(MainWindow)
+    MainWindow.show()
+    app.exec_()
+    # close the WINDOWS
+    MainWindow.close()
+
+
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
@@ -119,5 +242,10 @@ if __name__ == "__main__":
     ui = Ui_MainWindow()
     ui.setupUi(MainWindow)
     MainWindow.show()
+    
+    table = MyTable(data, 5, 5)
+    table.show()
     sys.exit(app.exec_())
+
+
 

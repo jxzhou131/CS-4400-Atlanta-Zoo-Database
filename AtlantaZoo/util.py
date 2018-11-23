@@ -36,7 +36,7 @@ def addWHERE(cmd, listTuple):
     """
     numWhereClausesAdded = 0
     for name, value, dataType in listTuple:
-        if(value.lstrip().rstrip() == ""):
+        if(str(value).lstrip().rstrip() == ""):
             pass
         else:
             if(numWhereClausesAdded == 0):

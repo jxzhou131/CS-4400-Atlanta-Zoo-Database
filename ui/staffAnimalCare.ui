@@ -14,527 +14,429 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QPushButton" name="HomePushButton">
-    <property name="geometry">
-     <rect>
-      <x>0</x>
-      <y>0</y>
-      <width>95</width>
-      <height>43</height>
-     </rect>
-    </property>
-    <property name="minimumSize">
-     <size>
-      <width>95</width>
-      <height>43</height>
-     </size>
-    </property>
-    <property name="maximumSize">
-     <size>
-      <width>95</width>
-      <height>43</height>
-     </size>
-    </property>
-    <property name="font">
-     <font>
-      <family>MS Sans Serif</family>
-      <pointsize>15</pointsize>
-     </font>
-    </property>
-    <property name="text">
-     <string>Home</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="AnimalDetail">
-    <property name="geometry">
-     <rect>
-      <x>270</x>
-      <y>30</y>
-      <width>221</width>
-      <height>41</height>
-     </rect>
-    </property>
-    <property name="minimumSize">
-     <size>
-      <width>221</width>
-      <height>41</height>
-     </size>
-    </property>
-    <property name="maximumSize">
-     <size>
-      <width>221</width>
-      <height>41</height>
-     </size>
-    </property>
-    <property name="font">
-     <font>
-      <family>MS Sans Serif</family>
-      <pointsize>22</pointsize>
-     </font>
-    </property>
-    <property name="text">
-     <string>Animal Detail</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="AtlantaZoo">
-    <property name="geometry">
-     <rect>
-      <x>40</x>
-      <y>80</y>
-      <width>271</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="minimumSize">
-     <size>
-      <width>271</width>
-      <height>31</height>
-     </size>
-    </property>
-    <property name="maximumSize">
-     <size>
-      <width>271</width>
-      <height>31</height>
-     </size>
-    </property>
-    <property name="font">
-     <font>
-      <family>MS Sans Serif</family>
-      <pointsize>15</pointsize>
-     </font>
-    </property>
-    <property name="text">
-     <string>Atlanta Zoo</string>
-    </property>
-   </widget>
-   <widget class="QPlainTextEdit" name="NoteTextEdit">
-    <property name="geometry">
-     <rect>
-      <x>40</x>
-      <y>250</y>
-      <width>536</width>
-      <height>121</height>
-     </rect>
-    </property>
-    <property name="minimumSize">
-     <size>
-      <width>536</width>
-      <height>121</height>
-     </size>
-    </property>
-    <property name="maximumSize">
-     <size>
-      <width>536</width>
-      <height>121</height>
-     </size>
-    </property>
-    <property name="font">
-     <font>
-      <family>MS Sans Serif</family>
-      <pointsize>12</pointsize>
-     </font>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="LogNotesPushButton">
-    <property name="geometry">
-     <rect>
-      <x>600</x>
-      <y>280</y>
-      <width>151</width>
-      <height>51</height>
-     </rect>
-    </property>
-    <property name="minimumSize">
-     <size>
-      <width>151</width>
-      <height>51</height>
-     </size>
-    </property>
-    <property name="maximumSize">
-     <size>
-      <width>151</width>
-      <height>51</height>
-     </size>
-    </property>
-    <property name="font">
-     <font>
-      <family>MS Sans Serif</family>
-      <pointsize>11</pointsize>
-     </font>
-    </property>
-    <property name="text">
-     <string>Log Notes</string>
-    </property>
-   </widget>
-   <widget class="QTableWidget" name="tableWidget">
-    <property name="geometry">
-     <rect>
-      <x>40</x>
-      <y>380</y>
-      <width>721</width>
-      <height>192</height>
-     </rect>
-    </property>
-    <property name="minimumSize">
-     <size>
-      <width>721</width>
-      <height>192</height>
-     </size>
-    </property>
-    <property name="maximumSize">
-     <size>
-      <width>721</width>
-      <height>192</height>
-     </size>
-    </property>
-    <column>
-     <property name="text">
-      <string>Staff Member</string>
-     </property>
-    </column>
-    <column>
-     <property name="text">
-      <string>Note</string>
-     </property>
-    </column>
-    <column>
-     <property name="text">
-      <string>Time</string>
-     </property>
-    </column>
-   </widget>
-   <widget class="QWidget" name="layoutWidget">
-    <property name="geometry">
-     <rect>
-      <x>240</x>
-      <y>120</y>
-      <width>121</width>
-      <height>121</height>
-     </rect>
-    </property>
-    <layout class="QVBoxLayout" name="verticalLayout_3">
-     <item>
-      <widget class="QLabel" name="Species">
-       <property name="minimumSize">
-        <size>
-         <width>119</width>
-         <height>56</height>
-        </size>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>119</width>
-         <height>56</height>
-        </size>
-       </property>
-       <property name="font">
-        <font>
-         <family>MS Sans Serif</family>
-         <pointsize>11</pointsize>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="text">
-        <string>Species:</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLabel" name="Type">
-       <property name="minimumSize">
-        <size>
-         <width>119</width>
-         <height>56</height>
-        </size>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>119</width>
-         <height>56</height>
-        </size>
-       </property>
-       <property name="font">
-        <font>
-         <family>MS Sans Serif</family>
-         <pointsize>11</pointsize>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="text">
-        <string>Type:</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </widget>
-   <widget class="QWidget" name="layoutWidget_2">
-    <property name="geometry">
-     <rect>
-      <x>360</x>
-      <y>120</y>
-      <width>141</width>
-      <height>121</height>
-     </rect>
-    </property>
-    <layout class="QVBoxLayout" name="verticalLayout_4">
-     <item>
-      <widget class="QLabel" name="SpeciesName">
-       <property name="minimumSize">
-        <size>
-         <width>139</width>
-         <height>56</height>
-        </size>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>139</width>
-         <height>56</height>
-        </size>
-       </property>
-       <property name="font">
-        <font>
-         <family>MS Sans Serif</family>
-         <pointsize>11</pointsize>
-        </font>
-       </property>
-       <property name="text">
-        <string>GoldFish</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLabel" name="TypeName">
-       <property name="minimumSize">
-        <size>
-         <width>139</width>
-         <height>56</height>
-        </size>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>139</width>
-         <height>56</height>
-        </size>
-       </property>
-       <property name="font">
-        <font>
-         <family>MS Sans Serif</family>
-         <pointsize>11</pointsize>
-        </font>
-       </property>
-       <property name="text">
-        <string>Fish</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </widget>
-   <widget class="QWidget" name="layoutWidget">
-    <property name="geometry">
-     <rect>
-      <x>40</x>
-      <y>120</y>
-      <width>101</width>
-      <height>121</height>
-     </rect>
-    </property>
-    <layout class="QVBoxLayout" name="verticalLayout">
-     <item>
-      <widget class="QLabel" name="Name">
-       <property name="minimumSize">
-        <size>
-         <width>99</width>
-         <height>56</height>
-        </size>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>99</width>
-         <height>56</height>
-        </size>
-       </property>
-       <property name="font">
-        <font>
-         <family>MS Sans Serif</family>
-         <pointsize>11</pointsize>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="text">
-        <string>Name:</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLabel" name="Exhibit">
-       <property name="minimumSize">
-        <size>
-         <width>99</width>
-         <height>56</height>
-        </size>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>99</width>
-         <height>56</height>
-        </size>
-       </property>
-       <property name="font">
-        <font>
-         <family>MS Sans Serif</family>
-         <pointsize>11</pointsize>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="text">
-        <string>Exhibit:</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </widget>
-   <widget class="QWidget" name="layoutWidget">
-    <property name="geometry">
-     <rect>
-      <x>141</x>
-      <y>120</y>
-      <width>101</width>
-      <height>121</height>
-     </rect>
-    </property>
-    <layout class="QVBoxLayout" name="verticalLayout_2">
-     <item>
-      <widget class="QLabel" name="AnimalName">
-       <property name="minimumSize">
-        <size>
-         <width>99</width>
-         <height>56</height>
-        </size>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>99</width>
-         <height>56</height>
-        </size>
-       </property>
-       <property name="font">
-        <font>
-         <family>MS Sans Serif</family>
-         <pointsize>11</pointsize>
-        </font>
-       </property>
-       <property name="text">
-        <string>Goldy</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLabel" name="ExhibitName">
-       <property name="minimumSize">
-        <size>
-         <width>99</width>
-         <height>56</height>
-        </size>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>99</width>
-         <height>56</height>
-        </size>
-       </property>
-       <property name="font">
-        <font>
-         <family>MS Sans Serif</family>
-         <pointsize>11</pointsize>
-        </font>
-       </property>
-       <property name="text">
-        <string>Pacific</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </widget>
-   <widget class="QWidget" name="layoutWidget">
-    <property name="geometry">
-     <rect>
-      <x>500</x>
-      <y>120</y>
-      <width>161</width>
-      <height>41</height>
-     </rect>
-    </property>
-    <property name="minimumSize">
-     <size>
-      <width>161</width>
-      <height>41</height>
-     </size>
-    </property>
-    <property name="maximumSize">
-     <size>
-      <width>161</width>
-      <height>41</height>
-     </size>
-    </property>
-    <layout class="QHBoxLayout" name="horizontalLayout">
-     <item>
-      <widget class="QLabel" name="Age">
-       <property name="minimumSize">
-        <size>
-         <width>76</width>
-         <height>39</height>
-        </size>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>76</width>
-         <height>39</height>
-        </size>
-       </property>
-       <property name="font">
-        <font>
-         <family>MS Sans Serif</family>
-         <pointsize>11</pointsize>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="text">
-        <string>Age:</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLabel" name="AgeName">
-       <property name="minimumSize">
-        <size>
-         <width>76</width>
-         <height>39</height>
-        </size>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>76</width>
-         <height>39</height>
-        </size>
-       </property>
-       <property name="font">
-        <font>
-         <family>MS Sans Serif</family>
-         <pointsize>11</pointsize>
-        </font>
-       </property>
-       <property name="text">
-        <string>1 year</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </widget>
+   <layout class="QGridLayout" name="gridLayout_3">
+    <item row="0" column="0">
+     <layout class="QGridLayout" name="gridLayout">
+      <item row="0" column="0">
+       <widget class="QPushButton" name="HomePushButton">
+        <property name="minimumSize">
+         <size>
+          <width>95</width>
+          <height>43</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>95</width>
+          <height>43</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <family>MS Sans Serif</family>
+          <pointsize>15</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>Home</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1" colspan="2">
+       <widget class="QLabel" name="AnimalDetail">
+        <property name="minimumSize">
+         <size>
+          <width>221</width>
+          <height>41</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>221</width>
+          <height>41</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <family>MS Sans Serif</family>
+          <pointsize>22</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>Animal Detail                    </string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0" colspan="3">
+       <widget class="QLabel" name="AtlantaZoo">
+        <property name="minimumSize">
+         <size>
+          <width>271</width>
+          <height>31</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>271</width>
+          <height>31</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <family>MS Sans Serif</family>
+          <pointsize>15</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>Atlanta Zoo</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0">
+       <widget class="QLabel" name="Name">
+        <property name="minimumSize">
+         <size>
+          <width>99</width>
+          <height>56</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>99</width>
+          <height>56</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <family>MS Sans Serif</family>
+          <pointsize>11</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string>Name:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1">
+       <widget class="QLineEdit" name="NameLineEdit">
+        <property name="minimumSize">
+         <size>
+          <width>119</width>
+          <height>34</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>119</width>
+          <height>34</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <family>MS Sans Serif</family>
+          <pointsize>12</pointsize>
+         </font>
+        </property>
+        <property name="readOnly">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="2">
+       <widget class="QLabel" name="Species">
+        <property name="minimumSize">
+         <size>
+          <width>119</width>
+          <height>56</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>119</width>
+          <height>56</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <family>MS Sans Serif</family>
+          <pointsize>11</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string>Species:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="3">
+       <widget class="QLineEdit" name="SpeciesLineEdit">
+        <property name="minimumSize">
+         <size>
+          <width>157</width>
+          <height>38</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>157</width>
+          <height>38</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <family>MS Sans Serif</family>
+          <pointsize>12</pointsize>
+         </font>
+        </property>
+        <property name="readOnly">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="4">
+       <widget class="QLabel" name="Age">
+        <property name="minimumSize">
+         <size>
+          <width>76</width>
+          <height>39</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>76</width>
+          <height>39</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <family>MS Sans Serif</family>
+          <pointsize>11</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string>Age:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="5">
+       <widget class="QLineEdit" name="AgeLineEdit">
+        <property name="minimumSize">
+         <size>
+          <width>157</width>
+          <height>38</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>157</width>
+          <height>38</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <family>MS Sans Serif</family>
+          <pointsize>12</pointsize>
+         </font>
+        </property>
+        <property name="readOnly">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="0">
+       <widget class="QLabel" name="Exhibit">
+        <property name="minimumSize">
+         <size>
+          <width>99</width>
+          <height>56</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>99</width>
+          <height>56</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <family>MS Sans Serif</family>
+          <pointsize>11</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string>Exhibit:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="1">
+       <widget class="QLineEdit" name="ExhibitLineEdit">
+        <property name="minimumSize">
+         <size>
+          <width>119</width>
+          <height>34</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>119</width>
+          <height>34</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <family>MS Sans Serif</family>
+          <pointsize>12</pointsize>
+         </font>
+        </property>
+        <property name="readOnly">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="2">
+       <widget class="QLabel" name="Type">
+        <property name="minimumSize">
+         <size>
+          <width>119</width>
+          <height>56</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>119</width>
+          <height>56</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <family>MS Sans Serif</family>
+          <pointsize>11</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string>Type:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="3">
+       <widget class="QLineEdit" name="TypeLineEdit">
+        <property name="minimumSize">
+         <size>
+          <width>157</width>
+          <height>38</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>157</width>
+          <height>38</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <family>MS Sans Serif</family>
+          <pointsize>12</pointsize>
+         </font>
+        </property>
+        <property name="readOnly">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="0" colspan="6">
+       <layout class="QGridLayout" name="gridLayout_2">
+        <item row="0" column="0">
+         <widget class="QPlainTextEdit" name="NoteTextEdit">
+          <property name="minimumSize">
+           <size>
+            <width>536</width>
+            <height>121</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>536</width>
+            <height>121</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <family>MS Sans Serif</family>
+            <pointsize>12</pointsize>
+           </font>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QPushButton" name="LogNotesPushButton">
+          <property name="minimumSize">
+           <size>
+            <width>151</width>
+            <height>51</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>151</width>
+            <height>51</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <family>MS Sans Serif</family>
+            <pointsize>11</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string>Log Notes</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0" colspan="2">
+         <widget class="QTableWidget" name="tableWidget">
+          <property name="minimumSize">
+           <size>
+            <width>721</width>
+            <height>192</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>721</width>
+            <height>192</height>
+           </size>
+          </property>
+          <column>
+           <property name="text">
+            <string>Staff Member</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Note</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Time</string>
+           </property>
+          </column>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </item>
+   </layout>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>

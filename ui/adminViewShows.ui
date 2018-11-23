@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>800</width>
-    <height>600</height>
+    <height>552</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -127,6 +127,11 @@
     </property>
     <item>
      <property name="text">
+      <string>All</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
       <string>Pacific</string>
      </property>
     </item>
@@ -187,10 +192,11 @@
    <widget class="QTableWidget" name="tableWidget">
     <property name="geometry">
      <rect>
-      <x>100</x>
+
+      <x>180</x>
       <y>240</y>
-      <width>561</width>
-      <height>192</height>
+      <width>361</width>
+      <height>211</height>
      </rect>
     </property>
     <column>
@@ -208,6 +214,19 @@
       <string>Date</string>
      </property>
     </column>
+   </widget>
+   <widget class="QCheckBox" name="checkBox">
+    <property name="geometry">
+     <rect>
+      <x>640</x>
+      <y>140</y>
+      <width>133</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>All Date and Time</string>
+    </property>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
