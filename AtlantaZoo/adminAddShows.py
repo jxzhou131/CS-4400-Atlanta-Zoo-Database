@@ -7,7 +7,19 @@
 # WARNING! All changes made in this file will be lost!
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+#################### MUST HAVE #################################################################
+# import the connection_pool established in the connect.py
+from __main__ import connection_pool
+# import the __main__ object to access the global variables: status, state, arg, loginIdentity
+import __main__
 
+import util
+
+import mysql.connector
+
+import sys
+app = QtWidgets.QApplication(sys.argv)
+################################################################################################
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
@@ -145,6 +157,8 @@ class Ui_MainWindow(object):
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
 
+        self.userDefinedInitialization()
+
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
@@ -166,6 +180,138 @@ class Ui_MainWindow(object):
         self.dateTimeEdit.setDisplayFormat(_translate("MainWindow", "M/d/yyyy h:mm AP"))
         self.button_add_show.setText(_translate("MainWindow", "Add Show"))
 
+    def home(self):
+        __main__.status = __main__.statusDef['Normal']
+        __main__.state = __main__.adminUIs['administratorFunctionality'] # administratorFunctionality Page
+        app.exit()
+
+    def userDefinedInitialization(self):
+        self.button_home.clicked.connect(self.home)
+        self.button_add_show.clicked.connect(self.addShows)
+        self.populateStaffComboBox()
+
+    def populateStaffComboBox(self):
+        # construct query command
+        cmd = " SELECT * FROM STAFF;"
+        # obtain the connection_object
+        connection_object = connection_pool.get_connection()
+        # these three lines of code is used for debugging: CHECK FOR CONNECTIONS
+        if connection_object.is_connected():
+            db_Info = connection_object.get_server_info()
+        print("Connected to MySQL database using connection pool ... MySQL Server version on ",db_Info)
+        # get cursor
+        cursor = connection_object.cursor()        
+        cursor.execute(cmd)
+        result = cursor.fetchall()
+        # close the cursor and connection
+        if(connection_object.is_connected()):
+            cursor.close()
+            connection_object.close()
+            print("MySQL connection is closed")
+        for staff in result:
+            self.comboBox_staff.addItem(staff[0])
+
+    def addShows(self):
+        Name = self.lineEdit.text()
+        DateTime = self.dateTimeEdit.dateTime().toString("MM/dd/yyyy hh:mm:ss AP")
+        Host = self.comboBox_staff.currentText()
+        Location = self.comboBox_exb.currentText()
+
+        if Name.lstrip().rstrip() == "" or Host.lstrip().rstrip() == "" or Location.lstrip().rstrip() == "":
+            self.InformationNotComplete()
+            return
+
+        else:
+
+            # obtain the connection_object
+            connection_object = connection_pool.get_connection()
+            # these three lines of code is used for debugging: CHECK FOR CONNECTIONS
+            if connection_object.is_connected():
+                db_Info = connection_object.get_server_info()
+            print("Connected to MySQL database using connection pool ... MySQL Server version on ",db_Info)
+            # get cursor
+            cursor = connection_object.cursor()
+            # SELECT DateTime, Host
+            # FROM Shows
+            # Where DateTime = STR_TO_DATE('2018/10/10 4:00:00 PM','%m/%d/%Y %r') and Host = 'benjamin_rao'
+            cmd_query = "SELECT DateTime, Host From SHOWS"
+            listTuple = [("DateTime", DateTime, "datatime"), ("Host", Host, "str")]
+            cmd_query = util.addWHERE(cmd_query, listTuple)  + ";"
+            cursor.execute(cmd_query)
+            result = cursor.fetchall()
+            if len(result) == 0:
+                cmd = "INSERT INTO SHOWS VALUES (\'" + Name + "\', STR_TO_DATE(\'" + DateTime + "\',\'%m/%d/%Y %r\'), \'" + Host +"\', \'"+ Location + "\');"
+                # use cursor to execute sql command
+                try:
+                    cursor.execute(cmd)
+                    connection_object.commit()
+                    self.Insert_successful()
+                except mysql.connector.IntegrityError as err:
+                    self.IntegrityError()
+                    print("Error: {}", format(err))
+
+            else:
+                self.cannotAdd()
+
+            # close the cursor and connection
+            if(connection_object.is_connected()):
+                cursor.close()
+                connection_object.close()
+                print("MySQL connection is closed")
+
+
+    def InformationNotComplete(self):
+        d = QtWidgets.QDialog()
+        d.setMinimumSize(400, 50)
+        b1= QtWidgets.QPushButton("close",d)
+        b1.clicked.connect(lambda : d.close())
+        b1.move(50,50)
+        d.setWindowTitle("Information is not complete")
+        d.setWindowModality(QtCore.Qt.ApplicationModal)
+        d.exec_() 
+
+    def IntegrityError(self):
+        d = QtWidgets.QDialog()
+        d.setMinimumSize(400, 50)
+        b1= QtWidgets.QPushButton("close",d)
+        b1.clicked.connect(lambda : d.close())
+        b1.move(50,50)
+        d.setWindowTitle("Integrity Error")
+        d.setWindowModality(QtCore.Qt.ApplicationModal)
+        d.exec_() 
+
+    def cannotAdd(self):
+        d = QtWidgets.QDialog()
+        d.setMinimumSize(400, 50)
+        b1= QtWidgets.QPushButton("close",d)
+        b1.clicked.connect(lambda : d.close())
+        b1.move(50,50)
+        d.setWindowTitle("A staff cannot host multiple shows at the same time")
+        d.setWindowModality(QtCore.Qt.ApplicationModal)
+        d.exec_()
+
+    def Insert_successful(self):
+        d = QtWidgets.QDialog()
+        d.setMinimumSize(400, 50)
+        b1= QtWidgets.QPushButton("close",d)
+        b1.clicked.connect(lambda : d.close())
+        b1.move(50,50)
+        d.setWindowTitle("Insertion Successful")
+        d.setWindowModality(QtCore.Qt.ApplicationModal)
+        d.exec_()
+
+
+def render():
+        # import sys
+        # app = QtWidgets.QApplication(sys.argv)
+        __main__.state = -10
+        MainWindow = QtWidgets.QMainWindow()
+        ui = Ui_MainWindow()
+        ui.setupUi(MainWindow)
+        MainWindow.show()
+        app.exec_()
+        # close the WINDOWS
+        MainWindow.close()
 
 if __name__ == "__main__":
     import sys

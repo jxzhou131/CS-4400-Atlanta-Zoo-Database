@@ -7,6 +7,15 @@
 # WARNING! All changes made in this file will be lost!
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+# import the connection_pool established in the connect.py
+from __main__ import connection_pool
+# import the __main__ object to access the global variables: status, state, arg, loginIdentity
+import __main__
+
+import mysql.connector
+
+import sys
+app = QtWidgets.QApplication(sys.argv)
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -150,6 +159,8 @@ class Ui_MainWindow(object):
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
 
+        self.userDefinedInitialization()
+
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
@@ -176,6 +187,100 @@ class Ui_MainWindow(object):
         self.label_species.setText(_translate("MainWindow", "Species:"))
         self.label_age.setText(_translate("MainWindow", "Age:"))
         self.button_add_animal.setText(_translate("MainWindow", "Add Animal"))
+
+    def home(self):
+        __main__.status = __main__.statusDef['Normal']
+        __main__.state = __main__.adminUIs['administratorFunctionality'] # administratorFunctionality Page
+        app.exit()
+
+    def userDefinedInitialization(self):
+        self.button_home.clicked.connect(self.home)
+        self.button_add_animal.clicked.connect(self.addAnimals)
+        self.spinBox_age.setMaximum(1000)
+        # self.viewStaffButton.clicked.connect(self.viewStaff)
+        # self.viewVisitorsButton.clicked.connect(self.viewVisitors)
+        # self.viewAnimalsButton.clicked.connect(self.viewAnimals)
+        # self.addShowButton.clicked.connect(self.addShows)
+        # self.logOutButton.clicked.connect(self.logout)
+
+    def addAnimals(self):
+        Name = self.lineEdit.text()
+        Species = self.lineEdit_species.text()
+        Type = self.comboBox_type.currentText()
+        Age = self.spinBox_age.value()
+        Exhibit = self.comboBox_exb.currentText()
+
+        if Name.lstrip().rstrip() == "" or Species.lstrip().rstrip() == "" or Type.lstrip().rstrip() == "" or Age < 0 or Exhibit.lstrip().rstrip() == "":
+            self.InformationNotComplete()
+            return
+
+        else:
+            cmd = "INSERT INTO ANIMAL VALUES (\'" + Name + "\', \'" + Species + "\', \'" + Type+"\', "+ str(Age) + ", \'" + Exhibit + "\');"
+            # obtain the connection_object
+            connection_object = connection_pool.get_connection()
+            # these three lines of code is used for debugging: CHECK FOR CONNECTIONS
+            if connection_object.is_connected():
+                db_Info = connection_object.get_server_info()
+            print("Connected to MySQL database using connection pool ... MySQL Server version on ",db_Info)
+            # get cursor
+            cursor = connection_object.cursor()
+            # use cursor to execute sql command
+            try:
+                cursor.execute(cmd)
+                connection_object.commit()
+                self.Insert_successful()
+            except mysql.connector.IntegrityError as err:
+                self.IntegrityError()
+                print("Error: {}", format(err))
+
+            # close the cursor and connection
+            if(connection_object.is_connected()):
+                cursor.close()
+                connection_object.close()
+                print("MySQL connection is closed")
+
+
+    def InformationNotComplete(self):
+        d = QtWidgets.QDialog()
+        d.setMinimumSize(400, 50)
+        b1= QtWidgets.QPushButton("close",d)
+        b1.clicked.connect(lambda : d.close())
+        b1.move(50,50)
+        d.setWindowTitle("Information is not complete")
+        d.setWindowModality(QtCore.Qt.ApplicationModal)
+        d.exec_() 
+
+    def IntegrityError(self):
+        d = QtWidgets.QDialog()
+        d.setMinimumSize(400, 50)
+        b1= QtWidgets.QPushButton("close",d)
+        b1.clicked.connect(lambda : d.close())
+        b1.move(50,50)
+        d.setWindowTitle("Integrity Error")
+        d.setWindowModality(QtCore.Qt.ApplicationModal)
+        d.exec_()   
+
+    def Insert_successful(self):
+        d = QtWidgets.QDialog()
+        d.setMinimumSize(400, 50)
+        b1= QtWidgets.QPushButton("close",d)
+        b1.clicked.connect(lambda : d.close())
+        b1.move(50,50)
+        d.setWindowTitle("Insertion Successful")
+        d.setWindowModality(QtCore.Qt.ApplicationModal)
+        d.exec_()        
+
+def render():
+    # import sys
+    # app = QtWidgets.QApplication(sys.argv)
+    __main__.state = -10
+    MainWindow = QtWidgets.QMainWindow()
+    ui = Ui_MainWindow()
+    ui.setupUi(MainWindow)
+    MainWindow.show()
+    app.exec_()
+    # close the WINDOWS
+    MainWindow.close()
 
 
 if __name__ == "__main__":

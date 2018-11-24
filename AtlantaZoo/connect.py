@@ -83,12 +83,11 @@ if __name__ == "__main__":
     # import all the intial UIs modules available here
 
     import loginPage, registration
-    import staffFunctionality
     import visitorFunctionality, visitorSearchShow, visitorSearchAnimals, visitorSearchExhibit
     import visitorFunctionality, visitorSearchShow, visitorSearchAnimals, exhibitDetails, visitorExhibitHistory, visitorShowHistory
     import staffFunctionality, staffViewShows, staffSearchAnimals, staffAnimalCare
     import visitorFunctionality, visitorSearchShow, visitorSearchAnimals, exhibitDetails
-    import administratorFunctionality
+    import administratorFunctionality, adminViewShows, adminAddAnimals, adminViewVisitors, adminViewStaff, adminAddShows, adminViewAnimals
     import exhibitDetails
 
     # comment this if you use want a fast login
@@ -100,12 +99,12 @@ if __name__ == "__main__":
     #     registration.render()
 
     # uncomment this too to skip login page
-    state = 0
+    # state = 0
 
-    #================ Parameters to run test case on AnimalCarePage =============
-    # state of animalcare page
+    # #================ Parameters to run test case on AnimalCarePage =============
+    # # state of animalcare page
     # state = 2
-    # arg = [("Name", "Goldy", "str"), ("Species", "Goldfish", "str")]
+    # arg = [('Goldy', 'Goldfish', 'Fish',12,'Pacific')]
 
     # uncomment this if you need a visitor ID
     # loginIdentity = [('xavier_swenson', '34cc93ece0ba9e3f6f235d4af979b16c', 'xavierswenson@outlook.com', 'visitor')]
@@ -113,11 +112,11 @@ if __name__ == "__main__":
 
     # uncomment this if you need a staff ID
 
-    loginIdentity = [('martha_johnson', '7c6a180b36896a0a8c02787eeafb0e4c', 'marthajohnson@hotmail.com', 'staff')]
+    # loginIdentity = [('martha_johnson', '7c6a180b36896a0a8c02787eeafb0e4c', 'marthajohnson@hotmail.com', 'staff')]
 
 
     # uncomment this if you need an admin ID
-    # loginIdentity = [('admin1', 'e3274be5c857fb42ab72d786e281b4b8', 'adminemail@mail.com', 'admin')]
+    # loginIdentity = [('admin1','e3274be5c857fb42ab72d786e281b4b8','adminemail@mail.com','admin')]
 
     # DEBUGGING USE
     # display current user data
@@ -134,94 +133,107 @@ if __name__ == "__main__":
     # there is an error
       print("Error")
     else:
-    # no error, proceed
-      module = None
-      if(loginIdentity[0][3] == "visitor"):
-        while(state > -1 and state < 10 and status != -1):
-          if(state == visitorUIs["visitorFunctionality"]):
-            visitorFunctionality.render()
-            pass
-          elif(state == visitorUIs["visitorShowHistory"]):
-            visitorShowHistory.render()
-            pass
-          elif(state == visitorUIs["visitorSearchShow"]):
-            visitorSearchShow.render()
-            pass
-          elif(state == visitorUIs["visitorSearchExhibit"]):
-            visitorSearchExhibit.render()
-            pass
-          elif(state == visitorUIs["visitorSearchAnimals"]):
-            visitorSearchAnimals.render()
-            pass
-          elif(state == visitorUIs["visitorExhibitHistory"]):
-            visitorExhibitHistory.render()
-            pass
-          elif(state == visitorUIs["animalDetails"]):
-            animalDetails.render()
-            pass
-          elif(state == visitorUIs["exhibitDetails"]):
-            exhibitDetails.render()
-            pass
-          # uncommented in DEBUGGING MODE
-          print("state")
-          print(state)
-          print("status")
-          print(status)
-          print("arg")
-          print(arg)
+      while(state > -10 and state < 10 and status != -1):
+        # comment this if you use want a fast login
+        # then uncomment the statement below it
+        while(state == 1 or state == 2):
+          if(state == 1):
+            loginPage.render()
+          elif(state == 2):
+            registration.render()
 
-      elif (loginIdentity[0][3] == "staff"):
-        while(state > -1 and state < 10 and status != -1):
-          if(state == staffUIs["staffFunctionality"]):
-            staffFunctionality.render()
-            pass
-          elif (state == staffUIs["staffViewShows"]):
-            staffViewShows.render()
-            pass
-          elif(state == staffUIs["staffAnimalCare"]):
-            staffAnimalCare.render()
-            pass
-          elif(state == staffUIs["staffSearchAnimals"]):
-            staffSearchAnimals.render()
-            pass
-          # uncommented in DEBUGGING MODE
-          print("state")
-          print(state)
-          print("status")
-          print(status)
-          print("arg")
-          print(arg)
+      # no error, proceed
+        module = None
+        if(loginIdentity[0][3] == "visitor"):
+          while(state > -1 and state < 10 and status != -1):
+            if(state == visitorUIs["visitorFunctionality"]):
+              visitorFunctionality.render()
+              pass
+            elif(state == visitorUIs["visitorShowHistory"]):
+              visitorShowHistory.render()
+              pass
+            elif(state == visitorUIs["visitorSearchShow"]):
+              visitorSearchShow.render()
+              pass
+            elif(state == visitorUIs["visitorSearchExhibit"]):
+              visitorSearchExhibit.render()
+              pass
+            elif(state == visitorUIs["visitorSearchAnimals"]):
+              visitorSearchAnimals.render()
+              pass
+            elif(state == visitorUIs["visitorExhibitHistory"]):
+              visitorExhibitHistory.render()
+              pass
+            elif(state == visitorUIs["animalDetails"]):
+              animalDetails.render()
+              pass
+            elif(state == visitorUIs["exhibitDetails"]):
+              exhibitDetails.render()
+              pass
+            # uncommented in DEBUGGING MODE
+            print("state")
+            print(state)
+            print("status")
+            print(status)
+            print("arg")
+            print(arg)
 
-      elif( loginIdentity[0][3] == "admin"):
-        while(state > -1 and state < 10 and status != -1):
-          if(state == adminUIs["administratorFunctionality"]):
-            administratorFunctionality.render()
-            pass
-          elif(state == adminUIs["adminViewVisitors"]):
-            adminViewVisitors.render()
-            pass
-          elif(state == adminUIs["adminViewStaff"]):
-            adminViewStaff.render()
-            pass
-          elif(state == adminUIs["adminViewShows"]):
-            adminViewShows.render()
-            pass
-          elif(state == adminUIs["adminAddShows"]):
-            adminAddShows.render()
-            pass
-          elif(state == adminUIs["adminAddAnimals"]):
-            adminAddAnimals.render()
-            pass
-          elif(state == adminUIs["adminViewAnimals"]):
-            adminViewAnimals.render()
+        elif (loginIdentity[0][3] == "staff"):
+          while(state > -1 and state < 10 and status != -1):
+            if(state == staffUIs["staffFunctionality"]):
+              staffFunctionality.render()
+              pass
+            elif (state == staffUIs["staffViewShows"]):
+              staffViewShows.render()
+              pass
+            elif(state == staffUIs["staffAnimalCare"]):
+              staffAnimalCare.render()
+              pass
+            elif(state == staffUIs["staffSearchAnimals"]):
+              staffSearchAnimals.render()
+              pass
+            # uncommented in DEBUGGING MODE
+            print("state")
+            print(state)
+            print("status")
+            print(status)
+            print("arg")
+            print(arg)
 
-          # uncommented in DEBUGGING MODE
-          print("state")
-          print(state)
-          print("status")
-          print(status)
-          print("arg")
-          print(arg)
+        elif( loginIdentity[0][3] == "admin"):
+          while(state > -1 and state < 10 and status != -1):
+            if(state == adminUIs["administratorFunctionality"]):
+              administratorFunctionality.render()
+              pass
+            elif(state == adminUIs["adminViewVisitors"]):
+              adminViewVisitors.render()
+              pass
+            elif(state == adminUIs["adminViewStaff"]):
+              adminViewStaff.render()
+              pass
+            elif(state == adminUIs["adminViewShows"]):
+              adminViewShows.render()
+              pass
+            elif(state == adminUIs["adminAddShows"]):
+              adminAddShows.render()
+              pass
+            elif(state == adminUIs["adminAddAnimals"]):
+              adminAddAnimals.render()
+              pass
+            elif(state == adminUIs["adminViewAnimals"]):
+              adminViewAnimals.render()
+
+            # uncommented in DEBUGGING MODE
+            print("state")
+            print(state)
+            print("status")
+            print(status)
+            print("arg")
+            print(arg)
+        # if the state == -5, it means go back to login page
+        # else state == -10, it means exit windows
+        if(state == -5):
+          state = 1
 
     # print("state")
     # print(state)

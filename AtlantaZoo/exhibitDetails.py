@@ -211,6 +211,7 @@ class Ui_MainWindow(object):
             cmd="insert into VISITEXHIBIT values(\'" + Visitor + "\',\'" + str( __main__.arg[0][1])+ "\',STR_TO_DATE(\'" + DateTime + "\' , \'%m/%d/%Y %r\'))"
             cursor = connection_object.cursor()
             cursor.execute(cmd)
+            connection_object.commit()
             print("Insert Successfully")
         except mysql.connector.IntegrityError as err:
             print("Error: {}".format(err))
