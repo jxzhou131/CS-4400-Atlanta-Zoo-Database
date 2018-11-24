@@ -17,7 +17,7 @@ app = QtWidgets.QApplication(sys.argv)
 
 import re
 
-class Ui_adminViewStaff(object):
+class Ui_adminViewVisitor(object):
     # load all the data in the table view load all if no username
     # is given if username is given then only load that particular
     # visitor
