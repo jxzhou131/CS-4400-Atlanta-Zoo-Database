@@ -230,6 +230,10 @@ class Ui_MainWindow(object):
         # self.tableWidget.setSelectionMode(QtWidgets.QAbstractItemView.ExtendedSelection)
         self.button_log_visit.clicked.connect(self.logVisit)
         # self.preloadTable()
+        header = self.tableWidget.horizontalHeader()
+        # header.setSectionResizeMode(0, QtWidgets.QHeaderView.ResizeToContents)
+        header.setSectionResizeMode(1, QtWidgets.QHeaderView.ResizeToContents)
+        # header.setSectionResizeMode(2, QtWidgets.QHeaderView.ResizeToContents)
 
     def highlightRowOrToExhibit(self, row, column):
         # highlight the row selected

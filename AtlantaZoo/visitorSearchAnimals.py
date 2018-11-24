@@ -278,6 +278,10 @@ class Ui_MainWindow(object):
         self.Searchbutton.clicked.connect(self.searchAnimal)
         self.Homebutton.clicked.connect(self.home)
         self.tableWidget.cellClicked.connect(self.highlightRowOrToExhibit)
+        # header = self.tableWidget.horizontalHeader()
+        # header.setSectionResizeMode(0, QtWidgets.QHeaderView.ResizeToContents)
+        # header.setSectionResizeMode(1, QtWidgets.QHeaderView.ResizeToContents)
+        # header.setSectionResizeMode(2, QtWidgets.QHeaderView.ResizeToContents)
     
     
     def searchAnimal(self):
