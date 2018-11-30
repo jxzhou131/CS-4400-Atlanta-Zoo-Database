@@ -7,7 +7,16 @@
 # WARNING! All changes made in this file will be lost!
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-
+#################### MUST HAVE #################################################################
+# import the connection_pool established in the connect.py
+from __main__ import connection_pool
+# import the __main__ object to access the global variables: status, state, arg, loginIdentity
+import __main__
+import sys
+app = QtWidgets.QApplication(sys.argv)
+import time
+import util
+import mysql.connector
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
@@ -152,6 +161,8 @@ class Ui_MainWindow(object):
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
 
+        self.userDefinedInitialization()
+
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
@@ -167,6 +178,66 @@ class Ui_MainWindow(object):
         self.typeLabel.setText(_translate("MainWindow", "Type:"))
         self.ageLabel.setText(_translate("MainWindow", "Age:"))
 
+    def userDefinedInitialization(self):
+        self.currentOrder = 0
+        self.button_home.clicked.connect(self.home)
+        self.loadAnimalDetails()
+
+
+    def home(self):
+        __main__.status = __main__.statusDef['Normal']
+        __main__.state = __main__.visitorUIs['visitorFunctionality']
+        app.exit()
+
+    def loadAnimalDetails(self):
+        # construct the query command
+        cmd = "SELECT Name, Species, Type, Age, Exhibit FROM ANIMAL "
+        cmd = util.addWHERE(cmd, __main__.arg)
+        cmd += ";"
+
+        # DEBUG OUTPUT
+        print("cmd")
+        print(cmd)
+        # obtain the connection_object
+        connection_object = connection_pool.get_connection()
+        # these three lines of code is used for debugging: CHECK FOR CONNECTIONS
+        if connection_object.is_connected():
+            db_Info = connection_object.get_server_info()
+        print("Connected to MySQL database using connection pool ... MySQL Server version on ",db_Info)
+        # get cursor
+        cursor = connection_object.cursor()
+        try:
+            # use cursor to execute sql command
+            cursor.execute(cmd)
+            # there could have multiple lines of sql command
+            # after all the command, retrieve the queries
+            record = cursor.fetchall()
+            # for DEBUGGING purpose
+            print(record)
+
+            self.nameLineEdit.setText(str(record[0][0]))
+            self.speciesLineEdit.setText(str(record[0][1]))
+            self.typeLineEdit.setText(str(record[0][2]))
+            self.ageLineEdit.setText(str(record[0][3]))
+            self.exhibitLineEdit.setText(str(record[0][4]))
+
+        except mysql.connector.Error as err:
+            print("Something went wrong: {}".format(err))
+        # close the cursor and connection
+        if(connection_object.is_connected()):
+            cursor.close()
+            connection_object.close()
+            print("MySQL connection is closed")
+
+def render():
+    __main__.state = -10
+    MainWindow = QtWidgets.QMainWindow()
+    ui = Ui_MainWindow()
+    ui.setupUi(MainWindow)
+    MainWindow.show()
+    app.exec_()
+    #close the MainWindow
+    MainWindow.close()  
 
 if __name__ == "__main__":
     import sys

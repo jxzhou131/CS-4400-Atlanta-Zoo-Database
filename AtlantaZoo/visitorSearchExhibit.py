@@ -7,6 +7,17 @@ import sys
 app = QtWidgets.QApplication(sys.argv)
 
 import util
+headerDict = {
+    0: "Name",
+    1: "WaterFeature",
+    2: "Size",
+    3: "Num"
+}
+
+orderDict = {
+    0: "ASC",
+    1: "DESC"
+}
 
 
 class Ui_MainWindow(object):
@@ -265,11 +276,14 @@ class Ui_MainWindow(object):
 
 
     def userDefinedInitialisation(self):
+        self.currentOrder = 0
         self.Searchbutton.clicked.connect(self.searchExhibit)
         self.Homebutton.clicked.connect(self.home)
         self.tableWidget.cellClicked.connect(self.highlightRowOrToExhibit)
+        header = self.tableWidget.horizontalHeader()
+        header.sectionClicked.connect(self.searchExhibit)
 
-    def searchExhibit(self):
+    def searchExhibit(self, column = 0):
         Name = self.lineEdit_name.text()
         MaxSize = self.spinBox_maxsize.value()
         MinSize = self.spinBox_minsize.value()
@@ -292,7 +306,7 @@ class Ui_MainWindow(object):
         
                 
 
-        cmd1= "SELECT * FROM (SELECT E.Name, WaterFeature, Size, COUNT(*) as Num FROM EXHIBIT as E, ANIMAL as A"
+        cmd1= "SELECT * FROM (SELECT E.Name as Name, WaterFeature, Size, COUNT(*) as Num FROM EXHIBIT as E, ANIMAL as A"
         
         AExhibit = "A.Exhibit"
         listTuple1 = [("E.Name", AExhibit, "var"), ("E.name", Name,"str"),("WaterFeature",WaterFeature, "bool"), ("MinSize",MinSize,"int"),("MaxSize", MaxSize, "int")]
@@ -304,6 +318,11 @@ class Ui_MainWindow(object):
         
         listTuple2=[("MinNum", MinNum,"int"),("MaxNum", MaxNum,"int")]
         cmd1 = util.addWHERE(cmd1, listTuple2)
+        cmd1 += " order by " + headerDict[column] + " " + orderDict[self.currentOrder] + ";"
+        if(self.currentOrder == 0):
+            self.currentOrder = 1
+        else: 
+            self.currentOrder = 0
 
         print(cmd1)
         

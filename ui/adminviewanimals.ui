@@ -6,26 +6,32 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>821</width>
-    <height>543</height>
+    <width>1169</width>
+    <height>649</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>5</x>
       <y>5</y>
-      <width>807</width>
-      <height>498</height>
+      <width>1155</width>
+      <height>614</height>
      </rect>
     </property>
     <layout class="QGridLayout" name="gridLayout_3">
      <item row="0" column="0" colspan="3">
       <widget class="QPushButton" name="Home">
+       <property name="maximumSize">
+        <size>
+         <width>101</width>
+         <height>37</height>
+        </size>
+       </property>
        <property name="font">
         <font>
          <family>MS Sans Serif</family>

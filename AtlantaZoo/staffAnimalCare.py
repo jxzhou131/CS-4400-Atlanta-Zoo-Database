@@ -20,6 +20,18 @@ import time
 import mysql.connector
 
 import sys
+
+headerDict = {
+    0: "Staff",
+    1: "Text",
+    2: "DateTime"
+}
+
+orderDict = {
+    0: "ASC",
+    1: "DESC"
+}
+
 app = QtWidgets.QApplication(sys.argv)
 ################################################################################################
 # WINDOWS VARIABLE
@@ -236,15 +248,17 @@ class Ui_staffAnimalCare(object):
         item.setText(_translate("staffAnimalCare", "Time"))
 
 
-    def userDefinedInitialization(self):
+    def userDefinedInitialization(self):        
+        self.currentOrder = 1
         self.HomePushButton.clicked.connect(self.home)
         self.loadAnimalDetails()
         self.LogNotesPushButton.clicked.connect(self.logNote)
-        self.preloadTable()
+        self.loadNotes()
         self.tableWidget.setColumnWidth(0, 150)
         self.tableWidget.setColumnWidth(1, 350)
         self.tableWidget.setColumnWidth(2, 200)
         header = self.tableWidget.horizontalHeader()
+        header.sectionClicked.connect(self.loadNotes)
         header.setSectionResizeMode(0, QtWidgets.QHeaderView.ResizeToContents)
         header.setSectionResizeMode(1, QtWidgets.QHeaderView.ResizeToContents)
         header.setSectionResizeMode(2, QtWidgets.QHeaderView.ResizeToContents)
@@ -266,14 +280,18 @@ class Ui_staffAnimalCare(object):
         __main__.state = __main__.visitorUIs['visitorFunctionality']
         app.exit()
 
-    def preloadTable(self):
+    def loadNotes(self, column = 2):
         # construct the querycommand to retrieve logged notes regarding to the animal
         cmd1 = "SELECT Staff, Text, DateTime FROM NOTE "
         AnimalName = __main__.arg[0][1]
         AnimalSpecies = __main__.arg[1][1]
         listTuple = [("AnimalName", AnimalName, "str"), ("AnimalSpecies", AnimalSpecies, "str")]
-        cmd1 = util.addWHERE(cmd1, listTuple) + ";"
-
+        cmd1 = util.addWHERE(cmd1, listTuple)
+        cmd1 += " order by " + headerDict[column] + " " + orderDict[self.currentOrder] + ";"
+        if(self.currentOrder == 0):
+            self.currentOrder = 1
+        else: 
+            self.currentOrder = 0
         # for DEBUGGING
         print("cmd1")
         print(cmd1)
@@ -417,41 +435,15 @@ class Ui_staffAnimalCare(object):
             print("Insert Successfully")
         except mysql.connector.IntegrityError as err:
             print("Error: {}".format(err))
-        #########################################################################################
-        ########## Query and update the table ##############
-        try:
-            # use cursor to execute sql command
-            cursor.execute(cmd2)
-            # there could have multiple lines of sql command
-            # after all the command, retrieve the queries
-            record = cursor.fetchall()
-            # for DEBUGGING purpose
-            print(record)
-            # this statement clears all the rows
-            self.tableWidget.setRowCount(0)
-            for row_num, row_data in enumerate(record):
-                # insert a new blank row
-                # in other words, expand the table by inserting a new row
-                self.tableWidget.insertRow(row_num)
-                for column_num, data in enumerate(row_data):
-                    # IMPORTANT
-                    # first you must determine in which column does the DateTime attribute occur in your
-                    # query
-                    DATETIMECOLUMN = 2
-                    cellContent = None
-                    if(column_num == DATETIMECOLUMN):
-                        cellContent = data.strftime("%m/%d/%Y %I:%M:%S %p")
-                    if(cellContent is None):
-                        cellContent = str(data)
-                    self.tableWidget.setItem(row_num, column_num, QtWidgets.QTableWidgetItem(cellContent))
-        except mysql.connector.Error as err:
-            print("Something went wrong: {}".format(err))
 
         # close the cursor and connection
         if(connection_object.is_connected()):
             cursor.close()
             connection_object.close()
             print("MySQL connection is closed")
+        #########################################################################################
+        ########## Query and update the table ##############
+        self.loadNotes()
 
 
 

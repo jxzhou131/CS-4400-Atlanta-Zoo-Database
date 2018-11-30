@@ -9,6 +9,16 @@ app = QtWidgets.QApplication(sys.argv)
 import util
 import mysql.connector
 
+headerDict = {
+    0: "Name",
+    1: "Exhibit",
+    2: "DateTime"
+}
+
+orderDict = {
+    0: "ASC",
+    1: "DESC"
+}
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -209,17 +219,19 @@ class Ui_MainWindow(object):
 
 
     def userDefinedInitialisation(self):
+        self.currentOrder = 1
         self.button_search.clicked.connect(self.searchShows)
         self.button_rmv_show.clicked.connect(self.removeShows)
         self.button_home.clicked.connect(self.home)
         self.tableWidget.cellClicked.connect(self.highlightRow)
         header = self.tableWidget.horizontalHeader()
+        header.sectionClicked.connect(self.searchShows)
         header.setSectionResizeMode(0, QtWidgets.QHeaderView.ResizeToContents)
         header.setSectionResizeMode(1, QtWidgets.QHeaderView.ResizeToContents)
         header.setSectionResizeMode(2, QtWidgets.QHeaderView.ResizeToContents)
     
     
-    def searchShows(self):
+    def searchShows(self, column = 2):
         Name = self.lineEdit.text()
         Location = self.comboBox_exb.currentText()
         DateTime = self.dateTimeEdit.dateTime().toString("MM/dd/yyyy hh:mm:ss AP")
@@ -233,7 +245,11 @@ class Ui_MainWindow(object):
         
         cmd1 = "SELECT Name, Location as Exhibit, DateTime from SHOWS "
         cmd1 = util.addWHERE(cmd1, listTuple)
-        cmd1 += ";"
+        cmd1 += " order by " + headerDict[column] + " " + orderDict[self.currentOrder] +";"
+        if(self.currentOrder == 0):
+            self.currentOrder = 1
+        else: 
+            self.currentOrder = 0 
 
         print(cmd1)
 

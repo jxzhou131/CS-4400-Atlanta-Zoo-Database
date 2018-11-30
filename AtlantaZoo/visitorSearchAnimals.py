@@ -7,7 +7,18 @@ import sys
 app = QtWidgets.QApplication(sys.argv)
 
 import util
+headerDict = {
+    0: "Name",
+    1: "Species",
+    2: "Exhibit",
+    3: "Type",
+    4: "Age"
+}
 
+orderDict = {
+    0: "ASC",
+    1: "DESC"
+}
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -275,16 +286,18 @@ class Ui_MainWindow(object):
         item.setText(_translate("MainWindow", "Age"))
 
     def userDefinedInitialisation(self):
+        self.currentOrder = 0
         self.Searchbutton.clicked.connect(self.searchAnimal)
         self.Homebutton.clicked.connect(self.home)
         self.tableWidget.cellClicked.connect(self.highlightRowOrToExhibit)
+        header = self.tableWidget.horizontalHeader()
+        header.sectionClicked.connect(self.searchAnimal)
         # header = self.tableWidget.horizontalHeader()
         # header.setSectionResizeMode(0, QtWidgets.QHeaderView.ResizeToContents)
         # header.setSectionResizeMode(1, QtWidgets.QHeaderView.ResizeToContents)
         # header.setSectionResizeMode(2, QtWidgets.QHeaderView.ResizeToContents)
     
-    
-    def searchAnimal(self):
+    def searchAnimal(self, column = 0):
         Name = self.lineEdit_name.text()
         Species = self.lineEdit_species.text()
         Exhibit = self.ExhibitCombo.currentText()
@@ -303,10 +316,15 @@ class Ui_MainWindow(object):
         
         listTuple = [("Name", Name, "str"), ("Species", Species, "str"),("Exhibit",Exhibit, "str"),("Type", Type, "str"),("MinAge", MinAge, "int"),("MaxAge", MaxAge, "int")]
 
-        cmd1= "SELECT Name, Species, Exhibit, Type, Age FROM ANIMAL"
+        cmd1= "SELECT Name, Species, Exhibit, Type, Age FROM ANIMAL "
         
         cmd1 = util.addWHERE(cmd1, listTuple)
 
+        cmd1 += " order by " + headerDict[column] + " " + orderDict[self.currentOrder] + ";"
+        if(self.currentOrder == 0):
+            self.currentOrder = 1
+        else: 
+            self.currentOrder = 0
 
         connection_object = connection_pool.get_connection()
         if connection_object.is_connected():

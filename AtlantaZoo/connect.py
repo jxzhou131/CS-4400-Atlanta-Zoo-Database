@@ -88,7 +88,7 @@ if __name__ == "__main__":
     import staffFunctionality, staffViewShows, staffSearchAnimals, staffAnimalCare
     import visitorFunctionality, visitorSearchShow, visitorSearchAnimals, exhibitDetails
     import administratorFunctionality, adminViewShows, adminAddAnimals, adminViewVisitors, adminViewStaff, adminAddShows, adminViewAnimals
-    import exhibitDetails
+    import exhibitDetails, animalDetails
 
     # comment this if you use want a fast login
     # then uncomment the statement below it
@@ -104,7 +104,9 @@ if __name__ == "__main__":
     # #================ Parameters to run test case on AnimalCarePage =============
     # # state of animalcare page
     # state = 2
-    # arg = [('Goldy', 'Goldfish', 'Fish',12,'Pacific')]
+    # Name = 'Goldy'
+    # Species = "Goldfish"
+    # arg = [("Name", Name, "str"), ("Species", Species, "str")]
 
     # uncomment this if you need a visitor ID
     # loginIdentity = [('xavier_swenson', '34cc93ece0ba9e3f6f235d4af979b16c', 'xavierswenson@outlook.com', 'visitor')]
@@ -113,7 +115,7 @@ if __name__ == "__main__":
     # uncomment this if you need a staff ID
 
     # loginIdentity = [('martha_johnson', '7c6a180b36896a0a8c02787eeafb0e4c', 'marthajohnson@hotmail.com', 'staff')]
-
+    # loginIdentity = [('benjamin_rao', '6cb75f652a9b52798eb6cf2201057c73', 'benjaminrao@gmail.com', 'staff')]
 
     # uncomment this if you need an admin ID
     # loginIdentity = [('admin1','e3274be5c857fb42ab72d786e281b4b8','adminemail@mail.com','admin')]

@@ -20,6 +20,18 @@ import time
 import mysql.connector
 
 import sys
+
+headerDict = {
+    0: "Name",
+    1: "Location",
+    2: "DateTime"
+}
+
+orderDict = {
+    0: "ASC",
+    1: "DESC"
+}
+
 app = QtWidgets.QApplication(sys.argv)
 ################################################################################################
 from PyQt5 import QtCore, QtGui, QtWidgets
@@ -221,6 +233,7 @@ class Ui_MainWindow(object):
         self.button_log_visit.setText(_translate("MainWindow", "Log Visit"))
         
     def userDefinedInitialization(self):
+        self.currentOrder = 1
         self.button_home.clicked.connect(self.home)
         self.button_search.clicked.connect(self.searchShow)
         self.tableWidget.setColumnWidth(0, 200)
@@ -231,6 +244,7 @@ class Ui_MainWindow(object):
         self.button_log_visit.clicked.connect(self.logVisit)
         # self.preloadTable()
         header = self.tableWidget.horizontalHeader()
+        header.sectionClicked.connect(self.searchShow)
         # header.setSectionResizeMode(0, QtWidgets.QHeaderView.ResizeToContents)
         header.setSectionResizeMode(1, QtWidgets.QHeaderView.ResizeToContents)
         # header.setSectionResizeMode(2, QtWidgets.QHeaderView.ResizeToContents)
@@ -298,7 +312,7 @@ class Ui_MainWindow(object):
     #         connection_object.close()
     #         print("MySQL connection is closed")
 
-    def searchShow(self):
+    def searchShow(self, column = 2):
         Name = self.lineEdit_name.text().lstrip().rstrip()
         Location = str(self.comboBox_exb.currentText())
         DateTime = self.dateTimeEdit.dateTime().toString("MM/dd/yyyy hh:mm:ss AP")
@@ -313,13 +327,17 @@ class Ui_MainWindow(object):
 
         cmd1 = "SELECT Name, Location as Exhibit, DateTime from SHOWS "
         cmd1 = util.addWHERE(cmd1, listTuple)
-        cmd1 += ";"
+        cmd1 += " order by " + headerDict[column] + " " + orderDict[self.currentOrder] + ";"
+        if(self.currentOrder == 0):
+            self.currentOrder = 1
+        else: 
+            self.currentOrder = 0
         # DEBUG OUTPUT
         print("listTuple")
         print(listTuple)
         print("cmd1")
         print(cmd1)
-        # obtain the connection_object
+        # obtain the connection_object  
         connection_object = connection_pool.get_connection()
         # these three lines of code is used for debugging: CHECK FOR CONNECTIONS
         if connection_object.is_connected():

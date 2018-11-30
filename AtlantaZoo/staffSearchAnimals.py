@@ -6,6 +6,20 @@ from __main__ import connection_pool
 import __main__
 
 import sys
+
+headerDict = {
+    0: "Name",
+    1: "Species",
+    2: "Exhibit",
+    3: "Age",
+    4: "Type"
+}
+
+orderDict = {
+    0: "ASC",
+    1: "DESC"
+}
+
 app = QtWidgets.QApplication(sys.argv)
 import util
 class Ui_staffSearchAnimals(object):
@@ -275,13 +289,16 @@ class Ui_staffSearchAnimals(object):
         item.setText(_translate("staffSearchAnimals", "Type"))
 
     def userDefinedInitialization(self):
+        self.currentOrder = 0
         self.SearchPushButton.clicked.connect(self.SearchAnimals)
         self.HomePushButton.clicked.connect(self.home)
         self.AnimalTable.cellClicked.connect(self.highlightRowOrToAnimal)
         self.MaxSpinBox.setMaximum(1000)
         self.MinSpinBox.setMaximum(1000)
+        header = self.AnimalTable.horizontalHeader()
+        header.sectionClicked.connect(self.SearchAnimals)
 
-    def SearchAnimals(self):
+    def SearchAnimals(self, column = 0):
         Name = self.NameLineEdit.text()
         Species = self.SpeciesLineEdit.text()
         Exhibit = self.ExhibitComboBox.currentText()
@@ -299,6 +316,11 @@ class Ui_staffSearchAnimals(object):
         listTuple = [("Name", Name, "str"), ("Species", Species, "str"),("Exhibit",Exhibit, "str"),("Type", Type, "str"),("MinAge", MinAge, "int"),("MaxAge", MaxAge, "int")]
         cmd1 = "SELECT Name, Species, Exhibit,Age, Type FROM ANIMAL"
         cmd1 = util.addWHERE(cmd1,listTuple)
+        cmd1 += " order by " + headerDict[column] + " " + orderDict[self.currentOrder] + ";"
+        if(self.currentOrder == 0):
+            self.currentOrder = 1
+        else: 
+            self.currentOrder = 0
         connection_object = connection_pool.get_connection()
         if connection_object.is_connected():
             db_Info = connection_object.get_server_info()

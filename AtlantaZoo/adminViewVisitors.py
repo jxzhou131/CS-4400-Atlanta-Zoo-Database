@@ -16,6 +16,17 @@ import __main__
 import util
 
 import sys
+
+headerDict = {
+    0: "Username",
+    1: "Email"
+}
+
+orderDict = {
+    0: "ASC",
+    1: "DESC"
+}
+
 app = QtWidgets.QApplication(sys.argv)
 ################################################################################################
 class Ui_adminViewVisitors(object):
@@ -152,10 +163,13 @@ class Ui_adminViewVisitors(object):
 
     # initialize the delete function to delete selected row from the table
     def userDefinedInitialization(self):
+        self.currentOrder = 0
         self.searchButton.clicked.connect(self.loadData)
         self.deleteVisitorButton.clicked.connect(self.deleteData)
         self.homeButton.clicked.connect(self.home)
         self.visitorList.cellClicked.connect(self.highlightRow)
+        header = self.visitorList.horizontalHeader()
+        header.sectionClicked.connect(self.loadData)
 
     def highlightRow(self, row, column):
         # highlight the row selected
@@ -165,16 +179,20 @@ class Ui_adminViewVisitors(object):
     # load all the data in the table view load all if no username
     # is given if username is given then only load that particular
     # visitor
-    def loadData(self):
+    def loadData(self, column = 0):
         connection_object = connection_pool.get_connection()
         username = self.username.text();
         print(username)
         query = ""
         if(username ==""):
-            query = "select Username, Email from USER where UserType ='Visitor'"
+            query = "select Username, Email from USER where UserType ='Visitor' "
         else :
-            query = "select Username, Email from USER where Username = \'"+username+"\';"
-
+            query = "select Username, Email from USER where Username = \'"+username+"\' "
+        query += " order by " + headerDict[column] + " " + orderDict[self.currentOrder] + ";"
+        if(self.currentOrder == 0):
+            self.currentOrder = 1
+        else: 
+            self.currentOrder = 0
         cursor = connection_object.cursor()
         cursor.execute(query)
         result = cursor.fetchall()

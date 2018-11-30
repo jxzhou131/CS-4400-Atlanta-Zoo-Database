@@ -15,6 +15,18 @@ import util
 import time
 
 import sys
+
+headerDict = {
+    0: "Name",
+    1: "DateTime",
+    2: "Location"
+}
+
+orderDict = {
+    0: "ASC",
+    1: "DESC"
+}
+
 app = QtWidgets.QApplication(sys.argv)
 
 class Ui_staffViewShows(object):
@@ -104,10 +116,12 @@ class Ui_staffViewShows(object):
 
 
     def userDefinedInitialization(self):
+        self.currentOrder = 0
         self.ShowDisplay()
         self.HomePushButton.clicked.connect(self.home)
         self.StaffTable.cellClicked.connect(self.highlightRow)
         header = self.StaffTable.horizontalHeader()
+        header.sectionClicked.connect(self.ShowDisplay)
         header.setSectionResizeMode(0, QtWidgets.QHeaderView.ResizeToContents)
         header.setSectionResizeMode(1, QtWidgets.QHeaderView.ResizeToContents)
         header.setSectionResizeMode(2, QtWidgets.QHeaderView.ResizeToContents)
@@ -121,9 +135,14 @@ class Ui_staffViewShows(object):
         __main__.state = __main__.staffUIs['staffFunctionality'] # Login Page
         app.exit()
 
-    def ShowDisplay(self):
+    def ShowDisplay(self, column = 1):
         loginIdentity = __main__.loginIdentity[0][0]
-        query = "SELECT Name, DateTime, Location FROM SHOWS WHERE Host = \'" + loginIdentity + "\';"
+        query = "SELECT Name, DateTime, Location FROM SHOWS WHERE Host = \'" + loginIdentity + "\' " 
+        query += " order by " + headerDict[column] + " " + orderDict[self.currentOrder] + ";"
+        if(self.currentOrder == 0):
+            self.currentOrder = 1
+        else: 
+            self.currentOrder = 0
         connection_object = connection_pool.get_connection()
         cursor = connection_object.cursor()
         cursor.execute(query)
