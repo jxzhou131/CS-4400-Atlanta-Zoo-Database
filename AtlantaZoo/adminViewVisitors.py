@@ -170,6 +170,7 @@ class Ui_adminViewVisitors(object):
         self.visitorList.cellClicked.connect(self.highlightRow)
         header = self.visitorList.horizontalHeader()
         header.sectionClicked.connect(self.loadData)
+        self.loadData()
 
     def highlightRow(self, row, column):
         # highlight the row selected

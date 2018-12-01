@@ -231,13 +231,15 @@ class Ui_MainWindow(object):
         self.searchPushButton.clicked.connect(self.searchExhibitHistory)
         self.numVisitsMaxSpinBox.setMinimum(0)
         self.numVisitsMinSpinBox.setMinimum(0)
-        self.numVisitsMaxSpinBox.setMaximum(100)
-        self.numVisitsMinSpinBox.setMaximum(100)
+        self.numVisitsMaxSpinBox.setMaximum(9999)
+        self.numVisitsMinSpinBox.setMaximum(9999)
         header = self.tableWidget.horizontalHeader()
         header.sectionClicked.connect(self.searchExhibitHistory)
         header.setSectionResizeMode(0, QtWidgets.QHeaderView.ResizeToContents)
         header.setSectionResizeMode(1, QtWidgets.QHeaderView.ResizeToContents)
         header.setSectionResizeMode(2, QtWidgets.QHeaderView.ResizeToContents)
+        self.dateTimeCheckBox.setChecked(2)
+        self.searchExhibitHistory()
         # header.sortIndicatorChanged.connect(self.sortAccordingToColumnHeader)
 
 

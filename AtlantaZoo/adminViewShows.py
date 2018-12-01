@@ -229,6 +229,8 @@ class Ui_MainWindow(object):
         header.setSectionResizeMode(0, QtWidgets.QHeaderView.ResizeToContents)
         header.setSectionResizeMode(1, QtWidgets.QHeaderView.ResizeToContents)
         header.setSectionResizeMode(2, QtWidgets.QHeaderView.ResizeToContents)
+        self.checkBox.setChecked(2)
+        self.searchShows()
     
     
     def searchShows(self, column = 2):

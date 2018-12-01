@@ -17,6 +17,8 @@ import util
 
 import time
 
+from datetime import datetime
+
 import mysql.connector
 
 import sys
@@ -242,7 +244,8 @@ class Ui_MainWindow(object):
         self.tableWidget.cellClicked.connect(self.highlightRowOrToExhibit)
         # self.tableWidget.setSelectionMode(QtWidgets.QAbstractItemView.ExtendedSelection)
         self.button_log_visit.clicked.connect(self.logVisit)
-        # self.preloadTable()
+        self.checkBox.setChecked(2)
+        self.searchShow()
         header = self.tableWidget.horizontalHeader()
         header.sectionClicked.connect(self.searchShow)
         # header.setSectionResizeMode(0, QtWidgets.QHeaderView.ResizeToContents)
@@ -335,7 +338,6 @@ class Ui_MainWindow(object):
 
     def logVisit(self):
         rowsSelected = self.tableWidget.selectionModel().selectedRows()
-        
         if(len(rowsSelected) >0):
             index = rowsSelected[0]
             # index consist of row() column()
@@ -344,43 +346,58 @@ class Ui_MainWindow(object):
             ShowName = self.tableWidget.item(row,0).text()
             ExhibitName = self.tableWidget.item(row,1).text()
             DateTime = self.tableWidget.item(row,2).text()
-            print("DateTime")
-            print(DateTime)
+            showTime = datetime.strptime(DateTime, '%m/%d/%Y %I:%M:%S %p')
+            if(showTime <= datetime.now()):
+                print("DateTime")
+                print(DateTime)
 
-            cmd1 = "INSERT INTO VISITSHOWS VALUES (\'" + Visitor + "\' , \'" + ShowName + "\' , STR_TO_DATE(\'" + DateTime + "\' , \'%m/%d/%Y %r\') );"
-            cmd2 = "INSERT INTO VISITEXHIBIT VALUES (\'" + Visitor + "\' , \'" + ExhibitName + "\' , STR_TO_DATE(\'" + DateTime + "\' , \'%m/%d/%Y %r\') );"
-            print("cmd1: " + cmd1)
-            print("cmd2: " + cmd2)
-            # obtain the connection_object
-            connection_object = connection_pool.get_connection()
-            # these three lines of code is used for debugging: CHECK FOR CONNECTIONS
-            if connection_object.is_connected():
-                db_Info = connection_object.get_server_info()
-            print("Connected to MySQL database using connection pool ... MySQL Server version on ",db_Info)
-            # get cursor
-            cursor = connection_object.cursor()
-            ########## This block of code is used to catch the exception in the database################
-            ########## To detect whether there already exist such tuples which violates ################
-            ########## PRIMARY KEY INTEGRITY
-            try:
-                # use cursor to execute sql command
-                cursor.execute(cmd1)
-                cursor.execute(cmd2)
-                # commit your transaction
-                connection_object.commit()
-                print("Insert Successfully")
-            except mysql.connector.IntegrityError as err:
-                print("Error: {}".format(err))
-                self.showCannotLogVisitMultipleTimes()
-            #########################################################################################
-            # close the cursor and connection
-            if(connection_object.is_connected()):
-                cursor.close()
-                connection_object.close()
-                print("MySQL connection is closed")
+                cmd1 = "INSERT INTO VISITSHOWS VALUES (\'" + Visitor + "\' , \'" + ShowName + "\' , STR_TO_DATE(\'" + DateTime + "\' , \'%m/%d/%Y %r\') );"
+                cmd2 = "INSERT INTO VISITEXHIBIT VALUES (\'" + Visitor + "\' , \'" + ExhibitName + "\' , STR_TO_DATE(\'" + DateTime + "\' , \'%m/%d/%Y %r\') );"
+                print("cmd1: " + cmd1)
+                print("cmd2: " + cmd2)
+                # obtain the connection_object
+                connection_object = connection_pool.get_connection()
+                # these three lines of code is used for debugging: CHECK FOR CONNECTIONS
+                if connection_object.is_connected():
+                    db_Info = connection_object.get_server_info()
+                print("Connected to MySQL database using connection pool ... MySQL Server version on ",db_Info)
+                # get cursor
+                cursor = connection_object.cursor()
+                ########## This block of code is used to catch the exception in the database################
+                ########## To detect whether there already exist such tuples which violates ################
+                ########## PRIMARY KEY INTEGRITY
+                try:
+                    # use cursor to execute sql command
+                    cursor.execute(cmd1)
+                    cursor.execute(cmd2)
+                    # commit your transaction
+                    connection_object.commit()
+                    print("Insert Successfully")
+                except mysql.connector.IntegrityError as err:
+                    print("Error: {}".format(err))
+                    self.showCannotLogVisitMultipleTimes()
+                #########################################################################################
+                # close the cursor and connection
+                if(connection_object.is_connected()):
+                    cursor.close()
+                    connection_object.close()
+                    print("MySQL connection is closed")
+            else:
+                self.showShowDateTimeHasNotStarted()
+                print("Show\'s DateTime has passed")
         else:
             print("No row is selected")
 
+
+    def showShowDateTimeHasNotStarted(self):
+        d = QtWidgets.QDialog()
+        d.setMinimumSize(400, 50)
+        b1= QtWidgets.QPushButton("close",d)
+        b1.clicked.connect(lambda : d.close())
+        b1.move(50,50)
+        d.setWindowTitle("Show\'s DateTime has not started")
+        d.setWindowModality(QtCore.Qt.ApplicationModal)
+        d.exec_()  
 
     def showCannotLogVisitMultipleTimes(self):
         d = QtWidgets.QDialog()

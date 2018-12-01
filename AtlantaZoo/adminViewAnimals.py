@@ -304,6 +304,7 @@ class Ui_adminViewAnimals(object):
         self.listOfAnimals.cellClicked.connect(self.highlightRow)
         header = self.listOfAnimals.horizontalHeader()
         header.sectionClicked.connect(self.loadData)
+        self.loadData()
 
     def highlightRow(self, row, column):
         # highlight the row selected

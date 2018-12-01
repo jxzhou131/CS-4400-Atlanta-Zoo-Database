@@ -282,6 +282,11 @@ class Ui_MainWindow(object):
         self.tableWidget.cellClicked.connect(self.highlightRowOrToExhibit)
         header = self.tableWidget.horizontalHeader()
         header.sectionClicked.connect(self.searchExhibit)
+        self.spinBox_minsize.setMaximum(9999)
+        self.spinBox_maxsize.setMaximum(9999)
+        self.spinBox_minnum.setMaximum(9999)
+        self.spinBox_maxnum.setMaximum(9999)
+        self.searchExhibit()
 
     def searchExhibit(self, column = 0):
         Name = self.lineEdit_name.text()

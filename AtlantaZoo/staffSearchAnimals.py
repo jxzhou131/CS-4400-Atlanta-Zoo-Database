@@ -297,6 +297,7 @@ class Ui_staffSearchAnimals(object):
         self.MinSpinBox.setMaximum(1000)
         header = self.AnimalTable.horizontalHeader()
         header.sectionClicked.connect(self.SearchAnimals)
+        self.SearchAnimals()
 
     def SearchAnimals(self, column = 0):
         Name = self.NameLineEdit.text()

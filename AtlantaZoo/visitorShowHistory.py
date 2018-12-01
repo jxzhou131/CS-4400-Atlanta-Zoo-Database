@@ -218,6 +218,7 @@ class Ui_MainWindow(object):
         header = self.tableWidget.horizontalHeader()
         header.sectionClicked.connect(self.searchShowHistory)
         self.searchButton.clicked.connect(self.searchShowHistory)
+        self.searchShowHistory()
 
     def home(self):
         __main__.status = __main__.statusDef['Normal']

@@ -292,6 +292,11 @@ class Ui_MainWindow(object):
         self.tableWidget.cellClicked.connect(self.highlightRowOrToExhibit)
         header = self.tableWidget.horizontalHeader()
         header.sectionClicked.connect(self.searchAnimal)
+        self.spinBox_min.setMinimum(0)
+        self.spinBox_max.setMaximum(9999)
+        self.spinBox_min.setMinimum(0)
+        self.spinBox_max.setMaximum(9999)
+        self.searchAnimal()
         # header = self.tableWidget.horizontalHeader()
         # header.setSectionResizeMode(0, QtWidgets.QHeaderView.ResizeToContents)
         # header.setSectionResizeMode(1, QtWidgets.QHeaderView.ResizeToContents)
@@ -309,9 +314,8 @@ class Ui_MainWindow(object):
             Exhibit=""
         if(Type=="All"):
             Type=""
-        if(MaxAge==0):
+        if(MaxAge==0 and MinAge == 0):
             MaxAge=''
-        if(MinAge==0):
             MinAge=''
         
         listTuple = [("Name", Name, "str"), ("Species", Species, "str"),("Exhibit",Exhibit, "str"),("Type", Type, "str"),("MinAge", MinAge, "int"),("MaxAge", MaxAge, "int")]

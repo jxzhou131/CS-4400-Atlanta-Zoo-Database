@@ -187,7 +187,7 @@ class Ui_MainWindow(object):
             username = self.usernameLineEdit.text().lstrip().rstrip()
             password = self.passwordLineEdit.text()
             confirmPassword = self.confirmPasswordLineEdit.text()
-            if(password == confirmPassword):
+            if(password == confirmPassword and len(password) > 8):
                 # build the SQL query command
                 UserType = ""
                 if(userType == "VISITOR"):
@@ -195,7 +195,7 @@ class Ui_MainWindow(object):
                 elif(userType == "STAFF"):
                     UserType = "SUsername"
 
-                cmd1 = "select * from " + userType + " where " + UserType + " = \'" + username + "\' ;"
+                cmd1 = "select * from USER where Username = \'" + username + "\' or Email = \'" + email + "\';"
                 cmd2 = "insert into USER values(\'" + username + "\' , md5(\'" + password + "\') , \'" + email + "\' , \'" + userType.lower() + "\' );"
                 cmd3 = "insert into " + userType + " values(\'" + username + "\');"
                 # additional query to ensure that the USER record has been added to the database
@@ -249,11 +249,11 @@ class Ui_MainWindow(object):
 
     def showPasswordMissMatchDialog(self):
          d = QtWidgets.QDialog()
-         d.setMinimumSize(350, 50)
+         d.setMinimumSize(600, 50)
          b1= QtWidgets.QPushButton("close",d)
          b1.move(50,50)
          b1.clicked.connect(lambda : d.close())
-         d.setWindowTitle("Passwords Miss Match")
+         d.setWindowTitle("Passwords Miss Match or Password must be 8 characters long")
          d.setWindowModality(QtCore.Qt.ApplicationModal)
          d.exec_()
 
