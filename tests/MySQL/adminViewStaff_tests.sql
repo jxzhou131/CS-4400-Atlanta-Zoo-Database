@@ -6,13 +6,13 @@
 -- from USER u, STAFF s
 -- where u.Username = s.SUsername and u.Usertype ="staff"
 -- and u.Username = $u.Username AND Email = $u.Email;
--- order by Username;
+-- order by $Attribute $ASC/DSC;
 
 select Username, Email 
 from USER u, STAFF s
 where u.Username = s.SUsername and u.Usertype ="staff"
 and u.Username = 'benjamin_rao' AND Email = 'benjaminrao@gmail.com'
-order by Username;
+order by Username ASC;
 
 -- delete a specific staff from user
 -- and staff table (will automatically get deleted since foreign key cascaded)

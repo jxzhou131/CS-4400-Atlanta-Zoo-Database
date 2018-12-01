@@ -28,11 +28,13 @@
 
 -- SELECT Name, Species, Exhibit, Age, Type
 -- FROM ANIMAL
--- WHERE Name = $Name  AND Species = $Species AND Exhibit = $Exhibit AND Type = $Type AND Age BETWEEN $minAge AND $maxAge;
+-- WHERE Name = $Name  AND Species = $Species AND Exhibit = $Exhibit AND Type = $Type AND Age BETWEEN $minAge AND $maxAge
+-- ORDER BY $Attribute $ASC/DESC;
 
 SELECT Name, Species, Exhibit, Age, Type
 FROM ANIMAL
-WHERE Name = 'Goldy'  AND Species = 'Goldfish' AND Exhibit = 'Pacific' AND Type = 'Fish' AND Age BETWEEN 1 AND 100;
+WHERE Name = 'Goldy'  AND Species = 'Goldfish' AND Exhibit = 'Pacific' AND Type = 'Fish' AND Age BETWEEN 1 AND 100
+ORDER BY Name ASC;
 
 -- -- Search for Animal with everything specified and Age Min = Max
 -- SELECT Name, Species, Exhibit, Age, Type

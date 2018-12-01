@@ -10,7 +10,7 @@ FROM ANIMAL;
 -- SELECT*
 -- FROM ANIMAL
 -- where Name = $Name and Species = $Species and Type = $Type and Age = $Age and Exhibit = $Exhibit
--- order by Name;
+-- order by $Attribute $ASC/DESC;
 
 SELECT*
 FROM ANIMAL

@@ -19,9 +19,9 @@
 -- from SHOWS 
 -- where DateTime = $DateTime and 
 -- Name = $Name and location = $location
--- order by DateTime;
+-- order by $Attribute $ASC/DSC;
 select Name, Location as Exhibit, DateTime
 from SHOWS 
 where DateTime = str_to_date('10/8/2018 12:00:00 PM','%m/%d/%Y %r') and 
 Name = 'Feed the fish' and location = 'Pacific'
-order by DateTime;
+order by DateTime ASC;

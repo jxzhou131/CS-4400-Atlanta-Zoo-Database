@@ -10,10 +10,12 @@
 -- SELECT Name, DateTime,Location
 -- FROM SHOWS
 -- WHERE Host = $Host and Name = $Name
--- and DateTime = $DateTime and Location = $Location;
+-- and DateTime = $DateTime and Location = $Location
+-- ORDER BY $Attribute $ASC/DESC;
 
 
 SELECT Name, DateTime,Location
 FROM SHOWS
 WHERE Host = 'benjamin_rao' and Name = 'Climbing' 
-and DateTime = STR_TO_DATE('10/10/18 4:00:00 PM','%m/%d/%Y %r') and Location = 'Mountainous';
+and DateTime = STR_TO_DATE('10/10/18 4:00:00 PM','%m/%d/%Y %r') and Location = 'Mountainous'
+ORDER BY DateTime DSC;

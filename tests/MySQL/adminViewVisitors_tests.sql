@@ -7,14 +7,14 @@
 -- where u.Username = s.VUsername and u.UserType ="visitor"
 -- and u.Email = $u.Email
 -- and u.Username = $u.Username
--- order by Username;
+-- order by $Attribute $ASC/DSC;
 
 select Username, Email 
 from USER u, VISITOR s
 where u.Username = s.VUsername and u.UserType ="visitor"
 and u.Email = "xavierswenson@outlook.com"
 and u.Username = "xavier_swenson"
-order by Username;
+order by Username ASC;
 
 
 -- delete a specific visitor from user

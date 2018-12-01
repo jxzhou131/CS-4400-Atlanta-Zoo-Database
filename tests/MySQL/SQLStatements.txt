@@ -1,0 +1,418 @@
+-- DROP ALL THE TABLES AND PREPOPULATE THE DATABASE WITH INITIAL DATA
+
+-- DROP ALL THE TABLES
+
+Drop table if exists `VISITEXHIBIT`;
+
+Drop table if exists `VISITSHOWS`;
+
+Drop table if exists `SHOWS`;
+
+Drop table if exists `NOTE`;
+
+Drop table if exists `ANIMAL`;
+
+Drop table if exists `EXHIBIT`;
+
+Drop table if exists `STAFF`;
+
+Drop table if exists `VISITOR`;
+
+Drop table if exists `ADMINS`;
+
+Drop table if exists `USER`;
+
+
+-- RECREATE ALL THE TABLES
+
+CREATE TABLE USER(
+
+Username varchar(30)  not null,
+
+Password char(32)  not null, -- Using MD5 hash function
+
+Email varchar(50)  not null,
+
+UserType varchar(30) not null,
+
+primary key(Username),
+
+unique(Email)
+)ENGINE = INNODB;
+
+
+
+
+CREATE TABLE ADMINS(
+
+AUsername varchar(30)  not null,
+
+primary key(AUsername),
+
+foreign key(AUsername) references USER(Username)
+)ENGINE = INNODB;
+
+
+
+CREATE TABLE VISITOR(
+
+VUsername varchar(30)   not null,
+
+primary key(VUsername),
+
+foreign key(VUsername) references USER(Username)
+
+       on delete cascade    on update cascade
+)ENGINE = INNODB;
+
+
+
+CREATE TABLE STAFF(
+SUsername varchar(30)    not null,
+
+primary key(SUsername),
+
+foreign key(SUsername) references USER(Username)
+
+       on delete cascade    on update cascade
+)ENGINE = INNODB;
+
+
+
+CREATE TABLE EXHIBIT(
+
+Name varchar(30) not null,
+
+WaterFeature boolean not null,
+
+Size int    not null,
+
+primary key(Name)
+)ENGINE = INNODB;
+
+
+
+CREATE TABLE ANIMAL(
+
+Name varchar(30)   not null,
+
+Species varchar(30)   not null,
+
+Type varchar(15)   not null,
+
+Age int     not null,
+
+Exhibit varchar(30)     not null,
+
+primary key(Name,Species),
+
+foreign key(Exhibit) references EXHIBIT(Name)
+
+	On delete cascade    on update cascade
+)ENGINE = INNODB;
+
+
+
+CREATE TABLE NOTE(
+
+Staff varchar(30)     not null,
+
+AnimalName varchar(30)    not null,
+
+AnimalSpecies varchar(30)    not null,
+
+DateTime datetime    not null,
+
+Text varchar(200)    not null,
+
+primary key(Staff, AnimalName, AnimalSpecies, DateTime),
+
+foreign key(Staff) references STAFF(SUsername)
+
+	on delete cascade    on update cascade,
+
+foreign key(AnimalName, AnimalSpecies) references ANIMAL(Name, Species)
+
+	on delete cascade   on update cascade
+)ENGINE = INNODB;
+
+
+
+CREATE TABLE SHOWS(
+
+Name varchar(50)   not null,
+
+DateTime datetime    not null,
+
+Host varchar(30)   not null,
+
+Location varchar(30)   not null,
+
+primary key(Name,DateTime),
+
+foreign key(Location) references EXHIBIT(Name)
+
+on delete cascade    on update cascade,
+
+foreign key(Host) references STAFF(SUsername)
+
+      on delete cascade    on update cascade
+)ENGINE = INNODB;
+
+
+
+CREATE TABLE VISITSHOWS(
+
+Visitor varchar(30) not null,
+
+ShowName varchar(30) not null,
+
+DateTime datetime not null,
+
+primary key(Visitor, ShowName, DateTime),
+
+foreign key(Visitor) references VISITOR(VUsername)
+
+on delete cascade	   on update cascade,
+
+foreign key(ShowName, DateTime) references SHOWS(Name, DateTime)
+
+	On delete cascade    on update cascade
+)ENGINE = INNODB;
+
+
+
+CREATE TABLE VISITEXHIBIT(
+
+Visitor varchar(30) not null,
+
+ExhibitName varchar(30) not null,
+
+DateTime datetime not null,
+
+primary key(Visitor, ExhibitName, DateTime),
+
+foreign key(Visitor) references VISITOR(VUsername)
+
+      On delete cascade    on update cascade,
+
+foreign key(ExhibitName) references EXHIBIT(Name)
+
+	On delete cascade    on update cascade
+)ENGINE = INNODB;
+
+-- Login
+select * from USER where Password = md5($Password) and Email = $Email;
+
+-- Register
+-- Update the USER Table
+insert into USER Values ($Username, md5($Password), $Email, $UserType)
+
+;
+-- Udate VISITOR TABLE or STAFF TABLE
+-- STEP 3 
+-- 1) if register as VISITOR
+insert into VISITOR Values ($Username);
+
+-- 2) if register as Staff
+
+
+insert into STAFF Values ($Username);
+
+-- Visitor Search Exhibit
+-- Query Exhibit Information with Number of Animals
+SELECT * FROM 
+(SELECT E.Name as name, WaterFeature as feature, Size as size, COUNT(*) as Num FROM EXHIBIT as E, ANIMAL as A 
+WHERE E.Name = A.Exhibit  
+AND E.name = $E.name AND WaterFeature = $WaterFeature(True/False)  AND Size > $Size_min AND Size < $Size_max GROUP BY E.Name) as t1 
+WHERE Num > $Num_min AND Num < $Num_max
+ORDER BY $Attribute $ASC/DESC;
+
+-- Visitor Search Shows
+-- Query Shows information
+select Name, Location as Exhibit, DateTime 
+
+from SHOWS
+where DateTime = $DateTime and 
+
+Name = $Name and location = $location
+
+order by $Attribute $ASC/DESC;
+-- Visitor Log Show
+-- Update the VISITSHOWS TABLE
+INSERT INTO VISITSHOWS (Visitor, ShowName, DateTime) VALUES ($Visitor, $ShowName, $DateTime);
+
+Update the VISITEXHIBIT TABLE
+INSERT INTO VISITEXHIBIT(Visitor, ExhibitName, DateTime) VALUES ($Visitor, $ExhibitName, $DateTime);
+
+-- Visitor Search Animals
+-- Query Animal information
+SELECT Name, Species, Exhibit, Type, Age FROM ANIMAL 
+WHERE Name = $Name AND Species = $Species AND Exhibit = $Exhibit AND Type = $Type AND Age > $Age_min AND Age < $Age_max
+ORDER BY $Attribute $ASC/DESC
+
+-- Visitor Search Exhibit History
+select * from 
+
+((select ExhibitName, DateTime 
+
+from VISITEXHIBIT as v1
+
+where Visitor = $Visitor) as visitExhibit1
+
+Natural Join
+
+(select ExhibitName, count(*) as numVisits 
+
+from VISITEXHIBIT as v2
+
+where Visitor = $Visitor
+
+group by ExhibitName
+
+order by numVisits) as visitExhibit2)
+
+where numVisits between $minNumVisits and $maxNumVisits
+
+and DateTime = $DateTime
+
+and ExhibitName = $Exhibit
+
+order by $Attribute $ASC/DESC;
+
+-- Visitor Search Show History
+select * from
+
+((select ShowName, DateTime from VISITSHOWS
+
+where Visitor = $Visitor) as vs
+
+natural join
+
+(select Name as ShowName, DateTime, Location as Exhibit
+
+from SHOWS) as s)
+
+where ShowName = $ShowName and DateTime = $DateTime and Exhibit = $Exhibit
+
+order by $Attribute $ASC/DESC;
+
+-- Visitor: Animal Details 
+SELECT Name, Species, Type, Age, Exhibit FROM ANIMAL  
+WHERE Name = $Name AND Species = $Species ;
+
+-- Visitor: Exhibit Details
+-- Query Animal's Name and Species
+SELECT Name, Species FROM ANIMAL 
+WHERE Exhibit = $Exhibit
+ORDER BY $Attribute $ASC/DESC;
+-- Query Exhibit Information with Number of Animals
+SELECT * FROM((SELECT Name, WaterFeature, Size FROM EXHIBIT 
+WHERE Name = $Name) as ExhibitInfo
+Natural Join
+(SELECT E.Name, E.WaterFeature, E.Size, COUNT(*) as NumAnimals FROM EXHIBIT as E, ANIMAL as A 
+WHERE E.Name=A.Exhibit AND E.Name = $Name
+GROUP BY E.Name) as ExhibitCount)
+ORDER BY $Attribute;
+-- Log Visit
+insert into VISITEXHIBIT values($Visitor,$ExhibitName,STR_TO_DATE($DateTime,'%m/%d/%Y %r'));
+
+
+-- Staff Search Animals
+SELECT Name, Species, Exhibit, Age, Type
+
+FROM ANIMAL
+
+WHERE Name = $Name  AND Species = $Species AND Exhibit = $Exhibit AND Type = $Type AND Age BETWEEN $minAge AND $maxAge
+
+ORDER BY $Attribute $ASC/DESC;
+
+-- Staff Animal Care
+-- Query Note information
+SELECT Staff, Text, DateTime
+
+FROM Note
+
+WHERE AnimalName = $AnimalName AND AnimalSpecies = $AnimalSpecies
+
+ORDER BY $Attribute $ASC/DSC;
+-- Update NOTE Table
+INSERT INTO NOTE(Staff,AnimalName, AnimalSpecies, DateTime,Text)
+
+VALUES ($Staff, $AnimalName, $AnimalSpecies, $DateTime, $Text);
+
+-- Staff View Shows
+-- Query Shows Information
+SELECT Name, DateTime,Location
+
+FROM SHOWS
+
+WHERE Host = $Host and Name = $Name
+-- and DateTime = $DateTime and Location = $Location
+
+ORDER BY $Attribute $ASC/DESC;
+
+-- Admin View Show
+-- Search Show information
+SELECT Name, Location, DateTime from SHOWS
+WHERE Name = $Name AND Location = $Location AND DateTime = $DateTime;
+-- Delete Show
+DELETE FROM SHOWS
+WHERE Name = $Name AND DateTime= STR_TO_DATE($DateTime , '%m/%d/%Y %r');
+
+-- Admin View Staff
+-- Search Staff information
+select Username, Email 
+
+from USER u, STAFF s
+
+where u.Username = s.SUsername and u.Usertype ="staff"
+
+and u.Username = $u.Username AND Email = $u.Email;
+
+order by $Attribute $ASC/DSC;
+-- Delete Staff
+DELETE from USER
+
+where Username = $Username and UserType = $UserType;
+
+-- Admin View Visitor
+-- Search Visitor Information
+select Username, Email 
+
+from USER u, VISITOR s
+
+where u.Username = s.VUsername and u.UserType ="visitor"
+
+and u.Email = $u.Email
+
+and u.Username = $u.Username
+
+order by $Attribute $ASC/DSC;
+-- Delete Visitor
+
+DELETE from USER
+
+where Username = $Username and UserType = $UserType;
+
+-- Admin View Animals
+-- Query Animal information
+SELECT*
+
+FROM ANIMAL
+
+where Name = $Name and Species = $Species and Type = $Type and Age = $Age and Exhibit = $Exhibit
+
+order by $Attribute $ASC/DESC;
+-- Delete Animal
+DELETE from ANIMAL
+
+where Name = $Name and Species = $Species and Type = $Type and Age = $Age and Exhibit = $Exhibit;
+
+-- Admin Add Animal
+INSERT INTO ANIMAL (Name, Species, Type, Age,  Exhibit)
+VALUES ($Name, $Species, $Type, $Age,  $Exhibit);
+
+-- Admin Add Show
+INSERT INTO SHOWS (Name, DateTime, Host, Location)
+VALUES ($Name, $DateTime, $Host, $Location);
