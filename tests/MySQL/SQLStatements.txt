@@ -201,6 +201,94 @@ foreign key(ExhibitName) references EXHIBIT(Name)
 	On delete cascade    on update cascade
 )ENGINE = INNODB;
 
+-- PREPOPULATE THE TABLES
+
+-- LOCK TABLES `USER` WRITE;
+
+INSERT INTO  `USER` 
+VALUES 
+('martha_johnson', md5('password1'), 'marthajohnson@hotmail.com', 'staff'),
+
+('benjamin_rao', md5('password2'), 'benjaminrao@gmail.com', 'staff'),
+
+('ethan_roswell', md5('password3'), 'ethanroswell@yahoo.com', 'staff'),
+
+('xavier_swenson', md5('password4'), 'xavierswenson@outlook.com', 'visitor'),
+
+('isabella_rodriguez', md5('password5'), 'isabellarodriguez@mail.com', 'visitor'),
+
+('nadias_tevens', md5('password6'), 'nadiastevens@gmail.com', 'visitor'),
+
+('robert_bernheardt', md5('password7'), 'robertbernheardt@yahoo.com', 'visitor'),
+
+('admin1', md5('adminpassword'), 'adminemail@mail.com', 'admin');
+
+-- UNLOCK TABLES;
+
+
+INSERT INTO `STAFF`
+VALUES ('martha_johnson'), ('benjamin_rao'),('ethan_roswell');
+
+
+INSERT INTO `VISITOR`
+VALUES ('xavier_swenson'), ('isabella_rodriguez'),('nadias_tevens'),('robert_bernheardt');
+
+
+INSERT INTO `ADMINS`
+VALUES ('admin1');
+
+
+INSERT INTO `EXHIBIT`
+VALUES 
+('Pacific', True, 850), 
+('Jungle', False, 600), 
+('Sahara', False, 1000), 
+('Mountainous', False , 1200), 
+('Birds', True, 1000);
+
+
+
+INSERT INTO `SHOWS`
+VALUES 
+
+('Jungle Cruise', 		STR_TO_DATE('10/6/2019 9:00:00 AM','%m/%d/%Y %r'), 	'martha_johnson', 	'Jungle'),
+
+('Feed the Fish',		STR_TO_DATE('10/8/18 12:00:00 PM','%m/%d/%Y %r'),	'martha_johnson',	'Pacific'),
+
+('Fun Facts',			STR_TO_DATE('10/9/18 3:00:00 PM','%m/%d/%Y %r'),	'martha_johnson',	'Sahara'),
+
+('Climbing',			STR_TO_DATE('10/10/18 4:00:00 PM','%m/%d/%Y %r'),	'benjamin_rao'	,	'Mountainous'),
+
+('Flight of the Birds',	STR_TO_DATE('10/11/18 3:00:00 PM','%m/%d/%Y %r'),	'ethan_roswell', 	'Birds'),
+
+('Jungle Cruise',		STR_TO_DATE('10/12/18 2:00:00 PM','%m/%d/%Y %r'),	'martha_johnson',	'Jungle'),
+
+('Feed the Fish',		STR_TO_DATE('10/12/18 2:00:00 PM','%m/%d/%Y %r'),	'ethan_roswell',	'Pacific'),
+
+('Fun Facts',			STR_TO_DATE('10/13/18 1:00:00 PM','%m/%d/%Y %r'),	'benjamin_rao'	,	'Sahara'),
+
+('Climbing',			STR_TO_DATE('10/13/18 5:00:00 PM','%m/%d/%Y %r'),	'benjamin_rao'	,	'Mountainous'),
+
+('Flight of the Birds',	STR_TO_DATE('10/14/18 2:00:00 PM','%m/%d/%Y %r'),	'ethan_roswell'	,	'Birds'),
+
+('Bald Eagle Show',		STR_TO_DATE('10/15/18 2:00:00 PM','%m/%d/%Y %r'),	'ethan_roswell'	,	'Birds')
+ ;
+ 
+ 
+INSERT INTO `ANIMAL`
+ VALUES
+ ('Goldy',	'Goldfish'	,		'Fish'	,		12	,'Pacific'),
+
+('Nemo'	,	'Clownfish'	,		'Fish'	,		24	,'Pacific'),
+
+('Pedro',	'Poison Dart frog'	,'Amphibian',	36	,'Jungle'),
+
+('Lincoln',	'Lion'	,			'Mammal'	,	96	,'Sahara'),
+
+('Greg',	'Goat'	,			'Mammal'	,	72	,'Mountainous'),
+
+('Brad',	'Bald Eagle'	,	'Bird'	,		48	,'Birds');
+
 -- Login
 select * from USER where Password = md5($Password) and Email = $Email;
 
