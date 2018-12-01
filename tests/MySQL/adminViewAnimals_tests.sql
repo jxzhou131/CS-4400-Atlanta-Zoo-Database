@@ -6,9 +6,16 @@ FROM ANIMAL;
 
 -- select  a single animal
 -- all five fields must be provided
+
+-- SELECT*
+-- FROM ANIMAL
+-- where Name = $Name and Species = $Species and Type = $Type and Age = $Age and Exhibit = $Exhibit
+-- order by Name;
+
 SELECT*
 FROM ANIMAL
-where Name ="Brad" and Species = "Bald Eagle" and Type = "Bird" and Age ="48" and Exhibit = "Birds";
+where Name ="Brad" and Species = "Bald Eagle" and Type = "Bird" and Age ="48" and Exhibit = "Birds"
+order by Name;
 
 SELECT*
 FROM ANIMAL
@@ -32,6 +39,10 @@ where Name ="Pedro" and Species = "Poison Dart frog" and Type = "Amphibian" and 
 
 -- delete a specific animal from animal
 -- must provide all the five fields
+
+-- DELETE from ANIMAL
+-- where Name = $Name and Species = $Species and Type = $Type and Age = $Age and Exhibit = $Exhibit;
+
 DELETE from ANIMAL
 where Name ="Brad" and Species = "Bald Eagle" and Type = "Bird" and Age ="48" and Exhibit = "Birds";
 
